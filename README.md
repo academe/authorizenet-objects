@@ -101,4 +101,95 @@ $transaction_request = $transaction_request->withEmployeeId('1234');
 
 // Display the resultng JSON request message.
 echo "<textarea style='width:100%;height: 12em'>" . $transaction_request->getObjectName() . ' is ' . json_encode($transaction_request) . "</textarea>";
+
+/*
+{
+   "createTransactionRequest":{
+      "merchantAuthentication":{
+         "name":"xxx",
+         "transactionKey":"yyy"
+      },
+      "employeeId":"1234",
+      "transactionRequest":{
+         "transactionType":"authCaptureTransaction",
+         "amount":"9.99",
+         "payment":{
+            "creditCard":{
+               "cardNumber":"4000123412341234",
+               "expirationDate":"1220",
+               "cardCode":"123"
+            }
+         },
+         "profile":{
+            "createProfile":false
+         },
+         "solution":{
+            "id":"SOLLLL"
+         },
+         "order":{
+            "invoiceNumber":"orderx",
+            "description":"ordery"
+         },
+         "lineItems":[
+            {
+               "itemId":1,
+               "name":"Item Name 1",
+               "description":"Item Desc 1",
+               "quantity":1.5,
+               "unitPrice":"0.49",
+               "taxable":false
+            },
+            {
+               "itemId":2,
+               "name":"Item Name 2",
+               "description":"Item Desc 2",
+               "quantity":2,
+               "unitPrice":"0.97",
+               "taxable":true
+            }
+         ],
+         "tax":{
+            "amount":"9.99",
+            "name":"Tax Name",
+            "description":"Tax Description"
+         },
+         "duty":{
+            "type":"business",
+            "id":"Customer ID",
+            "email":"customer@example.com"
+         },
+         "shipping":{
+            "amount":"9.99",
+            "name":"Tax Name",
+            "description":"Tax Description"
+         },
+         "taxExempt":true,
+         "poNumber":"myPoNumber",
+         "billTo":{
+            "firstName":"BFirstname",
+            "lastName":"BLastname",
+            "company":"My Billing Company Ltd",
+            "zip":"ZippyZipBill"
+         },
+         "shipTo":{
+            "marketType":2,
+            "deviceType":3,
+            "customerSignature":"HJSHDJSDJKSD"
+         },
+         "transactionSettings":[
+            {
+               "settingName":"Foo",
+               "settingValue":"Bar"
+            }
+         ],
+         "userFields":[
+            {
+               "name":"UserFoo",
+               "value":"UserBar"
+            }
+         ]
+      }
+   }
+}
+*/
 ```
