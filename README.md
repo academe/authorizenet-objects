@@ -51,16 +51,15 @@ $amount = new Amount\Amount('GBP', 2499);
 // Or maybe just £19.99
 $amount = $amount->withMajorUnit(19.99);
 
-// Create tax amount.
-$tax = new Request\Model\ExtendedAmount();
-$tax = $tax->withName('Tax Name')->withDescription('Tax Description');
-
 // Better still, use moneyphp/money to set the amount to £15.49
 $money_php_object = Money::GBP(1549);
 $amount = new Amount\MoneyPhp($money_php_object);
 
-// Set the tax amount/
-$tax = $tax->withAmount($amount);
+// Create tax amount.
+// All parameters have a with*() method available.
+$tax = new Request\Model\ExtendedAmount();
+$tax = $tax->withName('Tax Name')->withDescription('Tax Description');
+$tax = $tax->withAmount(new Amount\MoneyPhp(Money::GBP(99));
 
 // Set up some line items.
 $lineItems = new Collections\LineItems();
