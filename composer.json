@@ -1,0 +1,34 @@
+{
+    "name": "academe/authorizenet-objects",
+    "type": "library",
+    "description": "Authorize.Net API value objects",
+    "keywords": [
+        "authorize net",
+        "authorize",
+        "authorize.net",
+        "gateway",
+        "merchant",
+        "omnipay",
+        "pay",
+        "payment"
+    ],
+    "homepage": "https://github.com/academe/TBC",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jason Judge",
+            "homepage": "https://github.com/TBC"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Academe\\AuthorizeNetObjects\\" : "src/" }
+    },
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "require-dev": {
+    },
+    "suggest": {
+        "moneyphp/money": "^3.0"
+    }
+}

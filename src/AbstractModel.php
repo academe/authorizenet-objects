@@ -1,0 +1,130 @@
+<?php
+
+namespace Academe\AuthorizeNetObjects;
+
+/**
+ * 
+ */
+
+use ReflectionClass;
+
+abstract class AbstractModel implements \JsonSerializable
+{
+    protected $objectName;
+    protected $objectNameSuffix = '';
+
+    public function __construct()
+    {
+        // If the child class has not defined an object name, then derive
+        // it from the class name.
+
+        if (! isset($this->objectName)) {
+            $this->objectName = lcfirst(substr(strrchr(get_class($this), '\\'), 1)) . $this->objectNameSuffix;
+        }
+    }
+
+    /**
+     * This is the API data structure object name.
+     */
+    public function getObjectName()
+    {
+        return $this->objectName;
+    }
+
+    /**
+     * Magic calling method. Handle the following patterns:
+     *
+     * - with*($value) - set a value
+     * - get*() - return a value
+     * - has*() - property exists with a non-null value.
+     * - without*() - remove a value
+     */
+    public function __call($name, $arguments)
+    {
+        // withFoo($value) will clone this object, call setFoo($value) on the clone then return the clone.
+
+        if (substr($name, 0, 4) === 'with') {
+            // Get the setter name.
+
+            $setter = 'set' . substr($name, 4);
+
+            // Get the value.
+            // Just one value is supported for a with*() method.
+
+            $value = $arguments[0];
+
+            // There must be a setter method to allow this with method to work.
+            // All data properties have setters, which is where any validation is performed.
+
+            if (method_exists($this, $setter)) {
+                $clone = clone $this;
+                $clone->{$setter}($value);
+                return $clone;
+            }
+        }
+
+        if (substr($name, 0, 3) === 'get') {
+            // Get the property name.
+
+            $property = lcfirst(substr($name, 3));
+
+            if (property_exists($this, $property)) {
+                return $this->{$property};
+            }
+        }
+
+        if (substr($name, 0, 3) === 'has') {
+            // Get the property name.
+
+            $property = lcfirst(substr($name, 3));
+
+            return (property_exists($this, $property) && $this->{$property} !== null);
+        }
+
+        // We haven't matched any expected method prefixes, so raise a default SPL exception.
+
+        throw new \BadMethodCallException(sprintf('Called method "%s" does not exist', $name));
+    }
+
+    /**
+     * Get an array of constants in this [late-bound] class, with an optional prefix.
+     * @param null $prefix
+     * @return array
+     */
+    public static function constantList($prefix = null)
+    {
+        $reflection = new ReflectionClass(get_called_class());
+        $constants = $reflection->getConstants();
+
+        if (isset($prefix)) {
+            $result = [];
+            $prefix = strtoupper($prefix);
+            foreach($constants as $key => $value) {
+                if (strpos($key, $prefix) === 0) {
+                    $result[$key] = $value;
+                }
+            }
+            return $result;
+        } else {
+            return $constants;
+        }
+    }
+
+    /**
+     * Get a class constant value based on suffix and prefix.
+     * Returns null if not found.
+     * @param $prefix
+     * @param $suffix
+     * @return mixed|null
+     */
+    public static function constantValue($prefix, $suffix)
+    {
+        $name = strtoupper($prefix . '_' . $suffix);
+
+        if (defined("static::$name")) {
+            return constant("static::$name");
+        }
+
+        return null;
+    }
+}
