@@ -84,8 +84,13 @@ class AuthCaptureTransaction extends AbstractModel implements TransactionRequest
 
         $data['transactionType'] = $this->getTransactionType();
 
-        // TODO: this value object should be formatted according to the currency.
+        // This value object will be formatted according to its currency.
         $data['amount'] = $this->getAmount();
+
+        // The currencyCode is optional, but serves as an extra check that we are sending
+        // the correct currency to the account. Each account will support just one
+        // currency at present, so this also offers some future-proofing.
+        $data['currencyCode'] = $this->getAmount()->getCurrencyCode();
 
         if ($this->hasPayment()) {
             $data['payment'] = [
@@ -178,6 +183,10 @@ class AuthCaptureTransaction extends AbstractModel implements TransactionRequest
             }
         }
 
+        if ($this->hasCustomerIP()) {
+            $data['customerIP'] = $this->getCustomerIP();;
+        }
+
         if ($this->hasCardholderAuthentication()) {
             $data['cardholderAuthentication'] = $this->getCardholderAuthentication();;
         }
@@ -188,10 +197,6 @@ class AuthCaptureTransaction extends AbstractModel implements TransactionRequest
 
         if ($this->hasEmployeeId()) {
             $data['employeeId'] = $this->getEmployeeId();
-        }
-
-        if ($this->hasCustomerIP()) {
-            $data['customerIP'] = $this->getCustomerIP();;
         }
 
         if ($this->hasTransactionSettings()) {
