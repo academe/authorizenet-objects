@@ -68,6 +68,7 @@ $tax = $tax->withName('Tax Name')->withDescription('Tax Description');
 $tax = $tax->withAmount(new Amount\MoneyPhp(Money::GBP(99));
 
 // Set up some line items.
+// Note these collections are not value objects. Should they be?
 $lineItems = new Collections\LineItems();
 $lineItems->push(new Request\Model\ListItem(1, 'Item Name 1', 'Item Desc 1', 1.5, new Amount\MoneyPhp(Money::GBP(49)), false));
 $lineItems->push(new Request\Model\ListItem(2, 'Item Name 2', 'Item Desc 2', 2, new Amount\MoneyPhp(Money::GBP(97)), true));
