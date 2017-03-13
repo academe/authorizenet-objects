@@ -15,7 +15,6 @@ class CreateTransaction extends AbstractModel
     protected $objectNameSuffix = 'Request';
 
     protected $merchantAuthentication;
-    protected $employeeId;
     protected $refId;
     protected $transactionRequest;
 
@@ -33,10 +32,6 @@ class CreateTransaction extends AbstractModel
 
         $data[$this->getMerchantAuthentication()->getObjectName()] = $this->getMerchantAuthentication();
 
-        if ($this->hasEmployeeId()) {
-            $data['employeeId'] = $this->getEmployeeId();
-        }
-
         if ($this->hasRefId()) {
             $data['refId'] = $this->getRefId();
         }
@@ -49,12 +44,6 @@ class CreateTransaction extends AbstractModel
     }
 
     // TODO: these setters can include validation.
-
-    // Numeric, 4 digits
-    protected function setEmployeeId($value)
-    {
-        $this->employeeId = $value;
-    }
 
     protected function setRefId($value)
     {

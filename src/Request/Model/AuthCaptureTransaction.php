@@ -63,6 +63,7 @@ class AuthCaptureTransaction extends AbstractModel implements TransactionRequest
     protected $shipTo;
     protected $cardholderAuthentication;
     protected $retail;
+    protected $employeeId;
     protected $customerIP;
     protected $transactionSettings;
     protected $userFields;
@@ -185,6 +186,10 @@ class AuthCaptureTransaction extends AbstractModel implements TransactionRequest
             $data['retail'] = $this->getRetail();;
         }
 
+        if ($this->hasEmployeeId()) {
+            $data['employeeId'] = $this->getEmployeeId();
+        }
+
         if ($this->hasCustomerIP()) {
             $data['customerIP'] = $this->getCustomerIP();;
         }
@@ -294,6 +299,12 @@ class AuthCaptureTransaction extends AbstractModel implements TransactionRequest
     protected function setRetail(Retail $value)
     {
         $this->retail = $value;
+    }
+
+    // Numeric, 4 digits
+    protected function setEmployeeId($value)
+    {
+        $this->employeeId = $value;
     }
 
     // IPv4? IPv6? It's not clear what validation will be needed.
