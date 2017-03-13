@@ -92,6 +92,11 @@ class Retail extends AbstractModel implements TransactionRequestInterface
         $this->deviceType = (int)$value;
     }
 
+    /**
+     * The signature must be PNG formatted data.
+     * It will make sense to support supplying a PNG image as a stream.
+     * Also some escaping may be required if this data is effectively binary.
+     */
     protected function setCustomerSignature($value)
     {
         $this->customerSignature = $value;

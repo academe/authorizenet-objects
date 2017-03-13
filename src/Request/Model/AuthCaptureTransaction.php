@@ -163,7 +163,7 @@ class AuthCaptureTransaction extends AbstractModel implements TransactionRequest
             $customer = $this->getCustomer();
 
             if ($customer->hasAny()) {
-                $data['duty'] = $customer;
+                $data['customer'] = $customer;
             }
         }
 
