@@ -27,6 +27,11 @@ class CardholderAuthentication extends AbstractModel implements TransactionReque
         return $this->hasAuthenticationIndicator() || $this->hasCardholderAuthenticationValue();
     }
 
+    /**
+     * FIXME: the documentation says that special characters in both these strings
+     * must be URL encoded. The API example code does not give any examples of this,
+     * so it's unclear if it really needs to be done.
+     */
     public function jsonSerialize()
     {
         $data = [];

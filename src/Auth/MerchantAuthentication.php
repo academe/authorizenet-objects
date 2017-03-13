@@ -4,6 +4,10 @@ namespace Academe\AuthorizeNetObjects\Auth;
 
 /**
  * TODO: protect this data from var_dump.
+ * Also authenticaion methods include:
+ *  sessionToken, password, impersonationAuthentication, fingerPrint, clientKey and mobileDeviceId.
+ * Whether we need separate objects to support different combinations of mandatory parameters,
+ * needs to be looked at.
  */
 
 use Academe\AuthorizeNetObjects\AbstractModel;
