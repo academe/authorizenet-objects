@@ -21,6 +21,7 @@ namespace Academe\AuthorizeNetObjects\Request\Model;
  * - [x] shipTo (name, company, address object)
  * - [ ] cardholderAuthentication (authenticationIndicator, cardholderAuthenticationValue)
  * - [x] retail (marketType, deviceType, customerSignature)
+ * - [x] customerIP (not in docs)
  * - [x] transactionSettings (collection of setting name/value pairs
  * - [x] userFields (collection of name/value pairs)
  *
@@ -60,6 +61,7 @@ class AuthCaptureTransaction extends AbstractModel implements TransactionRequest
     protected $billTo;
     protected $shipTo;
     protected $retail;
+    protected $customerIP;
     protected $transactionSettings;
     protected $userFields;
 
@@ -177,6 +179,10 @@ class AuthCaptureTransaction extends AbstractModel implements TransactionRequest
             $data['retail'] = $this->getRetail();;
         }
 
+        if ($this->hasCustomerIP()) {
+            $data['customerIP'] = $this->getCustomerIP();;
+        }
+
         if ($this->hasTransactionSettings()) {
             $transactionSettings = $this->getTransactionSettings();
 
@@ -277,6 +283,12 @@ class AuthCaptureTransaction extends AbstractModel implements TransactionRequest
     protected function setRetail(Retail $value)
     {
         $this->retail = $value;
+    }
+
+    // IPv4? IPv6? It's not clear what validation will be needed.
+    protected function setCustomerIP($value)
+    {
+        $this->customerIP = $value;
     }
 
     protected function setTransactionSettings(TransactionSettings $value)

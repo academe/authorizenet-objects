@@ -16,6 +16,7 @@ class CreateTransaction extends AbstractModel
 
     protected $merchantAuthentication;
     protected $employeeId;
+    protected $refId;
     protected $transactionRequest;
 
     public function __construct(MerchantAuthentication $merchantAuthentication, TransactionRequestInterface $transactionRequest)
@@ -36,6 +37,10 @@ class CreateTransaction extends AbstractModel
             $data['employeeId'] = $this->getEmployeeId();
         }
 
+        if ($this->hasRefId()) {
+            $data['refId'] = $this->getRefId();
+        }
+
         $data[$this->getTransactionRequest()->getObjectName()] = $this->transactionRequest;
 
         return [
@@ -49,6 +54,11 @@ class CreateTransaction extends AbstractModel
     protected function setEmployeeId($value)
     {
         $this->employeeId = $value;
+    }
+
+    protected function setRefId($value)
+    {
+        $this->refId = $value;
     }
 
     protected function setMerchantAuthentication(MerchantAuthentication $value)
