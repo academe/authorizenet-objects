@@ -37,7 +37,7 @@ abstract class AbstractModel implements \JsonSerializable
      * - with*($value) - set a value
      * - get*() - return a value
      * - has*() - property exists with a non-null value.
-     * - without*() - remove a value
+     * - without*() - remove a value (TODO - set a value to null to take it out for now)
      */
     public function __call($name, $arguments)
     {
@@ -84,6 +84,19 @@ abstract class AbstractModel implements \JsonSerializable
         // We haven't matched any expected method prefixes, so raise a default SPL exception.
 
         throw new \BadMethodCallException(sprintf('Called method "%s" does not exist', $name));
+    }
+
+    public function with(array $valueList)
+    {
+        $clone = clone $this;
+
+        foreach($valueList as $name => $value) {
+            $setter = 'set' . ucfirst($name);
+
+            $clone->{$setter}($value);
+        }
+
+        return $clone;
     }
 
     /**

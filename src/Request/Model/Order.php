@@ -23,14 +23,9 @@ class Order extends AbstractModel implements TransactionRequestInterface
         $this->setDescription($description);
     }
 
-    protected function setInvoiceNumber($value)
+    public function hasAny()
     {
-        $this->invoiceNumber = $value;
-    }
-
-    protected function setDescription($value)
-    {
-        $this->description = $value;
+        return $this->hasInvoiceNumber() || $this->hasDescription();
     }
 
     public function jsonSerialize()
@@ -46,5 +41,15 @@ class Order extends AbstractModel implements TransactionRequestInterface
         }
 
         return $data;
+    }
+
+    protected function setInvoiceNumber($value)
+    {
+        $this->invoiceNumber = $value;
+    }
+
+    protected function setDescription($value)
+    {
+        $this->description = $value;
     }
 }

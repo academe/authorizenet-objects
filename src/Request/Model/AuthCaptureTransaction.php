@@ -101,7 +101,7 @@ class AuthCaptureTransaction extends AbstractModel implements TransactionRequest
             $order = $this->getOrder();
 
             // The order needs at least one of the two optional fields.
-            if ($order->hasInvoiceNumber() || $order->hasDescription()) {
+            if ($order->hasAny()) {
                 // If the order becames more complex, we may need to pick out the
                 // individual fields we need.
 
@@ -174,7 +174,7 @@ class AuthCaptureTransaction extends AbstractModel implements TransactionRequest
         }
 
         if ($this->hasRetail()) {
-            $data['shipTo'] = $this->getRetail();;
+            $data['retail'] = $this->getRetail();;
         }
 
         if ($this->hasTransactionSettings()) {

@@ -39,12 +39,18 @@ $customer = new Request\Model\Customer('business', 'Customer ID', 'customer@exam
 $retail = new Request\Model\Retail(2, 3, 'HJSHDJSDJKSD');
 
 // Create a billing name and address.
-$billTo = new Request\Model\NameAddress('BFirstname', 'BLastname');
+$billTo = new Request\Model\NameAddress('BFirstname', 'BLastname', null, 'Address Line');
 $billTo = $billTo->withCompany('My Billing Company Ltd')->withZip('ZippyZipBill');
 
 // Create a shipping name and address.
-$shipTo = new Request\Model\NameAddress('Firstname', 'Lastname');
-$shipTo = $shipTo->withCompany('My Company Ltd')->withZip('ZippyZip');
+$shipTo = new Request\Model\NameAddress();
+// A single with() can set multiple values at once.
+$shipTo = $shipTo->with([
+    'firstName' => 'Firstname',
+    'lastName' => 'Lastname',
+    'city' => 'My City',
+    'country' => 'United Kingdom',
+]);
 
 // Create a total amount of £24.99
 $amount = new Amount\Amount('GBP', 2499);
@@ -168,9 +174,16 @@ echo "<textarea style='width:100%;height: 12em'>" . $transaction_request->getObj
             "firstName":"BFirstname",
             "lastName":"BLastname",
             "company":"My Billing Company Ltd",
+            "address":"Address Line",
             "zip":"ZippyZipBill"
          },
          "shipTo":{
+            "firstName":"Firstname",
+            "lastName":"Lastname",
+            "city":"My City",
+            "country":"United Kingdom"
+         },
+         "retail":{
             "marketType":2,
             "deviceType":3,
             "customerSignature":"HJSHDJSDJKSD"
