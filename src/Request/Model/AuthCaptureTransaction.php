@@ -19,7 +19,7 @@ namespace Academe\AuthorizeNetObjects\Request\Model;
  * - [x] customer (type, id, email + others)
  * - [x] billTo (name, company, address object) NameAddress object, also extended to customer version
  * - [x] shipTo (name, company, address object)
- * - [ ] cardholderAuthentication (authenticationIndicator, cardholderAuthenticationValue)
+ * - [x] cardholderAuthentication (authenticationIndicator, cardholderAuthenticationValue)
  * - [x] retail (marketType, deviceType, customerSignature)
  * - [x] customerIP (not in docs)
  * - [x] transactionSettings (collection of setting name/value pairs
@@ -33,6 +33,7 @@ use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\Request\Model\NameAddress;
 use Academe\AuthorizeNetObjects\Request\Model\Customer;
 use Academe\AuthorizeNetObjects\Request\Model\Retail;
+use Academe\AuthorizeNetObjects\Request\Model\CardholderAuthentication;
 use Academe\AuthorizeNetObjects\Request\Model\Order;
 use Academe\AuthorizeNetObjects\PaymentInterface;
 use Academe\AuthorizeNetObjects\AmountInterface;
@@ -60,6 +61,7 @@ class AuthCaptureTransaction extends AbstractModel implements TransactionRequest
     protected $customer;
     protected $billTo;
     protected $shipTo;
+    protected $cardholderAuthentication;
     protected $retail;
     protected $customerIP;
     protected $transactionSettings;
@@ -175,6 +177,10 @@ class AuthCaptureTransaction extends AbstractModel implements TransactionRequest
             }
         }
 
+        if ($this->hasCardholderAuthentication()) {
+            $data['cardholderAuthentication'] = $this->getCardholderAuthentication();;
+        }
+
         if ($this->hasRetail()) {
             $data['retail'] = $this->getRetail();;
         }
@@ -278,6 +284,11 @@ class AuthCaptureTransaction extends AbstractModel implements TransactionRequest
     protected function setShipTo(NameAddress $value)
     {
         $this->shipTo = $value;
+    }
+
+    protected function setCardholderAuthentication(CardholderAuthentication $value)
+    {
+        $this->cardholderAuthentication = $value;
     }
 
     protected function setRetail(Retail $value)
