@@ -98,15 +98,14 @@ $auth_capture_transaction_request = $auth_capture_transaction_request->withPoNum
 $auth_capture_transaction_request = $auth_capture_transaction_request->withCustomer($customer);
 $auth_capture_transaction_request = $auth_capture_transaction_request->withRetail($retail);
 $auth_capture_transaction_request = $auth_capture_transaction_request->withShipTo($shipTo)->withBillTo($billTo);
+$auth_capture_transaction_request = $auth_capture_transaction_request->withEmployeeId('1234');
 
 // Add the auth capture transaction to the transaction request, along with the auth details.
 $transaction_request = new Request\CreateTransaction($auth, $auth_capture_transaction_request);
 
-// Add some final settings that go into the rerquest.
-$transaction_request = $transaction_request->withEmployeeId('1234');
-
 // Display the resultng JSON request message.
-echo "<textarea style='width:100%;height: 12em'>" . $transaction_request->getObjectName() . ' is ' . json_encode($transaction_request) . "</textarea>";
+echo '<p>' . $transaction_request->getObjectName() . ': </p>';
+echo "<textarea style='width:100%;height: 12em'>" . json_encode($transaction_request) . "</textarea>";
 
 /*
 {
@@ -115,10 +114,11 @@ echo "<textarea style='width:100%;height: 12em'>" . $transaction_request->getObj
          "name":"xxx",
          "transactionKey":"yyy"
       },
-      "employeeId":"1234",
+      "refId":"REFREFREF",
       "transactionRequest":{
          "transactionType":"authCaptureTransaction",
          "amount":"9.99",
+         "currencyCode":"GBP",
          "payment":{
             "creditCard":{
                "cardNumber":"4000123412341234",
@@ -136,33 +136,35 @@ echo "<textarea style='width:100%;height: 12em'>" . $transaction_request->getObj
             "invoiceNumber":"orderx",
             "description":"ordery"
          },
-         "lineItems":[
-            {
-               "itemId":1,
-               "name":"Item Name 1",
-               "description":"Item Desc 1",
-               "quantity":1.5,
-               "unitPrice":"0.49",
-               "taxable":false
-            },
-            {
-               "itemId":2,
-               "name":"Item Name 2",
-               "description":"Item Desc 2",
-               "quantity":2,
-               "unitPrice":"0.97",
-               "taxable":true
-            }
-         ],
+         "lineItems":{
+            "lineItem":[
+               {
+                  "itemId":1,
+                  "name":"Item Name 1",
+                  "description":"Item Desc 1",
+                  "quantity":1.5,
+                  "unitPrice":"0.49",
+                  "taxable":false
+               },
+               {
+                  "itemId":2,
+                  "name":"Item Name 2",
+                  "description":"Item Desc 2",
+                  "quantity":2,
+                  "unitPrice":"0.97",
+                  "taxable":true
+               }
+            ]
+         },
          "tax":{
             "amount":"9.99",
             "name":"Tax Name",
             "description":"Tax Description"
          },
          "duty":{
-            "type":"business",
-            "id":"Customer ID",
-            "email":"customer@example.com"
+            "amount":"9.99",
+            "name":"Tax Name",
+            "description":"Tax Description"
          },
          "shipping":{
             "amount":"9.99",
@@ -171,6 +173,11 @@ echo "<textarea style='width:100%;height: 12em'>" . $transaction_request->getObj
          },
          "taxExempt":true,
          "poNumber":"myPoNumber",
+         "customer":{
+            "type":"business",
+            "id":"Customer ID",
+            "email":"customer@example.com"
+         },
          "billTo":{
             "firstName":"BFirstname",
             "lastName":"BLastname",
@@ -184,25 +191,95 @@ echo "<textarea style='width:100%;height: 12em'>" . $transaction_request->getObj
             "city":"My City",
             "country":"United Kingdom"
          },
+         "customerIP":"1.2.3.4",
+         "cardholderAuthentication":{
+            "authenticationIndicator":"AAAA"
+         },
          "retail":{
             "marketType":2,
             "deviceType":3,
             "customerSignature":"HJSHDJSDJKSD"
          },
-         "transactionSettings":[
-            {
-               "settingName":"Foo",
-               "settingValue":"Bar"
-            }
-         ],
-         "userFields":[
-            {
-               "name":"UserFoo",
-               "value":"UserBar"
-            }
-         ]
+         "employeeId":"1234",
+         "transactionSettings":{
+            "setting":[
+               {
+                  "settingName":"Foo",
+                  "settingValue":"Bar"
+               }
+            ]
+         },
+         "userFields":{
+            "userField":[
+               {
+                  "name":"UserFoo",
+                  "value":"UserBar"
+               }
+            ]
+         }
       }
    }
 }
 */
+```
+
+This can be sent to the gateway simply (and naively, just for demonstration) using Guzzle:
+
+```php
+// "guzzlehttp/guzzle": "~6.0"
+use GuzzleHttp\Client;
+
+$client = new GuzzleHttp\Client();
+
+// sandbox endpoint
+$endpoint = 'https://apitest.authorize.net/xml/v1/request.api';
+
+$response = $client->request('POST', $endpoint, [
+    // Just pass the object and Guzzle will cast it to JSON.
+    'json' => $transaction_request,
+]);
+
+var_dump((string)$response->getBody());
+
+/*
+{
+   "transactionResponse":{
+      "responseCode":"1",
+      "authCode":"59WHY9",
+      "avsResultCode":"Y",
+      "cvvResultCode":"P",
+      "transId":"60020301993",
+      "refTransID":"",
+      "transHash":"2EA6BB2D8D88C587EA16C77C44C7B8B2",
+      "testRequest":"0",
+      "accountNumber":"XXXX1234",
+      "entryMode":"Keyed",
+      "accountType":"Visa",
+      "messages":[
+         {
+            "code":"1",
+            "description":"This transaction has been approved."
+         }
+      ],
+      "userFields":[
+         {
+            "name":"UserFoo",
+            "value":"UserBar"
+         }
+      ],
+      "transHashSha2":""
+   },
+   "refId":"5678917213",
+   "messages":{
+      "resultCode":"Ok",
+      "message":[
+         {
+            "code":"I00001",
+            "text":"Successful."
+         }
+      ]
+   }
+}
+*/
+
 ```
