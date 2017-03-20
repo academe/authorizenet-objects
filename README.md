@@ -90,15 +90,21 @@ $auth_capture_transaction_request = $auth_capture_transaction_request->withLineI
 $auth_capture_transaction_request = $auth_capture_transaction_request->withTransactionSettings($transactionSettings);
 $auth_capture_transaction_request = $auth_capture_transaction_request->withUserFields($userFields);
 $auth_capture_transaction_request = $auth_capture_transaction_request->withSolutionId('SOLLLL');
-$auth_capture_transaction_request = $auth_capture_transaction_request->withOrder($order);
-$auth_capture_transaction_request = $auth_capture_transaction_request->withTax($tax);
-$auth_capture_transaction_request = $auth_capture_transaction_request->withDuty($tax);
-$auth_capture_transaction_request = $auth_capture_transaction_request->withShipping($tax);
+$auth_capture_transaction_request = $auth_capture_transaction_request->withTax($tax)->withDuty($tax)->withShipping($tax);
 $auth_capture_transaction_request = $auth_capture_transaction_request->withPoNumber('myPoNumber');
 $auth_capture_transaction_request = $auth_capture_transaction_request->withCustomer($customer);
 $auth_capture_transaction_request = $auth_capture_transaction_request->withRetail($retail);
-$auth_capture_transaction_request = $auth_capture_transaction_request->withShipTo($shipTo)->withBillTo($billTo);
-$auth_capture_transaction_request = $auth_capture_transaction_request->withEmployeeId('1234');
+
+// You can set multiple items using an array:
+
+$auth_capture_transaction_request = $auth_capture_transaction_request->with([
+    'order' => $order,
+    'shipTo' => $shipTo,
+    'billTo' => $billTo,
+    'employeeId' => '1234',
+    'customerIp' => '1.2.3.4',
+]);
+
 
 // Add the auth capture transaction to the transaction request, along with the auth details.
 $transaction_request = new Request\CreateTransaction($auth, $auth_capture_transaction_request);
