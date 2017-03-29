@@ -10,7 +10,7 @@ use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\AmountInterface;
 use Academe\AuthorizeNetObjects\AbstractModel;
 
-class ListItem extends AbstractModel implements TransactionRequestInterface
+class LineItem extends AbstractModel implements TransactionRequestInterface
 {
     protected $itemId;
     protected $name;
@@ -95,6 +95,9 @@ class ListItem extends AbstractModel implements TransactionRequestInterface
 
     protected function setQuantity($value)
     {
+        // Hmm, we really don't want to be messing with floats like this.
+        // The aim is to ensure the value goes to a maximum of 2dp.
+
         if ($value !== null) {
             $value = round((float)$value, 2);
         }
