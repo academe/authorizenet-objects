@@ -70,8 +70,8 @@ $tax = $tax->withAmount(new Amount\MoneyPhp(Money::GBP(99));
 // Set up some line items.
 // Note these collections are not value objects. Should they be?
 $lineItems = new Collections\LineItems();
-$lineItems->push(new Request\Model\ListItem(1, 'Item Name 1', 'Item Desc 1', 1.5, new Amount\MoneyPhp(Money::GBP(49)), false));
-$lineItems->push(new Request\Model\ListItem(2, 'Item Name 2', 'Item Desc 2', 2, new Amount\MoneyPhp(Money::GBP(97)), true));
+$lineItems->push(new Request\Model\LineItem(1, 'Item Name 1', 'Item Desc 1', 1.5, new Amount\MoneyPhp(Money::GBP(49)), false));
+$lineItems->push(new Request\Model\LineItem(2, 'Item Name 2', 'Item Desc 2', 2, new Amount\MoneyPhp(Money::GBP(97)), true));
 
 // Set up some transaction settings.
 $transactionSettings = new Collections\TransactionSettings();
@@ -109,7 +109,7 @@ $auth_capture_transaction_request = $auth_capture_transaction_request->with([
 // Add the auth capture transaction to the transaction request, along with the auth details.
 $transaction_request = new Request\CreateTransaction($auth, $auth_capture_transaction_request);
 
-// Display the resultng JSON request message.
+// Display the resulting JSON request message.
 echo '<p>' . $transaction_request->getObjectName() . ': </p>';
 echo "<textarea style='width:100%;height: 12em'>" . json_encode($transaction_request) . "</textarea>";
 
