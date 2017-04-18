@@ -3,7 +3,7 @@
 namespace Academe\AuthorizeNetObjects\Request\Model;
 
 /**
- * TODO parameters:
+ * Parameters:
  *
  * - [x] amount to be an object (before doing the extended amount objects)
  * - [x] currency to come from the amount (each account supports just one currency)

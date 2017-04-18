@@ -18,8 +18,10 @@ class CreateTransaction extends AbstractModel
     protected $refId;
     protected $transactionRequest;
 
-    public function __construct(MerchantAuthentication $merchantAuthentication, TransactionRequestInterface $transactionRequest)
-    {
+    public function __construct(
+        MerchantAuthentication $merchantAuthentication,
+        TransactionRequestInterface $transactionRequest
+    ) {
         parent::__construct();
 
         $this->setMerchantAuthentication($merchantAuthentication);

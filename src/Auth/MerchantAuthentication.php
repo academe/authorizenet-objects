@@ -17,6 +17,10 @@ class MerchantAuthentication extends AbstractModel
     protected $name;
     protected $transactionKey;
 
+    // Either mobileDeviceId or refId can be used, but never both.
+    protected $mobileDeviceId;
+    protected $refId;
+
     /**
      * string and string
      */
@@ -30,13 +34,23 @@ class MerchantAuthentication extends AbstractModel
 
     public function jsonSerialize()
     {
-        return [
+        $data = [
             'name' => $this->name,
             'transactionKey' => $this->transactionKey,
         ];
+
+        // Mutually exclusive options.
+        // We arbitrarily look at the refId first.
+        if ($this->hasRefId()) {
+            $data['refId'] = $this->getRefId();
+        } elseif ($this->hasMobileDeviceId()) {
+            $data['mobileDeviceId'] = $this->getMobileDeviceId();
+        }
+
+        return $data;
     }
 
-    // TODO: these setters can include validation.
+    // These setters can include validation.
 
     protected function setName($value)
     {
@@ -46,5 +60,15 @@ class MerchantAuthentication extends AbstractModel
     protected function setTransactionKey($value)
     {
         $this->transactionKey = $value;
+    }
+
+    protected function setMobileDeviceId($value)
+    {
+        $this->mobileDeviceId = $value;
+    }
+
+    protected function setRefId($value)
+    {
+        $this->refId = $value;
     }
 }
