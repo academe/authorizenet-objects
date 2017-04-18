@@ -28,7 +28,7 @@ namespace Academe\AuthorizeNetObjects\Request\Model;
  * shipTo seems to include the originating user's IP address, which is a bit bizarre
  */
 
-use Academe\AuthorizeNetObjects\Request\Model\AbstractExtendedAmount;
+use Academe\AuthorizeNetObjects\Request\Model\AbstractExtendedAmount; // CHECKME: used?
 use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\Request\Model\NameAddress;
 use Academe\AuthorizeNetObjects\Request\Model\Customer;
@@ -69,7 +69,7 @@ class AuthCaptureTransaction extends AbstractModel implements TransactionRequest
     protected $userFields;
 
     /**
-     * FIXME: The amount should be a value object.
+     * The amount is a value object.
      */
     public function __construct(AmountInterface $amount)
     {
