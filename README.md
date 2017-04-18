@@ -82,22 +82,22 @@ $userFields = new Collections\UserFields();
 $userFields->push(new Request\Model\UserField('UserFoo', 'UserBar'));
 
 // Now put most of these into an Auth Capture transaction.
-$auth_capture_transaction_request = new Request\Model\AuthCaptureTransaction($amount);
-$auth_capture_transaction_request = $auth_capture_transaction_request->withPayment(/*$track1*/ $credit_card);
-$auth_capture_transaction_request = $auth_capture_transaction_request->withCreateProfile(false);
-$auth_capture_transaction_request = $auth_capture_transaction_request->withTaxExempt(true);
-$auth_capture_transaction_request = $auth_capture_transaction_request->withLineItems($lineItems);
-$auth_capture_transaction_request = $auth_capture_transaction_request->withTransactionSettings($transactionSettings);
-$auth_capture_transaction_request = $auth_capture_transaction_request->withUserFields($userFields);
-$auth_capture_transaction_request = $auth_capture_transaction_request->withSolutionId('SOLLLL');
-$auth_capture_transaction_request = $auth_capture_transaction_request->withTax($tax)->withDuty($tax)->withShipping($tax);
-$auth_capture_transaction_request = $auth_capture_transaction_request->withPoNumber('myPoNumber');
-$auth_capture_transaction_request = $auth_capture_transaction_request->withCustomer($customer);
-$auth_capture_transaction_request = $auth_capture_transaction_request->withRetail($retail);
+$auth_capture_transaction = new Request\Transaction\AuthCapture($amount);
+$auth_capture_transaction = $auth_capture_transaction->withPayment(/*$track1*/ $credit_card);
+$auth_capture_transaction = $auth_capture_transaction->withCreateProfile(false);
+$auth_capture_transaction = $auth_capture_transaction->withTaxExempt(true);
+$auth_capture_transaction = $auth_capture_transaction->withLineItems($lineItems);
+$auth_capture_transaction = $auth_capture_transaction->withTransactionSettings($transactionSettings);
+$auth_capture_transaction = $auth_capture_transaction->withUserFields($userFields);
+$auth_capture_transaction = $auth_capture_transaction->withSolutionId('SOLLLL');
+$auth_capture_transaction = $auth_capture_transaction->withTax($tax)->withDuty($tax)->withShipping($tax);
+$auth_capture_transaction = $auth_capture_transaction->withPoNumber('myPoNumber');
+$auth_capture_transaction = $auth_capture_transaction->withCustomer($customer);
+$auth_capture_transaction = $auth_capture_transaction->withRetail($retail);
 
 // You can set multiple items using an array:
 
-$auth_capture_transaction_request = $auth_capture_transaction_request->with([
+$auth_capture_transaction = $auth_capture_transaction->with([
     'order' => $order,
     'shipTo' => $shipTo,
     'billTo' => $billTo,
@@ -107,7 +107,7 @@ $auth_capture_transaction_request = $auth_capture_transaction_request->with([
 
 
 // Add the auth capture transaction to the transaction request, along with the auth details.
-$transaction_request = new Request\CreateTransaction($auth, $auth_capture_transaction_request);
+$transaction_request = new Request\CreateTransaction($auth, $auth_capture_transaction);
 
 // Display the resulting JSON request message.
 echo '<p>' . $transaction_request->getObjectName() . ': </p>';
