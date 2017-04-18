@@ -1,6 +1,6 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Request\Model;
+namespace Academe\AuthorizeNetObjects\Request\Transaction;
 
 /**
  * Transaction used to capture a previously authorized transaction.
@@ -10,25 +10,24 @@ use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\Request\Model\Order;
 use Academe\AuthorizeNetObjects\AmountInterface;
 
-class CaptureOnlyTransaction extends AbstractModel implements TransactionRequestInterface
+class PriorAuthCapture extends AbstractModel implements TransactionRequestInterface
 {
     protected $objectName = 'transactionRequest';
-    protected $transactionType = 'captureOnlyTransaction';
+    protected $transactionType = 'priorAuthCaptureTransaction';
 
     protected $amount;
-    protected $authCode;
+    protected $refTransId;
     protected $order;
 
     /**
-     * Identical to PriorAuthCaptureTransaction except for a field name change (authCode
-     * instead of refTransId).
+     * 
      */
-    public function __construct(AmountInterface $amount, $authCode)
+    public function __construct(AmountInterface $amount, $refTransId)
     {
         parent::__construct();
 
         $this->setAmount($amount);
-        $this->setRefTransId($authCode);
+        $this->setRefTransId($refTransId);
     }
 
     public function jsonSerialize()
@@ -40,7 +39,7 @@ class CaptureOnlyTransaction extends AbstractModel implements TransactionRequest
         // This value object will be formatted according to its currency.
         $data['amount'] = $this->getAmount();
 
-        $data['authCode'] = $this->getAuthCode();
+        $data['refTransId'] = $this->getRefTransId();
 
         if ($this->hasOrder()) {
             $order = $this->getOrder();
@@ -68,10 +67,10 @@ class CaptureOnlyTransaction extends AbstractModel implements TransactionRequest
     }
 
     /**
-     * authCode string
+     * refTransId string
      */
-    protected function setAuthCode($value)
+    protected function setRefTransId($value)
     {
-        $this->authCode = $value;
+        $this->refTransId = $value;
     }
 }

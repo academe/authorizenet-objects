@@ -1,6 +1,6 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Request\Model;
+namespace Academe\AuthorizeNetObjects\Request\Transaction;
 
 /**
  * Parameters:
@@ -28,7 +28,7 @@ namespace Academe\AuthorizeNetObjects\Request\Model;
  * shipTo seems to include the originating user's IP address, which is a bit bizarre
  */
 
-use Academe\AuthorizeNetObjects\Request\Model\AbstractExtendedAmount; // CHECKME: used?
+use Academe\AuthorizeNetObjects\Request\Model\ExtendedAmount;
 use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\Request\Model\NameAddress;
 use Academe\AuthorizeNetObjects\Request\Model\Customer;
@@ -42,7 +42,7 @@ use Academe\AuthorizeNetObjects\Collections\LineItems;
 use Academe\AuthorizeNetObjects\Collections\TransactionSettings;
 use Academe\AuthorizeNetObjects\Collections\UserFields;
 
-class AuthCaptureTransaction extends AbstractModel implements TransactionRequestInterface
+class AuthCapture extends AbstractModel implements TransactionRequestInterface
 {
     protected $objectName = 'transactionRequest';
     protected $transactionType = 'authCaptureTransaction';
