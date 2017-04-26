@@ -38,6 +38,15 @@ class CreditCard extends AbstractModel implements PaymentInterface
         return $data;
     }
 
+    /**
+     * Return just the last four digits of the credit card number.
+     */
+
+    public function getLastFourDigits()
+    {
+        return substr($this->getCardNumber(), -4);
+    }
+
     // TODO: these setters can include validation.
 
     protected function setCardNumber($value)
