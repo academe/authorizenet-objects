@@ -3,7 +3,9 @@
 namespace Academe\AuthorizeNetObjects\Request;
 
 /**
- * 
+ * This is the most commonly used message, which will carry many types of
+ * transactions, including authorisation, capture, void and refund.
+ * The transactions can all be found under Academe\AuthorizeNetObjects\Request\Transaction
  */
 
 use Academe\AuthorizeNetObjects\TransactionRequestInterface;
@@ -32,14 +34,21 @@ class CreateTransaction extends AbstractModel
     {
         $data = [];
 
+        // Start with the authentication details.
         $data[$this->getMerchantAuthentication()->getObjectName()] = $this->getMerchantAuthentication();
 
+        // Then the optional merchant site reference ID (will be returned in the response,
+        // useful for multithreaded applications).
         if ($this->hasRefId()) {
             $data['refId'] = $this->getRefId();
         }
 
+        // Add the expanded tranasation.
         $data[$this->getTransactionRequest()->getObjectName()] = $this->transactionRequest;
 
+        // Wrap it all up in a single element.
+        // The JSON structure mimics the XML structure, so all the messages will be
+        // in an object with a single property.
         return [
             $this->getObjectName() => $data,
         ];
