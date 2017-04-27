@@ -96,6 +96,7 @@ class BankAccount extends AbstractModel implements PaymentInterface
 
     protected function setAccountType($value)
     {
+        $this->assertAccountType($value);
         $this->accountType = $value;
     }
 
@@ -116,6 +117,7 @@ class BankAccount extends AbstractModel implements PaymentInterface
 
     protected function setEcheckType($value)
     {
+        $this->assertValueEcheckType($value);
         $this->echeckType = $value;
     }
 

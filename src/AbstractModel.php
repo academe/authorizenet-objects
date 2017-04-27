@@ -38,6 +38,8 @@ abstract class AbstractModel implements \JsonSerializable
      * - get*() - return a value
      * - has*() - property exists with a non-null value.
      * - without*() - remove a value (TODO - set a value to null to take it out for now)
+     * - values*() - return a list of valid values for a field, or an empty array if none defined.
+     * - assertValue*() - assert that the supplied value is one in the permitted list.
      */
     public function __call($name, $arguments)
     {
@@ -63,7 +65,7 @@ abstract class AbstractModel implements \JsonSerializable
             }
         }
 
-        if (substr($name, 0, 3) === 'get') {
+        elseif (substr($name, 0, 3) === 'get') {
             // Get the property name.
 
             $property = lcfirst(substr($name, 3));
@@ -73,12 +75,48 @@ abstract class AbstractModel implements \JsonSerializable
             }
         }
 
-        if (substr($name, 0, 3) === 'has') {
+        elseif (substr($name, 0, 3) === 'has') {
             // Get the property name.
 
             $property = lcfirst(substr($name, 3));
 
             return (property_exists($this, $property) && $this->{$property} !== null);
+        }
+
+        elseif (substr($name, 0, 6) === 'values') {
+            // Get the property name.
+
+            $property = lcfirst(substr($name, 6));
+
+            // Convert from initcap CamelCase to capital SNAKE_CASE.
+            $prefix = ltrim(strtoupper(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', $property)), '_');
+
+            return $this->constantList($prefix);
+        }
+
+        elseif (substr($name, 0, 11) === 'assertValue') {
+            $value = isset($arguments[0]) ? $arguments[0] : null;
+
+            if (! isset($value)) {
+                return;
+            }
+
+            // Get the property name.
+
+            $property = ucfirst(substr($name, 11));
+
+            $values = $this->{'values'.$property}();
+
+            if (! in_array($value, $values)) {
+                throw new \InvalidArgumentException(sprintf(
+                    'Property "%s" given invalid value "%s"; allowed values are: "%s"',
+                    $property,
+                    $value,
+                    implode('", "', $values)
+                ));
+            }
+
+            return;
         }
 
         // We haven't matched any expected method prefixes, so raise a default SPL exception.

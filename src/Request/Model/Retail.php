@@ -66,28 +66,14 @@ class Retail extends AbstractModel implements TransactionRequestInterface
 
     protected function setMarketType($value)
     {
-        $market_types = static::constantList('MARKET_TYPE');
-
-        if (isset($value) && ! in_array($value, $market_types)) {
-            throw new \InvalidArgumentException(sprintf(
-                'Invalid value for Market Type. Valid values are: "%s".',
-                implode('", "', $market_types)
-            ));
-        }
+        $this->assertValueMarketType($value);
 
         $this->marketType = (int)$value;
     }
 
     protected function setDeviceType($value)
     {
-        $device_types = static::constantList('DEVICE_TYPE');
-
-        if (isset($value) && ! in_array($value, $device_types)) {
-            throw new \InvalidArgumentException(sprintf(
-                'Invalid value for Device Type.  Valid values are: "%s".',
-                implode('", "', $device_types)
-            ));
-        }
+        $this->assertValueDeviceType($value);
 
         $this->deviceType = (int)$value;
     }

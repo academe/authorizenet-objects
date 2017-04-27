@@ -74,13 +74,7 @@ class Customer extends AbstractModel implements TransactionRequestInterface
 
     protected function setCustomerType($value)
     {
-        if (isset($value) && $value !== static::CUSTOMER_TYPE_INDIVIDUAL && $value !== static::CUSTOMER_TYPE_BUSINESS) {
-            throw new \InvalidArgumentException(sprintf(
-                'Invalid value for Customer Type. Must be "%s" or "%s".',
-                static::CUSTOMER_TYPE_INDIVIDUAL,
-                static::CUSTOMER_TYPE_BUSINESS
-            ));
-        }
+        $this->assertValueCustomerType($value);
 
         $this->customerType = $value;
     }
