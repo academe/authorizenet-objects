@@ -5,10 +5,16 @@ namespace Academe\AuthorizeNetObjects\Request\Transaction;
 /**
  * A refund is nearly identical to an original payment, so we will
  * base this class on the payment (AuthCapture), with some alterations.
+ *
+ * A refund can only be provided after the transaction has been settled,
+ * which can take up to 24 hours. Until that point, use void to void the
+ * transaction before it is settled..
  */
 
-use Academe\AuthorizeNetObjects\Payment\CreditCard;
+use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\Payment\BankAccount;
+use Academe\AuthorizeNetObjects\Payment\CreditCard;
+use Academe\AuthorizeNetObjects\AmountInterface;
 
 class Refund extends AuthCapture implements TransactionRequestInterface
 {
@@ -22,9 +28,9 @@ class Refund extends AuthCapture implements TransactionRequestInterface
      */
     public function __construct(AmountInterface $amount, $refTransId)
     {
-        parent::__construct();
+        parent::__construct($amount);
 
-        $this->setAmount($amount);
+        //$this->setAmount($amount);
         $this->setRefTransId($refTransId);
     }
 
@@ -42,8 +48,6 @@ class Refund extends AuthCapture implements TransactionRequestInterface
         // currency at present, so this also offers some future-proofing.
         $data['currencyCode'] = $this->getAmount()->getCurrencyCode();
 
-        $data['refTransId'] = $this->getRefTransId();
-
         if ($this->hasPayment()) {
             // For a refund, only partial payment method details are sent.
             // This is dependant on the payment method (CC, Bank etc).
@@ -51,7 +55,7 @@ class Refund extends AuthCapture implements TransactionRequestInterface
 
             $payment = $this->getPayment();
 
-            if ($payment instanceof CreditCard::class) {
+            if ($payment instanceof CreditCard) {
                 // The documentation lists the expirationDate as "optional for card present",
                 // which implies there is something missing here (card present will include
                 // one of the tracks, but they aren't in the spec).
@@ -64,7 +68,7 @@ class Refund extends AuthCapture implements TransactionRequestInterface
                 ];
             }
 
-            if ($payment instanceof BankAccount::class) {
+            if ($payment instanceof BankAccount) {
                 // The masked account number will have all digits but the last four replaced
                 // with an "X".
 
@@ -75,6 +79,8 @@ class Refund extends AuthCapture implements TransactionRequestInterface
                 ];
             }
         }
+
+        $data['refTransId'] = $this->getRefTransId();
 
         if ($this->hasOrder()) {
             $order = $this->getOrder();

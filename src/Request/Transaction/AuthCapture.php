@@ -28,19 +28,19 @@ namespace Academe\AuthorizeNetObjects\Request\Transaction;
  * shipTo seems to include the originating user's IP address, which is a bit bizarre
  */
 
+use Academe\AuthorizeNetObjects\Request\Model\CardholderAuthentication;
+use Academe\AuthorizeNetObjects\Collections\TransactionSettings;
 use Academe\AuthorizeNetObjects\Request\Model\ExtendedAmount;
 use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\Request\Model\NameAddress;
 use Academe\AuthorizeNetObjects\Request\Model\Customer;
+use Academe\AuthorizeNetObjects\Collections\UserFields;
+use Academe\AuthorizeNetObjects\Collections\LineItems;
 use Academe\AuthorizeNetObjects\Request\Model\Retail;
-use Academe\AuthorizeNetObjects\Request\Model\CardholderAuthentication;
 use Academe\AuthorizeNetObjects\Request\Model\Order;
 use Academe\AuthorizeNetObjects\PaymentInterface;
 use Academe\AuthorizeNetObjects\AmountInterface;
 use Academe\AuthorizeNetObjects\AbstractModel;
-use Academe\AuthorizeNetObjects\Collections\LineItems;
-use Academe\AuthorizeNetObjects\Collections\TransactionSettings;
-use Academe\AuthorizeNetObjects\Collections\UserFields;
 
 class AuthCapture extends AbstractModel implements TransactionRequestInterface
 {

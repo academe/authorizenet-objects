@@ -54,6 +54,8 @@ class CreditCard extends AbstractModel implements PaymentInterface
         $this->cardNumber = $value;
     }
 
+    // TODO: support setting and getting the year and month as separate values.
+
     protected function setExpirationDate($value)
     {
         $this->expirationDate = $value;

@@ -140,4 +140,13 @@ abstract class AbstractModel implements \JsonSerializable
 
         return null;
     }
+
+    /**
+     * Convert to the structured data that would be put into the
+     * serialised JSON form.
+     */
+    public function toData($assoc = false)
+    {
+        return json_decode(json_encode($this), $assoc);
+    }
 }
