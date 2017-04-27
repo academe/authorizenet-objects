@@ -99,6 +99,12 @@ class AuthCapture extends AbstractModel implements TransactionRequestInterface
         }
 
         // CHECKME: The docs do not give examples of how a boolean should be formatted.
+        // TODO: it looks like an authorisation can either create a profile, or use a
+        // a previously created profile to pay. Some checks will be needed to confirm
+        // that.
+        // Maybe the profile should be considered a payment method? Depends what else
+        // profiles can be used for, I guess.
+
         if ($this->hasCreateProfile()) {
             $data['profile']['createProfile'] = $this->getCreateProfile();
         }

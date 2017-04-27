@@ -3,7 +3,7 @@
 namespace Academe\AuthorizeNetObjects\Payment;
 
 /**
- * 
+ * TODO: optional dataKey needed for decyrpting Visa checkout data.
  */
 
 use Academe\AuthorizeNetObjects\PaymentInterface;
@@ -39,6 +39,7 @@ class OpaqueData extends AbstractModel implements PaymentInterface
         $this->dataDescriptor = $value;
     }
 
+    // 8192 characters base-64 encoded data.
     protected function setDataValue($value)
     {
         $this->dataValue = $value;

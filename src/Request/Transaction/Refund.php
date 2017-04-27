@@ -8,7 +8,7 @@ namespace Academe\AuthorizeNetObjects\Request\Transaction;
  *
  * A refund can only be provided after the transaction has been settled,
  * which can take up to 24 hours. Until that point, use void to void the
- * transaction before it is settled..
+ * transaction before it is settled.
  */
 
 use Academe\AuthorizeNetObjects\TransactionRequestInterface;
@@ -24,13 +24,12 @@ class Refund extends AuthCapture implements TransactionRequestInterface
     protected $refTransId;
 
     /**
-     * The amount to refund and the original transaction reference ID are required..
+     * The amount to refund and the original transaction reference ID are required.
      */
     public function __construct(AmountInterface $amount, $refTransId)
     {
         parent::__construct($amount);
 
-        //$this->setAmount($amount);
         $this->setRefTransId($refTransId);
     }
 
