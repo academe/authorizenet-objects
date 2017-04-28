@@ -68,13 +68,13 @@ class Refund extends AuthCapture implements TransactionRequestInterface
             }
 
             if ($payment instanceof BankAccount) {
-                // The masked account number will have all digits but the last four replaced
-                // with an "X".
+                // The documentation appears to be wrong, by listing just the masked bank
+                // account number in the spec, but providing the full original bank account
+                // details in the example. It may yet be a hybrid, with all details, but
+                // masked.
 
                 $data['payment'] = [
-                    'bankAccount' => [
-                        'accountNumber' => $payment->getAccountNumberMasked(),
-                    ]
+                    $this->getPayment()->getObjectName() => $this->getPayment(),
                 ];
             }
         }

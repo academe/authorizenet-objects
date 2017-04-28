@@ -224,6 +224,7 @@ class AuthCapture extends AbstractModel implements TransactionRequestInterface
         return $data;
     }
 
+    // Cannot be used if a customer profile is being used.
     protected function setPayment(PaymentInterface $value)
     {
         $this->payment = $value;
@@ -234,6 +235,7 @@ class AuthCapture extends AbstractModel implements TransactionRequestInterface
         $this->amount = $value;
     }
 
+    // This is presumably mutually incompatible with using a profile.
     protected function setCreateProfile($value)
     {
         if ($value !== null) {
@@ -292,11 +294,13 @@ class AuthCapture extends AbstractModel implements TransactionRequestInterface
         $this->customer = $value;
     }
 
+    // Cannot be used if a customer profile is being used.
     protected function setBillTo(NameAddress $value)
     {
         $this->billTo = $value;
     }
 
+    // Cannot be used if a customer profile is being used with a shipping profile.
     protected function setShipTo(NameAddress $value)
     {
         $this->shipTo = $value;

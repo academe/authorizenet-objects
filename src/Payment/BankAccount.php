@@ -22,16 +22,20 @@ class BankAccount extends AbstractModel implements PaymentInterface
     const ECHECK_TYPE_ARC = 'ARC';
     const ECHECK_TYPE_BOC = 'BOC';
 
+    // Masking character for account number and routing number.
+    protected $masking_character = 'X';
+
     protected $accountType;
-    protected $accountNumber;
     protected $routingNumber;
-    // 22-Character Maximum
+    protected $accountNumber;
     protected $nameOnAccount;
     protected $echeckType;
     protected $bankName;
-    // required when echeckType is ARC or BOC
     protected $checkNumber;
 
+    // FIXME: the API is reporting that the accountType, routingNumber, accountNumber
+    // and nameOnAccount are all mandatory, but the specs do not mention this. So some
+    // mandatory parameter may be coming to this constructor soon.
     public function __construct()
     {
         parent::__construct();
@@ -45,12 +49,12 @@ class BankAccount extends AbstractModel implements PaymentInterface
             $data['accountType'] = $this->getAccountType();
         }
 
-        if ($this->hasAccountNumber()) {
-            $data['accountNumber'] = $this->getAccountNumber();
-        }
-
         if ($this->hasRoutingNumber()) {
             $data['routingNumber'] = $this->getRoutingNumber();
+        }
+
+        if ($this->hasAccountNumber()) {
+            $data['accountNumber'] = $this->getAccountNumber();
         }
 
         if ($this->hasNameOnAccount()) {
@@ -58,7 +62,19 @@ class BankAccount extends AbstractModel implements PaymentInterface
         }
 
         if ($this->hasEcheckType()) {
-            $data['echeckType'] = $this->getEcheckType();
+            $getEcheckType = $this->getEcheckType();
+
+            $checkNumberRequired = ($getEcheckType == static::ECHECK_TYPE_ARC || $getEcheckType == static::ECHECK_TYPE_BOC);
+
+            if ($checkNumberRequired && ! $this->hasCheckNumber()) {
+                // The check number is missing when it is required.
+                throw new \InvalidArgumentException(sprintf(
+                    'The checkNumber is required when the echeckType is "%s"; the checkNumber is not set',
+                    $getEcheckType
+                ));
+            }
+
+            $data['echeckType'] = $getEcheckType;
         }
 
         if ($this->hasBankName()) {
@@ -78,7 +94,7 @@ class BankAccount extends AbstractModel implements PaymentInterface
 
     public function getAccountNumberMasked()
     {
-        return str_repeat('X', strlen($this->getAccountNumber()) - 4)
+        return str_repeat($this->masking_character, strlen($this->getAccountNumber()) - 4)
             . substr($this->getAccountNumber(), -4);
     }
 
@@ -88,21 +104,14 @@ class BankAccount extends AbstractModel implements PaymentInterface
 
     public function getRoutingNumberMasked()
     {
-        return str_repeat('X', strlen($this->getRoutingNumber()) - 4)
+        return str_repeat($this->masking_character, strlen($this->getRoutingNumber()) - 4)
             . substr($this->getRoutingNumber(), -4);
     }
 
-    // TODO: these setters can include validation.
-
     protected function setAccountType($value)
     {
-        $this->assertAccountType($value);
+        $this->assertValueAccountType($value);
         $this->accountType = $value;
-    }
-
-    protected function setAccountNumber($value)
-    {
-        $this->accountNumber = $value;
     }
 
     protected function setRoutingNumber($value)
@@ -110,6 +119,12 @@ class BankAccount extends AbstractModel implements PaymentInterface
         $this->routingNumber = $value;
     }
 
+    protected function setAccountNumber($value)
+    {
+        $this->accountNumber = $value;
+    }
+
+    // 22-Character Maximum
     protected function setNameOnAccount($value)
     {
         $this->nameOnAccount = $value;
@@ -121,6 +136,7 @@ class BankAccount extends AbstractModel implements PaymentInterface
         $this->echeckType = $value;
     }
 
+    // required when echeckType is ARC or BOC
     protected function setCheckNumber($value)
     {
         $this->checkNumber = $value;
