@@ -10,7 +10,7 @@ use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\AmountInterface;
 use Academe\AuthorizeNetObjects\AbstractModel;
 
-class HostedPaymentSetting extends AbstractModel implements TransactionRequestInterface
+class HostedPaymentSetting extends AbstractModel
 {
     const SETTING_NAME_RETURN_OPTIONS           = 'ReturnOptions';
     const SETTING_NAME_BUTTON_OPTIONS           = 'ButtonOptions';

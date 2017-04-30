@@ -10,7 +10,7 @@ use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\PaymentInterface;
 use Academe\AuthorizeNetObjects\AbstractModel;
 
-class Order extends AbstractModel implements TransactionRequestInterface
+class Order extends AbstractModel
 {
     protected $invoiceNumber;
     protected $description;

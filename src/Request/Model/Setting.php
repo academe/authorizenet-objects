@@ -10,7 +10,7 @@ use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\AmountInterface;
 use Academe\AuthorizeNetObjects\AbstractModel;
 
-class Setting extends AbstractModel implements TransactionRequestInterface
+class Setting extends AbstractModel
 {
     protected $settingName;
     protected $settingValue;

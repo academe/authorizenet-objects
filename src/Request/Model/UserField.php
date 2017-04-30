@@ -10,7 +10,7 @@ use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\AmountInterface;
 use Academe\AuthorizeNetObjects\AbstractModel;
 
-class UserField extends AbstractModel implements TransactionRequestInterface
+class UserField extends AbstractModel
 {
     protected $name;
     protected $value;

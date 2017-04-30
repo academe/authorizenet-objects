@@ -9,7 +9,7 @@ namespace Academe\AuthorizeNetObjects\Request\Model;
 use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\AbstractModel;
 
-class CardholderAuthentication extends AbstractModel implements TransactionRequestInterface
+class CardholderAuthentication extends AbstractModel
 {
     protected $authenticationIndicator;
     protected $cardholderAuthenticationValue;

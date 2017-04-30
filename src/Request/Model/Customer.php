@@ -9,7 +9,7 @@ namespace Academe\AuthorizeNetObjects\Request\Model;
 use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\AbstractModel;
 
-class Customer extends AbstractModel implements TransactionRequestInterface
+class Customer extends AbstractModel
 {
     const CUSTOMER_TYPE_INDIVIDUAL = 'individual';
     const CUSTOMER_TYPE_BUSINESS = 'business';

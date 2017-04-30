@@ -10,13 +10,9 @@ namespace Academe\AuthorizeNetObjects\Request;
 
 use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\Auth\MerchantAuthentication;
-use Academe\AuthorizeNetObjects\AbstractModel;
 
-class CreateTransaction extends AbstractModel
+class CreateTransaction extends AbstractRequest
 {
-    protected $objectNameSuffix = 'Request';
-
-    protected $merchantAuthentication;
     protected $refId;
     protected $transactionRequest;
 
@@ -24,9 +20,8 @@ class CreateTransaction extends AbstractModel
         MerchantAuthentication $merchantAuthentication,
         TransactionRequestInterface $transactionRequest
     ) {
-        parent::__construct();
+        parent::__construct($merchantAuthentication);
 
-        $this->setMerchantAuthentication($merchantAuthentication);
         $this->setTransactionRequest($transactionRequest);
     }
 
@@ -59,11 +54,6 @@ class CreateTransaction extends AbstractModel
     protected function setRefId($value)
     {
         $this->refId = $value;
-    }
-
-    protected function setMerchantAuthentication(MerchantAuthentication $value)
-    {
-        $this->merchantAuthentication = $value;
     }
 
     protected function setTransactionRequest(TransactionRequestInterface $value)

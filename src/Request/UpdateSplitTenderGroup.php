@@ -7,16 +7,12 @@ namespace Academe\AuthorizeNetObjects\Request;
  */
 
 use Academe\AuthorizeNetObjects\Auth\MerchantAuthentication;
-use Academe\AuthorizeNetObjects\AbstractModel;
 
 class UpdateSplitTenderGroup extends AbstractModel
 {
     const SPLIT_TENDER_STATUS_VOIDED = 'voided';
     const SPLIT_TENDER_STATUS_COMPLETED = 'completed';
 
-    protected $objectNameSuffix = 'Request';
-
-    protected $merchantAuthentication;
     protected $splitTenderId;
     protected $splitTenderStatus;
     protected $refId;
@@ -25,9 +21,8 @@ class UpdateSplitTenderGroup extends AbstractModel
         MerchantAuthentication $merchantAuthentication,
         $splitTenderId
     ) {
-        parent::__construct();
+        parent::__construct($merchantAuthentication);
 
-        $this->setMerchantAuthentication($merchantAuthentication);
         $this->setSplitTenderId($splitTenderId);
     }
 
@@ -56,11 +51,6 @@ class UpdateSplitTenderGroup extends AbstractModel
         return [
             $this->getObjectName() => $data,
         ];
-    }
-
-    protected function setMerchantAuthentication(MerchantAuthentication $value)
-    {
-        $this->merchantAuthentication = $value;
     }
 
     // Numeric

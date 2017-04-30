@@ -10,7 +10,7 @@ use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\AmountInterface;
 use Academe\AuthorizeNetObjects\AbstractModel;
 
-class LineItem extends AbstractModel implements TransactionRequestInterface
+class LineItem extends AbstractModel
 {
     protected $itemId;
     protected $name;

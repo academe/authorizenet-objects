@@ -9,7 +9,7 @@ namespace Academe\AuthorizeNetObjects\Request\Model;
 use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\AbstractModel;
 
-class NameAddress extends AbstractModel implements TransactionRequestInterface
+class NameAddress extends AbstractModel
 {
     protected $firstName;
     protected $lastName;
