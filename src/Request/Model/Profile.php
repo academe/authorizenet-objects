@@ -10,17 +10,48 @@ namespace Academe\AuthorizeNetObjects\Request\Model;
 use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\AbstractModel;
 
-class CustomerProfile extends AbstractModel
+class Profile extends AbstractModel
 {
     protected $merchantCustomerId;
     protected $description;
     protected $email;
-    // List of profiles.
+    // List of profiles, or maybe just one (docs look wrong).
     protected $paymentProfiles;
 
-    public function __construct(
-    ) {
+    public function __construct()
+    {
         parent::__construct();
+    }
+
+    public function jsonSerialize()
+    {
+        $data = [];
+
+        // Not convinced this is the check we need, but it goes with
+        // the documentation.
+        if (! $this->hasMerchantCustomerId() && ! $this->hasDescription() && ! $this->Email()) {
+            throw new \InvalidArgumentException(sprintf(
+                'At least one of merchantCustomerId, description and email must be set; none are set'
+            ));
+        }
+
+        if ($this->hasMerchantCustomerId()) {
+            $data['merchantCustomerId'] = $this->getMerchantCustomerId();
+        }
+
+        if ($this->hasDescription()) {
+            $data['description'] = $this->getDescription();
+        }
+
+        if ($this->hasEmail()) {
+            $data['email'] = $this->getEmail();
+        }
+
+        if ($this->hasPaymentProfiles()) {
+            $data['paymentProfiles'] = $this->getPaymentProfiles();
+        }
+
+        return $data;
     }
 
     // Up to 20 characters.
