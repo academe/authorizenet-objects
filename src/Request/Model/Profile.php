@@ -16,6 +16,7 @@ class Profile extends AbstractModel
     protected $merchantCustomerId;
     protected $description;
     protected $email;
+    protected $customerProfileId;
     protected $paymentProfiles;
 
     public function __construct()
@@ -47,6 +48,10 @@ class Profile extends AbstractModel
             $data['email'] = $this->getEmail();
         }
 
+        if ($this->hasCustomerProfileId()) {
+            $data['customerProfileId'] = $this->getCustomerProfileId();
+        }
+
         if ($this->hasPaymentProfiles()) {
             $data['paymentProfiles'] = $this->getPaymentProfiles();
         }
@@ -71,6 +76,11 @@ class Profile extends AbstractModel
     protected function setEmail($value)
     {
         $this->email = $value;
+    }
+
+    protected function setCustomerProfileId($value)
+    {
+        $this->customerProfileId = $value;
     }
 
     // The documentation examples is not consistent with this item

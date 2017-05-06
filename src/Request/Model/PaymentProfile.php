@@ -16,10 +16,15 @@ class PaymentProfile extends AbstractModel
     const CUSTOMER_TYPE_INDIVIDUAL = 'individual';
     const CUSTOMER_TYPE_BUSINESS = 'business';
 
+    // For creating a new prfile.
     protected $customerType;
     protected $billTo;
     protected $payment;
     protected $defaultPaymentProfile;
+
+    // For using an existing profile.
+    protected $paymentProfileId;
+    protected $cardCode;
 
     public function __construct()
     {
@@ -56,6 +61,14 @@ class PaymentProfile extends AbstractModel
             }
         }
 
+        if ($this->hasPaymentProfileId()) {
+            $data['paymentProfileId'] = $this->getPaymentProfileId();
+        }
+
+        if ($this->hasCardCode()) {
+            $data['cardCode'] = $this->getCardCode();
+        }
+
         return $data;
     }
 
@@ -85,5 +98,15 @@ class PaymentProfile extends AbstractModel
         }
 
         $this->defaultPaymentProfile = $value;
+    }
+
+    protected function setPaymentProfileId($value)
+    {
+        $this->paymentProfileId = $value;
+    }
+
+    protected function setCardCode($value)
+    {
+        $this->cardCode = $value;
     }
 }
