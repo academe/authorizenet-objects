@@ -3,10 +3,11 @@
 namespace Academe\AuthorizeNetObjects\Request\Model;
 
 /**
- * SOme of the results of this object are retuned in JSON as a sting
+ * Some of the results of this object are retuned in JSON as a sting
  * containng a CSV list of lists. Ouch.
  */
 
+use Academe\AuthorizeNetObjects\Request\Collections\PaymentProfiles;
 use Academe\AuthorizeNetObjects\TransactionRequestInterface;
 use Academe\AuthorizeNetObjects\AbstractModel;
 
@@ -15,7 +16,6 @@ class Profile extends AbstractModel
     protected $merchantCustomerId;
     protected $description;
     protected $email;
-    // List of profiles, or maybe just one (docs look wrong).
     protected $paymentProfiles;
 
     public function __construct()
@@ -76,7 +76,7 @@ class Profile extends AbstractModel
     // The documentation examples is not consistent with this item
     // being a list of payment profiles, so some experiments are needed.
     // It is likely this will be a Collections\PaymentProfiles object.
-    protected function setPaymentProfiles(TBC $value)
+    protected function setPaymentProfiles(PaymentProfiles $value)
     {
         $this->paymentProfiles = $value;
     }

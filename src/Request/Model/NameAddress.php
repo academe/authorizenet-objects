@@ -20,6 +20,9 @@ class NameAddress extends AbstractModel
     protected $zip;
     protected $country;
 
+    protected $phoneNumber;
+    protected $faxNumber;
+
     public function __construct(
         $firstName = null,
         $lastName = null,
@@ -131,5 +134,15 @@ class NameAddress extends AbstractModel
     protected function setCountry($value)
     {
         $this->country = $value;
+    }
+
+    protected function setPhoneNumber($value)
+    {
+        $this->phoneNumber = $value;
+    }
+
+    protected function setFaxNumber($value)
+    {
+        $this->faxNumber = $value;
     }
 }
