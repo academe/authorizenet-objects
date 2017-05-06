@@ -75,7 +75,6 @@ class Customer extends AbstractModel
     protected function setCustomerType($value)
     {
         $this->assertValueCustomerType($value);
-
         $this->customerType = $value;
     }
 

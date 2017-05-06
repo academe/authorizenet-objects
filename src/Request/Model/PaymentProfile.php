@@ -12,6 +12,11 @@ use Academe\AuthorizeNetObjects\PaymentInterface;
 
 class PaymentProfile extends AbstractModel
 {
+    // Also defined in the Customer class.
+    const CUSTOMER_TYPE_INDIVIDUAL = 'individual';
+    const CUSTOMER_TYPE_BUSINESS = 'business';
+
+    protected $customerType;
     protected $billTo;
     protected $payment;
     protected $defaultPaymentProfile;
@@ -19,6 +24,45 @@ class PaymentProfile extends AbstractModel
     public function __construct()
     {
         parent::__construct();
+    }
+
+    public function jsonSerialize()
+    {
+        $data = [];
+
+        if ($this->hasCustomerType()) {
+            $data['type'] = $this->getCustomerType();
+        }
+
+        if ($this->hasBillTo()) {
+            $billTo = $this->getBillTo();
+
+            if ($billTo->hasAny()) {
+                $data['billTo'] = $billTo;
+            }
+        }
+
+        if ($this->hasPayment()) {
+            $data['payment'] = [
+                $this->getPayment()->getObjectName() => $this->getPayment(),
+            ];
+        }
+
+        if ($this->hasDefaultPaymentProfile()) {
+            $defaultPaymentProfile = $this->getDefaultPaymentProfile();
+
+            if ($defaultPaymentProfile->hasAny()) {
+                $data['defaultPaymentProfile'] = $defaultPaymentProfile;
+            }
+        }
+
+        return $data;
+    }
+
+    protected function setCustomerType($value)
+    {
+        $this->assertValueCustomerType($value);
+        $this->customerType = $value;
     }
 
     protected function setBillTo(NameAddress $value)

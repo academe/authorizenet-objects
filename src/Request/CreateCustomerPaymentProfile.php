@@ -6,33 +6,32 @@ namespace Academe\AuthorizeNetObjects\Request;
  * 
  */
 
+use Academe\AuthorizeNetObjects\Request\Model\PaymentProfile;
 use Academe\AuthorizeNetObjects\Auth\MerchantAuthentication;
-use Academe\AuthorizeNetObjects\AbstractModel;
-use Academe\AuthorizeNetObjects\Request\Model\Profile;
+use Academe\AuthorizeNetObjects\AbstractRequest;
 
-class CreateCustomerProfile extends AbstractRequest
+class CreateCustomerPaymentProfile extends AbstractRequest
 {
     /**
      * How the card or bank details are validated when setting
      * up the payment profile.
+     * Also defined in CreateCustomerProfile
      */
     const VALIDATION_MODE_NONE = 'none';
     const VALIDATION_MODE_TESTMODE = 'testMode';
     const VALIDATION_MODE_LIVEMODE = 'liveMode';
 
     protected $refId;
-    protected $profile;
-    // List of shipto addresses, or maybe just one (docs look wrong).
-    protected $shipToList;
+    protected $customerProfileId;
+    // Single payment profile.
+    protected $paymentProfile;
     protected $validationMode;
 
     public function __construct(
         MerchantAuthentication $merchantAuthentication,
-        Profile $customerProfile
+        PaymentProfile $paymentProfile
     ) {
         parent::__construct($merchantAuthentication);
-
-        $this->setCustomerProfile($customerProfile);
     }
 
     public function jsonSerialize()
@@ -46,12 +45,12 @@ class CreateCustomerProfile extends AbstractRequest
             $data['refId'] = $this->getRefId();
         }
 
-        if ($this->hasCustomerProfile()) {
-            $data['profile'] = $this->getProfile();
+        if ($this->hasCustomerProfileId()) {
+            $data['customerProfileId'] = $this->getCustomerProfileId();
         }
 
-        if ($this->hasShipToList()) {
-            $data['shipToList'] = $this->getShipToList);
+        if ($this->hasPaymentProfile()) {
+            $data['paymentProfile'] = $this->getPaymentProfile();
         }
 
         if ($this->hasValidationMode()) {
@@ -63,20 +62,21 @@ class CreateCustomerProfile extends AbstractRequest
         ];
     }
 
+    // Merchant-assigned reference ID for the request. Up to 20 characters.
     protected function setRefId($value)
     {
         $this->refId = $value;
     }
 
-    protected function setProfile($value)
+    // Payment gateway assigned ID. Numeric.
+    protected function setCustomerProfileId($value)
     {
-        $this->profile = $value;
+        $this->customerProfileId = $value;
     }
 
-    // One address or a collection? Docs are ambiguous.
-    protected function setShipToList(TBC $value)
+    protected function setPaymentProfile(PaymentProfile $value)
     {
-        $this->shipToList = $value;
+        $this->paymentProfile = $value;
     }
 
     protected function setValidationMode($value)
