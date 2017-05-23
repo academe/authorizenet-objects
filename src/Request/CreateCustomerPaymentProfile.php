@@ -3,12 +3,14 @@
 namespace Academe\AuthorizeNetObjects\Request;
 
 /**
- * 
+ * This function is used to create a new customer payment profile
+ * for an existing customer profile.
+ * CHECKME: customer profile ID should therefore be required?
  */
 
 use Academe\AuthorizeNetObjects\Request\Model\PaymentProfile;
 use Academe\AuthorizeNetObjects\Auth\MerchantAuthentication;
-use Academe\AuthorizeNetObjects\AbstractRequest;
+use Academe\AuthorizeNetObjects\Request\AbstractRequest;
 
 class CreateCustomerPaymentProfile extends AbstractRequest
 {
@@ -54,7 +56,7 @@ class CreateCustomerPaymentProfile extends AbstractRequest
         }
 
         if ($this->hasValidationMode()) {
-            $data['validationMode'] = $this->getValidationMode);
+            $data['validationMode'] = $this->getValidationMode();
         }
 
         return [

@@ -9,12 +9,18 @@ namespace Academe\AuthorizeNetObjects\Request\Model;
 
 use Academe\AuthorizeNetObjects\Request\Model\NameAddress;
 use Academe\AuthorizeNetObjects\PaymentInterface;
+use Academe\AuthorizeNetObjects\AbstractModel;
 
 class PaymentProfile extends AbstractModel
 {
     // Also defined in the Customer class.
     const CUSTOMER_TYPE_INDIVIDUAL = 'individual';
     const CUSTOMER_TYPE_BUSINESS = 'business';
+
+    // CHECKME: should this be two classes, one for defining a payment
+    // profile definition, and the other for using a payment profile?
+    // Or perhaps using a payment profile should not even be an object,
+    // but simply an ID scalar?
 
     // For creating a new prfile.
     protected $customerType;
