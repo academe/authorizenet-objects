@@ -1,16 +1,16 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Request;
+namespace Academe\AuthorizeNet\Request;
 
 /**
  * 
  */
 
-use Academe\AuthorizeNetObjects\Auth\MerchantAuthentication;
-use Academe\AuthorizeNetObjects\TransactionRequestInterface;
-use Academe\AuthorizeNetObjects\AbstractModel;
-use Academe\AuthorizeNetObjects\Request\Model\Profile;
-use Academe\AuthorizeNetObjects\Collections\HostedPaymentSettings;
+use Academe\AuthorizeNet\Auth\MerchantAuthentication;
+use Academe\AuthorizeNet\TransactionRequestInterface;
+use Academe\AuthorizeNet\AbstractModel;
+use Academe\AuthorizeNet\Request\Model\Profile;
+use Academe\AuthorizeNet\Collections\HostedPaymentSettings;
 
 class GetHostedPaymentPage extends AbstractRequest
 {

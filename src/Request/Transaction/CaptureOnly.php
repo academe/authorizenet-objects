@@ -1,14 +1,14 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Request\Transaction;
+namespace Academe\AuthorizeNet\Request\Transaction;
 
 /**
  * Transaction used to capture a previously authorized transaction.
  */
 
-use Academe\AuthorizeNetObjects\TransactionRequestInterface;
-use Academe\AuthorizeNetObjects\Request\Model\Order;
-use Academe\AuthorizeNetObjects\AmountInterface;
+use Academe\AuthorizeNet\TransactionRequestInterface;
+use Academe\AuthorizeNet\Request\Model\Order;
+use Academe\AuthorizeNet\AmountInterface;
 
 class CaptureOnly extends AbstractModel implements TransactionRequestInterface
 {

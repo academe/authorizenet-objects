@@ -1,13 +1,13 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Request\Model;
+namespace Academe\AuthorizeNet\Request\Model;
 
 /**
  *
  */
 
-use Academe\AuthorizeNetObjects\TransactionRequestInterface;
-use Academe\AuthorizeNetObjects\AbstractModel;
+use Academe\AuthorizeNet\TransactionRequestInterface;
+use Academe\AuthorizeNet\AbstractModel;
 
 class Retail extends AbstractModel
 {

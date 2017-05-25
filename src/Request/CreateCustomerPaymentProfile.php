@@ -1,6 +1,6 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Request;
+namespace Academe\AuthorizeNet\Request;
 
 /**
  * This function is used to create a new customer payment profile
@@ -8,9 +8,9 @@ namespace Academe\AuthorizeNetObjects\Request;
  * CHECKME: customer profile ID should therefore be required?
  */
 
-use Academe\AuthorizeNetObjects\Request\Model\PaymentProfile;
-use Academe\AuthorizeNetObjects\Auth\MerchantAuthentication;
-use Academe\AuthorizeNetObjects\Request\AbstractRequest;
+use Academe\AuthorizeNet\Request\Model\PaymentProfile;
+use Academe\AuthorizeNet\Auth\MerchantAuthentication;
+use Academe\AuthorizeNet\Request\AbstractRequest;
 
 class CreateCustomerPaymentProfile extends AbstractRequest
 {

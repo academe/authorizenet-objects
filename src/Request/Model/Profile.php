@@ -1,15 +1,15 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Request\Model;
+namespace Academe\AuthorizeNet\Request\Model;
 
 /**
  * Some of the results of this object are retuned in JSON as a sting
  * containng a CSV list of lists. Ouch.
  */
 
-use Academe\AuthorizeNetObjects\Request\Collections\PaymentProfiles;
-use Academe\AuthorizeNetObjects\TransactionRequestInterface;
-use Academe\AuthorizeNetObjects\AbstractModel;
+use Academe\AuthorizeNet\Request\Collections\PaymentProfiles;
+use Academe\AuthorizeNet\TransactionRequestInterface;
+use Academe\AuthorizeNet\AbstractModel;
 
 class Profile extends AbstractModel
 {

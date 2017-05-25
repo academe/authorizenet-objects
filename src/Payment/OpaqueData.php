@@ -1,13 +1,13 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Payment;
+namespace Academe\AuthorizeNet\Payment;
 
 /**
  * TODO: optional dataKey needed for decyrpting Visa checkout data.
  */
 
-use Academe\AuthorizeNetObjects\PaymentInterface;
-use Academe\AuthorizeNetObjects\AbstractModel;
+use Academe\AuthorizeNet\PaymentInterface;
+use Academe\AuthorizeNet\AbstractModel;
 
 class OpaqueData extends AbstractModel implements PaymentInterface
 {

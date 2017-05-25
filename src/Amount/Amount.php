@@ -1,14 +1,14 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Amount;
+namespace Academe\AuthorizeNet\Amount;
 
 /**
  * Value object for the amount, in the appropriate currency.
  * This object does not use any third-party packages to represent the amount.
  */
 
-use Academe\AuthorizeNetObjects\AmountInterface;
-use Academe\AuthorizeNetObjects\AbstractModel;
+use Academe\AuthorizeNet\AmountInterface;
+use Academe\AuthorizeNet\AbstractModel;
 use UnexpectedValueException;
 use Exception;
 

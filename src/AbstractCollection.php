@@ -1,12 +1,12 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects;
+namespace Academe\AuthorizeNet;
 
 /**
  * 
  */
 
-use Academe\AuthorizeNetObjects\AbstractModel;
+use Academe\AuthorizeNet\AbstractModel;
 use ReflectionClass;
 
 abstract class AbstractCollection extends AbstractModel implements \JsonSerializable, \Countable, \IteratorAggregate

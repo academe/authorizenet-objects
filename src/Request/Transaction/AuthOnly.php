@@ -1,6 +1,6 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Request\Transaction;
+namespace Academe\AuthorizeNet\Request\Transaction;
 
 class AuthOnly extends AuthCapture
 {

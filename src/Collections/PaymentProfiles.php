@@ -1,13 +1,13 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Collections;
+namespace Academe\AuthorizeNet\Collections;
 
 /**
  * 
  */
 
-use Academe\AuthorizeNetObjects\AbstractCollection;
-use Academe\AuthorizeNetObjects\Request\Model\PaymentProfile;
+use Academe\AuthorizeNet\AbstractCollection;
+use Academe\AuthorizeNet\Request\Model\PaymentProfile;
 
 class PaymentProfiles extends AbstractCollection
 {

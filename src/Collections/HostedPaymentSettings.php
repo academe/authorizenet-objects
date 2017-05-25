@@ -1,13 +1,13 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Collections;
+namespace Academe\AuthorizeNet\Collections;
 
 /**
  * 
  */
 
-use Academe\AuthorizeNetObjects\AbstractCollection;
-use Academe\AuthorizeNetObjects\Request\Model\HostedPaymentSetting;
+use Academe\AuthorizeNet\AbstractCollection;
+use Academe\AuthorizeNet\Request\Model\HostedPaymentSetting;
 
 class HostedPaymentSettings extends AbstractCollection
 {

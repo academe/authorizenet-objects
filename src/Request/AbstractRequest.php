@@ -1,13 +1,13 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Request;
+namespace Academe\AuthorizeNet\Request;
 
 /**
  * 
  */
 
-use Academe\AuthorizeNetObjects\Auth\MerchantAuthentication;
-use Academe\AuthorizeNetObjects\AbstractModel;
+use Academe\AuthorizeNet\Auth\MerchantAuthentication;
+use Academe\AuthorizeNet\AbstractModel;
 
 abstract class AbstractRequest extends AbstractModel
 {

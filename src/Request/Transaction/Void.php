@@ -1,6 +1,6 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Request\Transaction;
+namespace Academe\AuthorizeNet\Request\Transaction;
 
 /**
  * A refund is nearly identical to an original payment, so we will
@@ -9,8 +9,8 @@ namespace Academe\AuthorizeNetObjects\Request\Transaction;
  * Void is pretty simplie: void the transaction and go. There is no other context.
  */
 
-use Academe\AuthorizeNetObjects\TransactionRequestInterface;
-use Academe\AuthorizeNetObjects\AbstractModel;
+use Academe\AuthorizeNet\TransactionRequestInterface;
+use Academe\AuthorizeNet\AbstractModel;
 
 class Void extends AbstractModel implements TransactionRequestInterface
 {

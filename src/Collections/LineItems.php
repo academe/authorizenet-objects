@@ -1,13 +1,13 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Collections;
+namespace Academe\AuthorizeNet\Collections;
 
 /**
  * 
  */
 
-use Academe\AuthorizeNetObjects\AbstractCollection;
-use Academe\AuthorizeNetObjects\Request\Model\LineItem;
+use Academe\AuthorizeNet\AbstractCollection;
+use Academe\AuthorizeNet\Request\Model\LineItem;
 
 class LineItems extends AbstractCollection
 {

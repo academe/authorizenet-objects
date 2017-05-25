@@ -1,15 +1,15 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Request\Model;
+namespace Academe\AuthorizeNet\Request\Model;
 
 /**
  * Some of the results of this object are retuned in JSON as a sting
  * containng a CSV list of lists. Ouch.
  */
 
-use Academe\AuthorizeNetObjects\Request\Model\NameAddress;
-use Academe\AuthorizeNetObjects\PaymentInterface;
-use Academe\AuthorizeNetObjects\AbstractModel;
+use Academe\AuthorizeNet\Request\Model\NameAddress;
+use Academe\AuthorizeNet\PaymentInterface;
+use Academe\AuthorizeNet\AbstractModel;
 
 class PaymentProfile extends AbstractModel
 {
@@ -90,7 +90,7 @@ class PaymentProfile extends AbstractModel
     }
 
     // Allowed payment types: creditCard, bankAccount, or opaqueData
-    // Academe\AuthorizeNetObjects\Payment\CreditCard|BankAccount|OpaqueData
+    // Academe\AuthorizeNet\Payment\CreditCard|BankAccount|OpaqueData
     protected function setPayment(PaymentInterface $value)
     {
         $this->payment = $value;

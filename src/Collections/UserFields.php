@@ -1,13 +1,13 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Collections;
+namespace Academe\AuthorizeNet\Collections;
 
 /**
  * 
  */
 
-use Academe\AuthorizeNetObjects\AbstractCollection;
-use Academe\AuthorizeNetObjects\Request\Model\UserField;
+use Academe\AuthorizeNet\AbstractCollection;
+use Academe\AuthorizeNet\Request\Model\UserField;
 
 class UserFields extends AbstractCollection
 {

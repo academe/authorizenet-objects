@@ -1,13 +1,13 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Collections;
+namespace Academe\AuthorizeNet\Collections;
 
 /**
  * 
  */
 
-use Academe\AuthorizeNetObjects\AbstractCollection;
-use Academe\AuthorizeNetObjects\Request\Model\Setting;
+use Academe\AuthorizeNet\AbstractCollection;
+use Academe\AuthorizeNet\Request\Model\Setting;
 
 class TransactionSettings extends AbstractCollection
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Request;
+namespace Academe\AuthorizeNet\Request;
 
 /**
  * This is the most commonly used message, which will carry many types of
  * transactions, including authorisation, capture, void and refund.
- * The transactions can all be found under Academe\AuthorizeNetObjects\Request\Transaction
+ * The transactions can all be found under Academe\AuthorizeNet\Request\Transaction
  */
 
-use Academe\AuthorizeNetObjects\TransactionRequestInterface;
-use Academe\AuthorizeNetObjects\Auth\MerchantAuthentication;
+use Academe\AuthorizeNet\TransactionRequestInterface;
+use Academe\AuthorizeNet\Auth\MerchantAuthentication;
 
 class CreateTransaction extends AbstractRequest
 {

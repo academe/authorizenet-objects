@@ -1,6 +1,6 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Request\Transaction;
+namespace Academe\AuthorizeNet\Request\Transaction;
 
 /**
  * Parameters:
@@ -28,19 +28,19 @@ namespace Academe\AuthorizeNetObjects\Request\Transaction;
  * shipTo seems to include the originating user's IP address, which is a bit bizarre
  */
 
-use Academe\AuthorizeNetObjects\Request\Model\CardholderAuthentication;
-use Academe\AuthorizeNetObjects\Collections\TransactionSettings;
-use Academe\AuthorizeNetObjects\Request\Model\ExtendedAmount;
-use Academe\AuthorizeNetObjects\TransactionRequestInterface;
-use Academe\AuthorizeNetObjects\Request\Model\NameAddress;
-use Academe\AuthorizeNetObjects\Request\Model\Customer;
-use Academe\AuthorizeNetObjects\Collections\UserFields;
-use Academe\AuthorizeNetObjects\Collections\LineItems;
-use Academe\AuthorizeNetObjects\Request\Model\Retail;
-use Academe\AuthorizeNetObjects\Request\Model\Order;
-use Academe\AuthorizeNetObjects\PaymentInterface;
-use Academe\AuthorizeNetObjects\AmountInterface;
-use Academe\AuthorizeNetObjects\AbstractModel;
+use Academe\AuthorizeNet\Request\Model\CardholderAuthentication;
+use Academe\AuthorizeNet\Collections\TransactionSettings;
+use Academe\AuthorizeNet\Request\Model\ExtendedAmount;
+use Academe\AuthorizeNet\TransactionRequestInterface;
+use Academe\AuthorizeNet\Request\Model\NameAddress;
+use Academe\AuthorizeNet\Request\Model\Customer;
+use Academe\AuthorizeNet\Collections\UserFields;
+use Academe\AuthorizeNet\Collections\LineItems;
+use Academe\AuthorizeNet\Request\Model\Retail;
+use Academe\AuthorizeNet\Request\Model\Order;
+use Academe\AuthorizeNet\PaymentInterface;
+use Academe\AuthorizeNet\AmountInterface;
+use Academe\AuthorizeNet\AbstractModel;
 
 class AuthCapture extends AbstractModel implements TransactionRequestInterface
 {

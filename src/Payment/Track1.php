@@ -1,13 +1,13 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Payment;
+namespace Academe\AuthorizeNet\Payment;
 
 /**
  * TODO: protect the data from var_dump
  */
 
-use Academe\AuthorizeNetObjects\PaymentInterface;
-use Academe\AuthorizeNetObjects\AbstractModel;
+use Academe\AuthorizeNet\PaymentInterface;
+use Academe\AuthorizeNet\AbstractModel;
 
 class Track1 extends AbstractModel implements PaymentInterface
 {

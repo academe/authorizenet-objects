@@ -5,12 +5,12 @@ For now, just exploring some ideas.
 ```php
 <?php
 
-use Academe\AuthorizeNetObjects;
-use Academe\AuthorizeNetObjects\Auth;
-use Academe\AuthorizeNetObjects\Amount;
-use Academe\AuthorizeNetObjects\Payment;
-use Academe\AuthorizeNetObjects\Request;
-use Academe\AuthorizeNetObjects\Collections;
+use Academe\AuthorizeNet;
+use Academe\AuthorizeNet\Auth;
+use Academe\AuthorizeNet\Amount;
+use Academe\AuthorizeNet\Payment;
+use Academe\AuthorizeNet\Request;
+use Academe\AuthorizeNet\Collections;
 
 // Composer: moneyphp/money
 use Money\Money;
@@ -25,7 +25,7 @@ $auth = new Auth\MerchantAuthentication('xxx', 'yyy');
 // Create a credit card.
 $credit_card = new Payment\CreditCard('4000123412341234', '1220', '123');
 
-// Or create a magnetic stri track (only one can be used).
+// Or create a magnetic stripe track (only one can be used).
 $track1 = new Payment\Track1('TTTTTTTTTTTTTTTT11111');
 $track2 = new Payment\Track2('TTTTTTTT2222222222222222');
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects;
+namespace Academe\AuthorizeNet;
 
 /**
  * Amount interface, for carrying an amount and its currency.

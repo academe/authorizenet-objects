@@ -1,6 +1,6 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects;
+namespace Academe\AuthorizeNet;
 
 /**
  * A payment type, such as a card, card nonce, card-present track.

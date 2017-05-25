@@ -1,6 +1,6 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects;
+namespace Academe\AuthorizeNet;
 
 /**
  *

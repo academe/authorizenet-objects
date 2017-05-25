@@ -1,7 +1,7 @@
 {
-    "name": "academe/authorizenet-objects",
+    "name": "academe/authorizenet",
     "type": "library",
-    "description": "Authorize.Net API value objects",
+    "description": "Authorize.Net API Message Value Objects",
     "keywords": [
         "authorize net",
         "authorize",
@@ -21,7 +21,7 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Academe\\AuthorizeNetObjects\\" : "src/" }
+        "psr-4": { "Academe\\AuthorizeNet\\" : "src/" }
     },
     "require": {
         "php": ">=5.5.0"

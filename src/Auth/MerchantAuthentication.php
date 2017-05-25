@@ -1,6 +1,6 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Auth;
+namespace Academe\AuthorizeNet\Auth;
 
 /**
  * TODO: protect this data from var_dump.
@@ -10,7 +10,7 @@ namespace Academe\AuthorizeNetObjects\Auth;
  * needs to be looked at.
  */
 
-use Academe\AuthorizeNetObjects\AbstractModel;
+use Academe\AuthorizeNet\AbstractModel;
 
 class MerchantAuthentication extends AbstractModel
 {

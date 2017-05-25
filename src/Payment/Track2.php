@@ -1,6 +1,6 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Payment;
+namespace Academe\AuthorizeNet\Payment;
 
 /**
  * TODO: protect the data from var_dump

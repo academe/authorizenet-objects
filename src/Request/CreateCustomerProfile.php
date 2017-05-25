@@ -1,14 +1,14 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Request;
+namespace Academe\AuthorizeNet\Request;
 
 /**
  * 
  */
 
-use Academe\AuthorizeNetObjects\Auth\MerchantAuthentication;
-use Academe\AuthorizeNetObjects\AbstractModel;
-use Academe\AuthorizeNetObjects\Request\Model\Profile;
+use Academe\AuthorizeNet\Auth\MerchantAuthentication;
+use Academe\AuthorizeNet\AbstractModel;
+use Academe\AuthorizeNet\Request\Model\Profile;
 
 class CreateCustomerProfile extends AbstractRequest
 {

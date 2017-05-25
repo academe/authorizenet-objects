@@ -1,6 +1,6 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Request\Transaction;
+namespace Academe\AuthorizeNet\Request\Transaction;
 
 /**
  * A refund is nearly identical to an original payment, so we will
@@ -11,10 +11,10 @@ namespace Academe\AuthorizeNetObjects\Request\Transaction;
  * transaction before it is settled.
  */
 
-use Academe\AuthorizeNetObjects\TransactionRequestInterface;
-use Academe\AuthorizeNetObjects\Payment\BankAccount;
-use Academe\AuthorizeNetObjects\Payment\CreditCard;
-use Academe\AuthorizeNetObjects\AmountInterface;
+use Academe\AuthorizeNet\TransactionRequestInterface;
+use Academe\AuthorizeNet\Payment\BankAccount;
+use Academe\AuthorizeNet\Payment\CreditCard;
+use Academe\AuthorizeNet\AmountInterface;
 
 class Refund extends AuthCapture implements TransactionRequestInterface
 {

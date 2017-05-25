@@ -1,6 +1,6 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Amount;
+namespace Academe\AuthorizeNet\Amount;
 
 /**
  * Value object for the amount, wrapping the moneyphp/money package.
@@ -10,8 +10,8 @@ namespace Academe\AuthorizeNetObjects\Amount;
  * to use it.
  */
 
-use Academe\AuthorizeNetObjects\AmountInterface;
-use Academe\AuthorizeNetObjects\AbstractModel;
+use Academe\AuthorizeNet\AmountInterface;
+use Academe\AuthorizeNet\AbstractModel;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Currencies\ISOCurrencies;
 use Money\Money;

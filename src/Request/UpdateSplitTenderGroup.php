@@ -1,12 +1,12 @@
 <?php
 
-namespace Academe\AuthorizeNetObjects\Request;
+namespace Academe\AuthorizeNet\Request;
 
 /**
  * 
  */
 
-use Academe\AuthorizeNetObjects\Auth\MerchantAuthentication;
+use Academe\AuthorizeNet\Auth\MerchantAuthentication;
 
 class UpdateSplitTenderGroup extends AbstractModel
 {
