@@ -8,11 +8,13 @@ namespace Academe\AuthorizeNet\Response;
 
 use Academe\AuthorizeNet\Response\Collections\Messages;
 use Academe\AuthorizeNet\Response\Model\TransactionResponse;
+use Academe\AuthorizeNet\AbstractModel;
 
-class Response // extends AbstractResponse
+class Response extends AbstractModel
 {
     use HasDataTrait;
 
+    protected $refId;
     protected $messages;
     protected $transactionResponse;
 
@@ -23,12 +25,40 @@ class Response // extends AbstractResponse
     {
         $this->setData($data);
 
+        $this->setRefId($this->getDataValue('refId'));
+
         if ($messages = $this->getDataValue('messages')) {
-            $this->messages = new Messages($messages);
+            $this->setMessages(new Messages($messages));
         }
 
         if ($transactionResponse = $this->getDataValue('transactionResponse')) {
-            $this->transactionResponse = new TransactionResponse($transactionResponse);
+            $this->setTransactionResponse(new TransactionResponse($transactionResponse));
         }
+    }
+
+    public function jsonSerialize()
+    {
+        $data = [
+            'refId' => $this->getRefId(),
+            'messages' => $this->getMessages(),
+            'transactionResponse' => $this->getTransactionResponse(),
+        ];
+
+        return $data;
+    }
+
+    protected function setRefId($value)
+    {
+        $this->refId = $value;
+    }
+
+    protected function setMessages(Messages $value)
+    {
+        $this->messages = $value;
+    }
+
+    protected function setTransactionResponse(TransactionResponse $value)
+    {
+        $this->transactionResponse = $value;
     }
 }

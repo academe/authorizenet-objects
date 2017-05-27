@@ -3,34 +3,32 @@
 namespace Academe\AuthorizeNet\Response\Model;
 
 /**
- * Single Response message.
- * This is the top level of the response, not a message you would find
- * within a transacton response.
+ * Single Transaction Response message.
  */
 
 use Academe\AuthorizeNet\Response\HasDataTrait;
 use Academe\AuthorizeNet\AbstractModel;
 
-class Message extends AbstractModel
+class TransactionMessage extends AbstractModel
 {
     use HasDataTrait;
 
     protected $code;
-    protected $text;
+    protected $description;
 
     public function __construct($data)
     {
         $this->setData($data);
 
         $this->setCode($this->getDataValue('code'));
-        $this->setText($this->getDataValue('text'));
+        $this->setDescription($this->getDataValue('description'));
     }
 
     public function jsonSerialize()
     {
         $data = [
             'code' => $this->getCode(),
-            'text' => $this->getText(),
+            'description' => $this->getDescription(),
         ];
 
         return $data;
@@ -41,8 +39,8 @@ class Message extends AbstractModel
         $this->code = $value;
     }
 
-    protected function setText($value)
+    protected function setDescription($value)
     {
-        $this->text = $value;
+        $this->description = $value;
     }
 }

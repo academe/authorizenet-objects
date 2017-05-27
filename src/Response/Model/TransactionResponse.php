@@ -6,9 +6,13 @@ namespace Academe\AuthorizeNet\Response\Model;
  * 
  */
 
+use Academe\AuthorizeNet\Response\Model\TransactionMessages;
+use Academe\AuthorizeNet\Response\Model\PrePaidCard;
 use Academe\AuthorizeNet\Response\HasDataTrait;
+use Academe\AuthorizeNet\Response\Collections\Errors;
+use Academe\AuthorizeNet\AbstractModel;
 
-class TransactionResponse
+class TransactionResponse extends AbstractModel
 {
     use HasDataTrait;
 
@@ -94,7 +98,8 @@ class TransactionResponse
      * TBC collection
      * $messages
      */
-    protected $messages;
+    //protected $messages;
+    protected $transactionMessages;
 
     /**
      * @property
@@ -148,18 +153,138 @@ class TransactionResponse
     {
         $this->setData($data);
 
-        $this->responseCode = $this->getDataValue('responseCode');
-        $this->rawResponseCode = $this->getDataValue('rawResponseCode');
-        $this->authCode = $this->getDataValue('authCode');
-        $this->avsResultCode = $this->getDataValue('avsResultCode');
-        $this->cvvResultCode = $this->getDataValue('cvvResultCode');
+        $this->setResponseCode($this->getDataValue('responseCode'));
+        $this->setRawResponseCode($this->getDataValue('rawResponseCode'));
+        $this->setAuthCode($this->getDataValue('authCode'));
+        $this->setAvsResultCode($this->getDataValue('avsResultCode'));
+        $this->setCvvResultCode($this->getDataValue('cvvResultCode'));
 
-        $this->transId = $this->getDataValue('transId');
-        $this->refTransId = $this->getDataValue('refTransId');
-        $this->transHash = $this->getDataValue('transHash');
+        $this->setTransId($this->getDataValue('transId'));
+        $this->setRefTransId($this->getDataValue('refTransId'));
+        $this->setTransHash($this->getDataValue('transHash'));
 
-        $this->testRequest = $this->getDataValue('testRequest');
+        $this->setTestRequest($this->getDataValue('testRequest'));
+
+        $this->setAccountNumber($this->getDataValue('accountNumber'));
+        $this->setEntryMode($this->getDataValue('entryMode'));
+        $this->setAccountType($this->getDataValue('accountType'));
+        $this->setSplitTenderId($this->getDataValue('splitTenderId'));
+
+        if ($prePaidCard = $this->getDataValue('prePaidCard')) {
+            $this->setPrePaidCard(new PrePaidCard($prePaidCard));
+        }
+
+        if ($messages = $this->getDataValue('messages')) {
+            $this->setTransactionMessages(new TransactionMessages($messages));
+        }
+
+        if ($errors = $this->getDataValue('errors')) {
+            $this->setErrors(new Errors($errors));
+        }
 
         // etc.
+    }
+
+    public function jsonSerialize()
+    {
+        $data = [
+            'responseCode' => $this->getResponseCode(),
+            'rawResponseCode' => $this->getRawResponseCode(),
+            'authCode' => $this->getAuthCode(),
+            'avsResultCode' => $this->getAvsResultCode(),
+            'cvvResultCode' => $this->getCvvResultCode(),
+            'transId' => $this->getTransId(),
+            'refTransId' => $this->getRefTransId(),
+            'transHash' => $this->getTransHash(),
+            'testRequest' => $this->getTestRequest(),
+            'accountNumber' => $this->getAccountNumber(),
+            'entryMode' => $this->getEntryMode(),
+            'accountType' => $this->getAccountType(),
+            'splitTenderId' => $this->getSplitTenderId(),
+            'messages' => $this->getTransactionMessages(),
+            'errors' => $this->getErrors(),
+        ];
+
+        return $data;
+    }
+
+    protected function setResponseCode($value)
+    {
+        $this->responseCode = $value;
+    }
+
+    protected function setRawResponseCode($value)
+    {
+        $this->rawResponseCode = $value;
+    }
+
+    protected function setAuthCode($value)
+    {
+        $this->authCode = $value;
+    }
+
+    protected function setAvsResultCode($value)
+    {
+        $this->avsResultCode = $value;
+    }
+
+    protected function setCvvResultCode($value)
+    {
+        $this->cvvResultCode = $value;
+    }
+
+    protected function setTransId($value)
+    {
+        $this->transId = $value;
+    }
+
+    protected function setRefTransId($value)
+    {
+        $this->refTransId = $value;
+    }
+
+    protected function setTransHash($value)
+    {
+        $this->transHash = $value;
+    }
+
+    protected function setTestRequest($value)
+    {
+        $this->testRequest = $value;
+    }
+
+    protected function setAccountNumber($value)
+    {
+        $this->accountNumber = $value;
+    }
+
+    protected function setEntryMode($value)
+    {
+        $this->entryMode = $value;
+    }
+
+    protected function setAccountType($value)
+    {
+        $this->accountType = $value;
+    }
+
+    protected function setSplitTenderId($value)
+    {
+        $this->splitTenderId = $value;
+    }
+
+    protected function setPrePaidCard(PrePaidCard $value)
+    {
+        $this->prePaidCard = $value;
+    }
+
+    protected function setTransactionMessages(TransactionMessages $value)
+    {
+        $this->transactionMessages = $value;
+    }
+
+    protected function setErrors(Errors $value)
+    {
+        $this->errors = $value;
     }
 }

@@ -287,5 +287,4 @@ var_dump((string)$response->getBody());
    }
 }
 */
-
 ```
