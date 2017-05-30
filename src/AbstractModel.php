@@ -124,6 +124,13 @@ abstract class AbstractModel implements \JsonSerializable
         throw new \BadMethodCallException(sprintf('Called method "%s" does not exist', $name));
     }
 
+    public function __get($property_name)
+    {
+        if (property_exists($this, $property_name)) {
+            return $this->{$property_name};
+        }
+    }
+
     public function with(array $valueList)
     {
         $clone = clone $this;
