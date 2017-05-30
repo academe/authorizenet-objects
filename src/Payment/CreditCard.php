@@ -54,8 +54,12 @@ class CreditCard extends AbstractModel implements PaymentInterface
         $this->cardNumber = $value;
     }
 
-    // TODO: support setting and getting the year and month as separate values.
-
+    /**
+     * Set the CC expiration date.
+     * TODO: support setting and getting the year and month as separate values.
+     *
+     * @param string $value Date in any format: MMYY, MM/YY, MM-YY, MMYYYY, MM/YYYY, MM-YYYY
+     */
     protected function setExpirationDate($value)
     {
         $this->expirationDate = $value;

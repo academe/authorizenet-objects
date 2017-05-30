@@ -6,7 +6,7 @@ namespace Academe\AuthorizeNet\Response\Model;
  * 
  */
 
-use Academe\AuthorizeNet\Response\Model\TransactionMessages;
+use Academe\AuthorizeNet\Response\Collections\TransactionMessages;
 use Academe\AuthorizeNet\Response\Model\PrePaidCard;
 use Academe\AuthorizeNet\Response\HasDataTrait;
 use Academe\AuthorizeNet\Response\Collections\Errors;

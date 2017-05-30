@@ -81,6 +81,14 @@ class NameAddress extends AbstractModel
             $data['country'] = $this->getCountry();
         }
 
+        if ($this->hasPhoneNumber()) {
+            $data['phoneNumber'] = $this->getPhoneNumber();
+        }
+
+        if ($this->hasFaxNumber()) {
+            $data['faxNumber'] = $this->getFaxNumber();
+        }
+
         return $data;
     }
 
@@ -93,7 +101,9 @@ class NameAddress extends AbstractModel
             || $this->hasCity()
             || $this->hasState()
             || $this->hasZip()
-            || $this->hasCountry();
+            || $this->hasCountry()
+            || $this->hasPhoneNumber()
+            || $this->hasFaxNumber();
     }
 
     protected function setFirstName($value)

@@ -15,11 +15,14 @@ class TransactionMessages extends AbstractCollection
 {
     use HasDataTrait;
 
+    /**
+     * @param array $data Array of transaction messages data.
+     */
     public function __construct($data)
     {
         $this->setData($data);
 
-        foreach ($this->getDataValue('message') as $message_data) {
+        foreach ($this->getData() as $message_data) {
             $this->push(new TransactionMessage($message_data));
         }
     }
@@ -28,10 +31,5 @@ class TransactionMessages extends AbstractCollection
     {
         // Make sure the item is the correct type, and is not empty.
         return $item instanceof TransactionMessage;
-    }
-
-    protected function setMessage($value)
-    {
-        $this->message = $value;
     }
 }
