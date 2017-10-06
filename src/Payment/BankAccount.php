@@ -64,7 +64,9 @@ class BankAccount extends AbstractModel implements PaymentInterface
         if ($this->hasEcheckType()) {
             $getEcheckType = $this->getEcheckType();
 
-            $checkNumberRequired = ($getEcheckType == static::ECHECK_TYPE_ARC || $getEcheckType == static::ECHECK_TYPE_BOC);
+            $checkNumberRequired = (
+                $getEcheckType == static::ECHECK_TYPE_ARC || $getEcheckType == static::ECHECK_TYPE_BOC
+            );
 
             if ($checkNumberRequired && ! $this->hasCheckNumber()) {
                 // The check number is missing when it is required.

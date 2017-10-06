@@ -3,7 +3,7 @@
 namespace Academe\AuthorizeNet\Request;
 
 /**
- * 
+ *
  */
 
 use Academe\AuthorizeNet\Auth\MerchantAuthentication;

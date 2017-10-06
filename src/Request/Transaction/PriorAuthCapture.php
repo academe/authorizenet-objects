@@ -20,7 +20,7 @@ class PriorAuthCapture extends AbstractModel implements TransactionRequestInterf
     protected $order;
 
     /**
-     * 
+     *
      */
     public function __construct(AmountInterface $amount, $refTransId)
     {

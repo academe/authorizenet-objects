@@ -158,7 +158,7 @@ class Refund extends AuthCapture implements TransactionRequestInterface
         }
 
         if ($this->hasCustomerIP()) {
-            $data['customerIP'] = $this->getCustomerIP();;
+            $data['customerIP'] = $this->getCustomerIP();
         }
 
         if ($this->hasTransactionSettings()) {

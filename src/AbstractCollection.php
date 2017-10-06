@@ -3,15 +3,18 @@
 namespace Academe\AuthorizeNet;
 
 /**
- * 
+ *
  */
 
 use Academe\AuthorizeNet\AbstractModel;
-//use ReflectionClass;
 
-abstract class AbstractCollection extends AbstractModel implements \JsonSerializable, \Countable, \IteratorAggregate, \ArrayAccess
+abstract class AbstractCollection extends AbstractModel implements
+    \JsonSerializable,
+    \Countable,
+    \IteratorAggregate,
+    \ArrayAccess
 {
-     protected $items;
+    protected $items;
 
     /**
      * @param mixed $item
@@ -55,7 +58,7 @@ abstract class AbstractCollection extends AbstractModel implements \JsonSerializ
         $data = [];
 
         // Maybe filter for where hasAny() is true?
-        foreach($this as $item) {
+        foreach ($this as $item) {
             $data[] = $item;
         }
 
@@ -99,7 +102,8 @@ abstract class AbstractCollection extends AbstractModel implements \JsonSerializ
     // ArrayAccess methods
     //
 
-    public function offsetSet($offset, $value) {
+    public function offsetSet($offset, $value)
+    {
         if (is_null($offset)) {
             $this->items[] = $value;
         } else {
@@ -107,15 +111,18 @@ abstract class AbstractCollection extends AbstractModel implements \JsonSerializ
         }
     }
 
-    public function offsetExists($offset) {
+    public function offsetExists($offset)
+    {
         return isset($this->items[$offset]);
     }
 
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset)
+    {
         unset($this->items[$offset]);
     }
 
-    public function offsetGet($offset) {
+    public function offsetGet($offset)
+    {
         return isset($this->items[$offset]) ? $this->items[$offset] : null;
     }
 }

@@ -2,6 +2,13 @@
 
 For now, just exploring some ideas.
 
+The aim is to model, as value objects, all the data structures defined here:
+http://developer.authorize.net/api/reference/
+
+Further libraries can then wrap these objects into a gateway driver.
+Any request object, once constructed, can be serialised to JSON (`json_encode()`)
+to provide the body of the request that the API will expect.
+
 ```php
 <?php
 

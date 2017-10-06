@@ -3,7 +3,7 @@
 namespace Academe\AuthorizeNet\Response\Model;
 
 /**
- * 
+ *
  */
 
 use Academe\AuthorizeNet\Response\Collections\TransactionMessages;

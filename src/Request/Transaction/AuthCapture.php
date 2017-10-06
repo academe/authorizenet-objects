@@ -190,15 +190,15 @@ class AuthCapture extends AbstractModel implements TransactionRequestInterface
         }
 
         if ($this->hasCustomerIP()) {
-            $data['customerIP'] = $this->getCustomerIP();;
+            $data['customerIP'] = $this->getCustomerIP();
         }
 
         if ($this->hasCardholderAuthentication()) {
-            $data['cardholderAuthentication'] = $this->getCardholderAuthentication();;
+            $data['cardholderAuthentication'] = $this->getCardholderAuthentication();
         }
 
         if ($this->hasRetail()) {
-            $data['retail'] = $this->getRetail();;
+            $data['retail'] = $this->getRetail();
         }
 
         if ($this->hasEmployeeId()) {

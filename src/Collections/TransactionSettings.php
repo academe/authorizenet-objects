@@ -3,7 +3,7 @@
 namespace Academe\AuthorizeNet\Collections;
 
 /**
- * 
+ *
  */
 
 use Academe\AuthorizeNet\AbstractCollection;

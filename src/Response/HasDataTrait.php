@@ -3,7 +3,7 @@
 namespace Academe\AuthorizeNet\Response;
 
 /**
- * 
+ *
  */
 
 trait HasDataTrait

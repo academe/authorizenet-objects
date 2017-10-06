@@ -3,16 +3,13 @@
 namespace Academe\AuthorizeNet\Request\Transaction;
 
 /**
- * A refund is nearly identical to an original payment, so we will
- * base this class on the payment (AuthCapture), with some alterations.
- *
  * Void is pretty simplie: void the transaction and go. There is no other context.
  */
 
 use Academe\AuthorizeNet\TransactionRequestInterface;
 use Academe\AuthorizeNet\AbstractModel;
 
-class Void extends AbstractModel implements TransactionRequestInterface
+class VoidTransaction extends AbstractModel implements TransactionRequestInterface
 {
     protected $objectName = 'transactionRequest';
     protected $transactionType = 'voidTransaction';
@@ -20,7 +17,7 @@ class Void extends AbstractModel implements TransactionRequestInterface
     protected $refTransId;
 
     /**
-     * 
+     *
      */
     public function __construct($refTransId)
     {

@@ -3,7 +3,7 @@
 namespace Academe\AuthorizeNet;
 
 /**
- * 
+ *
  */
 
 use ReflectionClass;
@@ -63,9 +63,7 @@ abstract class AbstractModel implements \JsonSerializable
                 $clone->{$setter}($value);
                 return $clone;
             }
-        }
-
-        elseif (substr($name, 0, 3) === 'get') {
+        } elseif (substr($name, 0, 3) === 'get') {
             // Get the property name.
 
             $property = lcfirst(substr($name, 3));
@@ -73,17 +71,13 @@ abstract class AbstractModel implements \JsonSerializable
             if (property_exists($this, $property)) {
                 return $this->{$property};
             }
-        }
-
-        elseif (substr($name, 0, 3) === 'has') {
+        } elseif (substr($name, 0, 3) === 'has') {
             // Get the property name.
 
             $property = lcfirst(substr($name, 3));
 
             return (property_exists($this, $property) && $this->{$property} !== null);
-        }
-
-        elseif (substr($name, 0, 6) === 'values') {
+        } elseif (substr($name, 0, 6) === 'values') {
             // Get the property name.
 
             $property = lcfirst(substr($name, 6));
@@ -92,9 +86,7 @@ abstract class AbstractModel implements \JsonSerializable
             $prefix = ltrim(strtoupper(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', $property)), '_');
 
             return $this->constantList($prefix);
-        }
-
-        elseif (substr($name, 0, 11) === 'assertValue') {
+        } elseif (substr($name, 0, 11) === 'assertValue') {
             $value = isset($arguments[0]) ? $arguments[0] : null;
 
             if (! isset($value)) {
@@ -135,7 +127,7 @@ abstract class AbstractModel implements \JsonSerializable
     {
         $clone = clone $this;
 
-        foreach($valueList as $name => $value) {
+        foreach ($valueList as $name => $value) {
             $setter = 'set' . ucfirst($name);
 
             $clone->{$setter}($value);
@@ -157,7 +149,7 @@ abstract class AbstractModel implements \JsonSerializable
         if (isset($prefix)) {
             $result = [];
             $prefix = strtoupper($prefix);
-            foreach($constants as $key => $value) {
+            foreach ($constants as $key => $value) {
                 if (strpos($key, $prefix) === 0) {
                     $result[$key] = $value;
                 }

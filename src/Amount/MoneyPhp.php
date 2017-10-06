@@ -32,7 +32,8 @@ class MoneyPhp extends AbstractModel implements AmountInterface
     /**
      * @return string Amount formatted as decimal major and minor units.
      */
-    public function getFormatted() {
+    public function getFormatted()
+    {
         $currencies = new ISOCurrencies();
         $moneyFormatter = new DecimalMoneyFormatter($currencies);
 

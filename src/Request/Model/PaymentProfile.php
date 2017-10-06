@@ -96,7 +96,7 @@ class PaymentProfile extends AbstractModel
         $this->payment = $value;
     }
 
-    // When set to true, this field designates the payment profile as the default 
+    // When set to true, this field designates the payment profile as the default
     protected function setDefaultPaymentProfile($value)
     {
         if ($value !== true) {
