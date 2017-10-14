@@ -18,7 +18,7 @@ class TransactionMessages extends AbstractCollection
     /**
      * @param array $data Array of transaction messages data.
      */
-    public function __construct($data)
+    public function __construct(array $data = [])
     {
         $this->setData($data);
 

@@ -15,7 +15,7 @@ class Errors extends AbstractCollection
 {
     use HasDataTrait;
 
-    public function __construct($data)
+    public function __construct(array $data = [])
     {
         $this->setData($data);
 

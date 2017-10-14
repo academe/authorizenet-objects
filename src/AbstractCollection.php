@@ -14,7 +14,7 @@ abstract class AbstractCollection extends AbstractModel implements
     \IteratorAggregate,
     \ArrayAccess
 {
-    protected $items;
+    protected $items = [];
 
     /**
      * @param mixed $item
@@ -25,11 +25,11 @@ abstract class AbstractCollection extends AbstractModel implements
     /**
      * @param array $item
      */
-    public function __construct(array $item = [])
+    public function __construct(array $items = [])
     {
         parent::__construct();
 
-        foreach ($item as $value) {
+        foreach ($items as $value) {
             $this->push($value);
         }
     }
