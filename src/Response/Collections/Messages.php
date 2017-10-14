@@ -15,19 +15,11 @@ class Messages extends AbstractCollection
 {
     use HasDataTrait;
 
-    /**
-     * The overall response result code.
-     */
-    protected $resultCode;
-
     public function __construct($data)
     {
         $this->setData($data);
 
-        // There is one top-level result code...
-        $this->setResultCode($this->getDataValue('resultCode'));
-
-        // ...and an array of message records.
+        // An array of message records.
         foreach ($this->getDataValue('message') as $message_data) {
             $this->push(new Message($message_data));
         }
@@ -37,10 +29,5 @@ class Messages extends AbstractCollection
     {
         // Make sure the item is the correct type, and is not empty.
         return $item instanceof Message;
-    }
-
-    public function setResultCode($value)
-    {
-        $this->resultCode = $value;
     }
 }

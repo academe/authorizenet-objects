@@ -19,6 +19,12 @@ class Response extends AbstractModel
     protected $transactionResponse;
 
     /**
+     * The overall response result code.
+     * 'Ok' or 'Error'.
+     */
+    protected $resultCode;
+
+    /**
      * Feed in the raw data structure (array or nested objects).
      */
     public function __construct($data)
@@ -26,6 +32,10 @@ class Response extends AbstractModel
         $this->setData($data);
 
         $this->setRefId($this->getDataValue('refId'));
+
+        // There is one top-level result code, but dropped one
+        // level down into the messages.
+        $this->setResultCode($this->getDataValue('messages.resultCode'));
 
         if ($messages = $this->getDataValue('messages')) {
             $this->setMessages(new Messages($messages));
@@ -60,5 +70,10 @@ class Response extends AbstractModel
     protected function setTransactionResponse(TransactionResponse $value)
     {
         $this->transactionResponse = $value;
+    }
+
+    public function setResultCode($value)
+    {
+        $this->resultCode = $value;
     }
 }
