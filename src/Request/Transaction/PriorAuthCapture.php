@@ -9,6 +9,7 @@ namespace Academe\AuthorizeNet\Request\Transaction;
 use Academe\AuthorizeNet\TransactionRequestInterface;
 use Academe\AuthorizeNet\Request\Model\Order;
 use Academe\AuthorizeNet\AmountInterface;
+use Academe\AuthorizeNet\AbstractModel;
 
 class PriorAuthCapture extends AbstractModel implements TransactionRequestInterface
 {
