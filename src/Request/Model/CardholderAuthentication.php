@@ -40,7 +40,7 @@ class CardholderAuthentication extends AbstractModel
             $data['authenticationIndicator'] = $this->getAuthenticationIndicator();
         }
 
-        if ($this->hashasCardholderAuthenticationValue()) {
+        if ($this->hasCardholderAuthenticationValue()) {
             $data['cardholderAuthenticationValue'] = $this->getCardholderAuthenticationValue();
         }
 
