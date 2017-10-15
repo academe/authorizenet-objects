@@ -14,6 +14,12 @@ class Response extends AbstractModel
 {
     use HasDataTrait;
 
+    /**
+     * Top-level response result code values.
+     */
+    const RESULT_CODE_OK    = 'Ok';
+    const RESULT_CODE_ERROR = 'Error';
+
     protected $refId;
     protected $messages;
     protected $transactionResponse;
