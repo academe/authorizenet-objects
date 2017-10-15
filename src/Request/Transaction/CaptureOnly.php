@@ -75,4 +75,9 @@ class CaptureOnly extends AbstractModel implements TransactionRequestInterface
     {
         $this->authCode = $value;
     }
+
+    protected function setTerminalNumber($value)
+    {
+        $this->terminalNumber = $value;
+    }
 }

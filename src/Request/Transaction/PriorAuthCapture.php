@@ -74,4 +74,9 @@ class PriorAuthCapture extends AbstractModel implements TransactionRequestInterf
     {
         $this->refTransId = $value;
     }
+
+    protected function setTerminalNumber($value)
+    {
+        $this->terminalNumber = $value;
+    }
 }

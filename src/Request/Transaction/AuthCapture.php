@@ -51,6 +51,7 @@ class AuthCapture extends AbstractModel implements TransactionRequestInterface
     protected $payment;
     protected $createProfile;
     protected $solutionId;
+    protected $terminalNumber;
     protected $order;
     protected $lineItems;
     protected $tax;
@@ -111,6 +112,10 @@ class AuthCapture extends AbstractModel implements TransactionRequestInterface
 
         if ($this->hasSolutionId()) {
             $data['solution']['id'] = $this->getSolutionId();
+        }
+
+        if ($this->hasTerminalNumber()) {
+            $data['terminalNumber'] = $this->getTerminalNumber();
         }
 
         if ($this->hasOrder()) {
@@ -248,6 +253,11 @@ class AuthCapture extends AbstractModel implements TransactionRequestInterface
     protected function setSolutionId($value)
     {
         $this->solutionId = $value;
+    }
+
+    protected function setTerminalNumber($value)
+    {
+        $this->terminalNumber = $value;
     }
 
     protected function setOrder(Order $value)
