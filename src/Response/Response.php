@@ -23,6 +23,7 @@ class Response extends AbstractModel
     protected $refId;
     protected $messages;
     protected $transactionResponse;
+    protected $token;
 
     /**
      * The overall response result code.
@@ -49,6 +50,10 @@ class Response extends AbstractModel
 
         if ($transactionResponse = $this->getDataValue('transactionResponse')) {
             $this->setTransactionResponse(new TransactionResponse($transactionResponse));
+        }
+
+        if ($token = $this->getDataValue('token')) {
+            $this->setToken($token);
         }
     }
 
@@ -81,5 +86,13 @@ class Response extends AbstractModel
     public function setResultCode($value)
     {
         $this->resultCode = $value;
+    }
+
+    /**
+     * The token identifies a Hosted Page.
+     */
+    public function setToken($value)
+    {
+        $this->token = $value;
     }
 }
