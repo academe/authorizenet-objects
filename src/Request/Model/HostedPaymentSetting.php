@@ -3,7 +3,8 @@
 namespace Academe\AuthorizeNet\Request\Model;
 
 /**
- *
+ * A Hosted Payment Page setting contains an array of one or
+ * more parameters.
  */
 
 use Academe\AuthorizeNet\TransactionRequestInterface;
