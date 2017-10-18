@@ -12,16 +12,18 @@
         "pay",
         "payment"
     ],
-    "homepage": "https://github.com/academe/TBC",
+    "homepage": "https://github.com/academe/authorizenet-objects",
     "license": "MIT",
     "authors": [
         {
             "name": "Jason Judge",
-            "homepage": "https://github.com/TBC"
+            "homepage": "https://github.com/judgej"
         }
     ],
     "autoload": {
-        "psr-4": { "Academe\\AuthorizeNet\\" : "src/" }
+        "psr-4": {
+            "Academe\\AuthorizeNet\\": "src/"
+        }
     },
     "require": {
         "php": ">=5.6.0"
