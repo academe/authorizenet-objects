@@ -32,50 +32,44 @@ class HostedPaymentSetting extends AbstractModel
     protected $settingName;
 
     /**
-     * Each value is a string containing JSON encoded data.
+     * @var array Each setting will be stored as an array of parameters.
      * Examples and a specification can be found here:
      * https://developer.authorize.net/api/reference/features/accept_hosted.html
      */
-    protected $settingValue;
+    protected $settingParameters;
 
     /**
      * @var The prefix each setting name will have when sent to the gateway.
      */
-    protected $optionNamePrefix = 'hostedPayment';
+    protected $settingNamePrefix = 'hostedPayment';
 
     /**
      * @param string $settingName Name of the setting, one of static::SETTING_NAME_*
-     * @param mixed $settingValue Value as array or JSON-encoded string
+     * @param mixed $settingParameters Value as array or JSON-encoded string
      */
     public function __construct(
         $settingName,
-        $settingValue
+        $settingParameters = []
     ) {
         parent::__construct();
 
         $this->setSettingName($settingName);
-        $this->setSettingValue($settingValue);
+        $this->setSettingParameters($settingParameters);
     }
 
     /**
      * Serialize this object.
-     * For convenience, if the value is not already a string, it will
-     * be separately serialized to JSON as required by the API, so it
-     * is effectively double-encoded.
      */
     public function jsonSerialize()
     {
         $data = [];
 
-        $data['settingName'] = $this->optionNamePrefix . $this->getSettingName();
+        $data['settingName'] = $this->settingNamePrefix . $this->getSettingName();
 
-        $value = $this->getSettingValue();
+        // The documentation describes the value as a "JSON object", but it's
+        // really a JSON *string*, which means it is double-encoded.
 
-        if (! is_string($value)) {
-            $value = json_encode($value);
-        }
-
-        $data['settingValue'] = $value;
+        $data['settingValue'] = json_encode($this->getSettingParameters());
 
         return $data;
     }
@@ -88,19 +82,59 @@ class HostedPaymentSetting extends AbstractModel
     protected function setSettingName($value)
     {
         // If the prefix is present, then remove it for now.
-        if (strpos($value, $this->optionNamePrefix) === 0) {
-            $value = substr($value, strlen($this->optionNamePrefix));
+        if (strpos($value, $this->settingNamePrefix) === 0) {
+            $value = substr($value, strlen($this->settingNamePrefix));
         }
 
         // Support camelCase for those that may want to use it.
         $value = ucfirst($value);
 
         $this->assertValueSettingName($value);
+
         $this->settingName = $value;
     }
 
-    protected function setSettingValue($value)
+    /**
+     * Set all the settign parameters in one go.
+     * @param arry|string $value Array of parameters or array as a JSON string.
+     */
+    protected function setSettingParameters($value)
     {
-        $this->settingValue = $value;
+        // If a JSON string has been passed in, then expand it to an array to
+        // facilitate further manipulation.
+
+        if (is_string($value)) {
+            $value = json_decode($value, true);
+        }
+
+        $this->settingParameters = $value;
+    }
+
+    /**
+     * Set a single parameter.
+     */
+    protected function setSettingParameter($name, $value)
+    {
+        $this->settingParameters[$name] = $value;
+        return $this;
+    }
+
+    /**
+     * Clone with a single parameter.
+     */
+    public function withSettingParameter($name, $value)
+    {
+        $clone = clone $this;
+        return $clone->setSettingParameter($name, $value);
+    }
+
+    public function isSettingName($settingName)
+    {
+        // If the prefix is present, then remove it for now.
+        if (strpos(lcfirst($settingName), $this->settingNamePrefix) === 0) {
+            $settingName = substr($settingName, strlen($this->settingNamePrefix));
+        }
+
+        return (ucfirst($settingName) === $this->getSettingName());
     }
 }
