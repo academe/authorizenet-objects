@@ -41,7 +41,7 @@ class HostedPaymentSettings extends AbstractCollection
     public function setSettingParameter($settingName, $parameterName, $parameterValue)
     {
         // First find if the setting has already been added.
-        foreach($this as $key => $value) {
+        foreach ($this as $key => $value) {
             if ($value->isSettingName($settingName)) {
                 // Then replace it with a setting containing the new parameter value.
                 $this[$key] = $value->withSettingParameter($parameterName, $parameterValue);
