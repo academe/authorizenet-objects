@@ -13,6 +13,10 @@ class GetTransactionDetails extends AbstractRequest
     protected $refId;
     protected $transId;
 
+    /**
+     * @param MerchantAuthentication $merchantAuthentication
+     * @param string transId The gateway ID of the transaction we want to fetch.
+     */
     public function __construct(
         MerchantAuthentication $merchantAuthentication,
         $transId
