@@ -6,10 +6,21 @@ namespace Academe\AuthorizeNet\Request;
  * Request to fetch the details of an existing transaction.
  */
 
+use Academe\AuthorizeNet\Auth\MerchantAuthentication;
+
 class GetTransactionDetails extends AbstractRequest
 {
     protected $refId;
     protected $transId;
+
+    public function __construct(
+        MerchantAuthentication $merchantAuthentication,
+        $transId
+    ) {
+        parent::__construct($merchantAuthentication);
+
+        $this->setTransId($transId);
+    }
 
     public function jsonSerialize()
     {
