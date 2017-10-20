@@ -8,6 +8,7 @@ namespace Academe\AuthorizeNet\Response;
 
 use Academe\AuthorizeNet\Response\Collections\Messages;
 use Academe\AuthorizeNet\Response\Model\TransactionResponse;
+use Academe\AuthorizeNet\Response\Model\Transaction;
 use Academe\AuthorizeNet\AbstractModel;
 
 class Response extends AbstractModel
@@ -22,6 +23,7 @@ class Response extends AbstractModel
 
     protected $refId;
     protected $messages;
+    protected $transaction;
     protected $transactionResponse;
     protected $token;
 
@@ -44,26 +46,50 @@ class Response extends AbstractModel
         // level down into the messages.
         $this->setResultCode($this->getDataValue('messages.resultCode'));
 
+        // Messages should always be at the top level.
         if ($messages = $this->getDataValue('messages')) {
             $this->setMessages(new Messages($messages));
         }
 
+        // Response to creating an authorisation (authOnly), purchase (authCapture)
+        // or capture (priorAuthCapture).
         if ($transactionResponse = $this->getDataValue('transactionResponse')) {
             $this->setTransactionResponse(new TransactionResponse($transactionResponse));
         }
 
+        if ($transaction = $this->getDataValue('transaction')) {
+            $this->setTransactionResponse(new Transaction($transaction));
+        }
+
+        // Response to the Hosted Payment Page Request.
         if ($token = $this->getDataValue('token')) {
             $this->setToken($token);
         }
     }
 
+    /**
+     * Note this does not attempt to rebuild the response data in its
+     * original form, but instead aims to collect all the data in the
+     * class structure for logging.
+     */
     public function jsonSerialize()
     {
         $data = [
             'refId' => $this->getRefId(),
-            'messages' => $this->getMessages(),
-            'transactionResponse' => $this->getTransactionResponse(),
+            'resultCode' => $this->getResultCode(),
         ];
+
+        if ($messages = $this->getMessages()) {
+            $data['messages'] = $messages;
+        }
+
+        if ($transaction = $this->getTransactionResponse()) {
+            $data['transaction'] = $transaction;
+        }
+
+        if ($token = $this->getToken()) {
+            $data['token'] = $token;
+        }
 
         return $data;
     }
@@ -81,6 +107,11 @@ class Response extends AbstractModel
     protected function setTransactionResponse(TransactionResponse $value)
     {
         $this->transactionResponse = $value;
+    }
+
+    protected function setTransaction(TransactionResponse $value)
+    {
+        $this->transaction = $value;
     }
 
     public function setResultCode($value)
