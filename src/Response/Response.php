@@ -4,6 +4,9 @@ namespace Academe\AuthorizeNet\Response;
 
 /**
  * Generic response class that any response data can be thrown into.
+ *
+ * TODO: fields:
+ * [ ] clientId
  */
 
 use Academe\AuthorizeNet\Response\Collections\Messages;
