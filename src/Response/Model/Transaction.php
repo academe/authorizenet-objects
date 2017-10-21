@@ -11,7 +11,7 @@ namespace Academe\AuthorizeNet\Response\Model;
  * [ ] requestedAmount
  * [ ] authAmount - this is provided as a float!
  * [ ] settleAmount - this is provided as a float!
- * [ ] lineitems - model in the request
+ * [x] lineitems - model in the request
  * [ ] taxExempt - boolean
  * [ ] payment - card/expiry/type model
  * [ ] tax (amount)
@@ -32,6 +32,9 @@ namespace Academe\AuthorizeNet\Response\Model;
  * [ ] mobileDeviceId
  * [ ] profile
  */
+
+use Academe\AuthorizeNet\Collections\LineItems;
+use Academe\AuthorizeNet\Amount\Simple as SimpleAmount;
 
 class Transaction extends TransactionResponse
 {
@@ -67,6 +70,7 @@ class Transaction extends TransactionResponse
     protected $avsResponse;
     protected $cardCodeResponse;
     protected $cavvResponse;
+    protected $lineItems;
 
     public function __construct($data)
     {
@@ -106,6 +110,30 @@ class Transaction extends TransactionResponse
 
         if ($cavvResponse = $this->getDataValue('cavvResponse')) {
             $this->setCavvResponse($cavvResponse);
+        }
+
+        if ($lineItemsData = $this->getDataValue('lineItems')) {
+            $lineItems = new LineItems();
+
+            // Now, here is a quandry. The unitPrice is expected as a Money
+            // value, which needs a currency to be complete.
+            // The transaction does not have a currency in its results (really)
+            // so we don't *really* know what currency was involved.
+
+            foreach($lineItemsData as $key => $lineItemData) {
+                $lineItem = new LineItem(
+                    $this->getDataValue("lineItems.{$key}.itemId"),
+                    $this->getDataValue("lineItems.{$key}.name"),
+                    $this->getDataValue("lineItems.{$key}.description"),
+                    $this->getDataValue("lineItems.{$key}.quantity"),
+                    new SimpleAmount($this->getDataValue("lineItems.{$key}.unitPrice")),
+                    $this->getDataValue("lineItems.{$key}.taxable")
+                );
+
+                $lineItems->push($lineItem);
+            }
+
+            $this->setLineItems($lineItems);
         }
     }
 
@@ -147,6 +175,10 @@ class Transaction extends TransactionResponse
 
         if ($cavvResponse = $this->getCavvResponse()) {
             $data['cavvResponse'] = $cavvResponse;
+        }
+
+        if ($lineItems = $this->getLineItems()) {
+            $data['lineItems'] = $lineItems;
         }
 
         return $data;
@@ -254,5 +286,10 @@ class Transaction extends TransactionResponse
     protected function getCavvResultCode()
     {
         return $this->getCavvResponse();
+    }
+
+    protected function setLineItems(LineItems $value)
+    {
+        $this->lineItems = $value;
     }
 }

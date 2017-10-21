@@ -48,6 +48,9 @@ abstract class AbstractCollection extends AbstractModel implements
      */
     public function push($item)
     {
+        // TODO: here if we have an array, then we might want to
+        // create an object of the appropriate type.
+
         $this->assertStrictType($item);
 
         $this->items[] = $item;
@@ -88,7 +91,7 @@ abstract class AbstractCollection extends AbstractModel implements
      */
     protected function assertStrictType($item)
     {
-        if (!$this->hasExpectedStrictType($item)) {
+        if (! $this->hasExpectedStrictType($item)) {
             throw new \InvalidArgumentException('Item is not currect type or is empty.');
         }
     }
