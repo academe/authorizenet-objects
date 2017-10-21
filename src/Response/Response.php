@@ -61,7 +61,7 @@ class Response extends AbstractModel
         }
 
         if ($transaction = $this->getDataValue('transaction')) {
-            $this->setTransactionResponse(new Transaction($transaction));
+            $this->setTransaction(new Transaction($transaction));
         }
 
         // Response to the Hosted Payment Page Request.
@@ -86,7 +86,11 @@ class Response extends AbstractModel
             $data['messages'] = $messages;
         }
 
-        if ($transaction = $this->getTransactionResponse()) {
+        if ($transactionResponse = $this->getTransactionResponse()) {
+            $data['transactionResponse'] = $transactionResponse;
+        }
+
+        if ($transaction = $this->getTransaction()) {
             $data['transaction'] = $transaction;
         }
 
@@ -112,7 +116,7 @@ class Response extends AbstractModel
         $this->transactionResponse = $value;
     }
 
-    protected function setTransaction(TransactionResponse $value)
+    protected function setTransaction(Transaction $value)
     {
         $this->transaction = $value;
     }
