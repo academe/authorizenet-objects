@@ -32,8 +32,38 @@ class Notification extends AbstractModel
         $this->setEventDate($this->getDataValue('eventDate'));
         $this->setWebhookId($this->getDataValue('webhookId'));
 
+        // TODO: retryLog
+
         if ($payload = $this->getDataValue('payload')) {
             $this->setPayload(new Payload($payload));
         }
+    }
+
+    protected function setNotificationId($value)
+    {
+        $this->notificationId = $value;
+    }
+
+    protected function setEventType($value)
+    {
+        $this->eventType = $value;
+    }
+
+    /**
+     * Example: 2017-10-22T15:09:49.0609961Z
+     */
+    protected function setEventDate($value)
+    {
+        $this->eventDate = $value;
+    }
+
+    protected function setWebhookId($value)
+    {
+        $this->webhookId = $value;
+    }
+
+    protected function setPayload(Payload $value)
+    {
+        $this->payload = $value;
     }
 }

@@ -120,7 +120,7 @@ class Transaction extends TransactionResponse
             // The transaction does not have a currency in its results (really)
             // so we don't *really* know what currency was involved.
 
-            foreach($lineItemsData as $key => $lineItemData) {
+            foreach ($lineItemsData as $key => $lineItemData) {
                 $lineItem = new LineItem(
                     $this->getDataValue("lineItems.{$key}.itemId"),
                     $this->getDataValue("lineItems.{$key}.name"),
