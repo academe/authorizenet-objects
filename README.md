@@ -1,5 +1,7 @@
 # PHP Value Objects for Authorize.Net
 
+[![Build Status](https://travis-ci.org/academe/authorizenet-objects.svg?branch=master)](https://travis-ci.org/academe/authorizenet-objects)
+
 For now, just exploring some ideas.
 
 The aim is to model, as value objects, all the data structures defined here:
