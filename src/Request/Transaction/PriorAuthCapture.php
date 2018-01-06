@@ -17,8 +17,10 @@ class PriorAuthCapture extends AbstractModel implements TransactionRequestInterf
     protected $transactionType = 'priorAuthCaptureTransaction';
 
     protected $amount;
-    protected $refTransId;
+    protected $terminalNumber;
     protected $order;
+
+    protected $refTransId;
 
     /**
      *
@@ -39,6 +41,10 @@ class PriorAuthCapture extends AbstractModel implements TransactionRequestInterf
 
         // This value object will be formatted according to its currency.
         $data['amount'] = $this->getAmount();
+
+        if ($terminalNumber = $this->getTerminalNumber()) {
+            $data['terminalNumber'] = $terminalNumber;
+        }
 
         $data['refTransId'] = $this->getRefTransId();
 

@@ -39,6 +39,11 @@ class Notification extends AbstractModel
         }
     }
 
+    public function jsonSerialize()
+    {
+        // TODO
+    }
+
     protected function setNotificationId($value)
     {
         $this->notificationId = $value;

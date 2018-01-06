@@ -4,6 +4,8 @@ namespace Academe\AuthorizeNet\Request\Transaction;
 
 /**
  * Transaction used to capture a previously authorized transaction.
+ * Identical to PriorAuthCaptureTransaction except for a field name change (authCode
+ * instead of refTransId).
  */
 
 use Academe\AuthorizeNet\TransactionRequestInterface;
@@ -17,19 +19,23 @@ class CaptureOnly extends AbstractModel implements TransactionRequestInterface
     protected $transactionType = 'captureOnlyTransaction';
 
     protected $amount;
-    protected $authCode;
+    protected $terminalNumber;
     protected $order;
+    protected $surcharge;
+    protected $merchantDescriptor;
+    protected $tip;
+
+    protected $authCode;
 
     /**
-     * Identical to PriorAuthCaptureTransaction except for a field name change (authCode
-     * instead of refTransId).
+     *
      */
     public function __construct(AmountInterface $amount, $authCode)
     {
         parent::__construct();
 
         $this->setAmount($amount);
-        $this->setRefTransId($authCode);
+        $this->setAuthCode($authCode);
     }
 
     public function jsonSerialize()
@@ -41,7 +47,13 @@ class CaptureOnly extends AbstractModel implements TransactionRequestInterface
         // This value object will be formatted according to its currency.
         $data['amount'] = $this->getAmount();
 
+        if ($terminalNumber = $this->getTerminalNumber()) {
+            $data['terminalNumber'] = $terminalNumber;
+        }
+
         $data['authCode'] = $this->getAuthCode();
+
+        // employeeId
 
         if ($this->hasOrder()) {
             $order = $this->getOrder();
@@ -53,6 +65,20 @@ class CaptureOnly extends AbstractModel implements TransactionRequestInterface
 
                 $data[$order->getObjectName()] = $order;
             }
+        }
+
+        if ($surcharge = $this->getSurcharge()) {
+            if ($surcharge->hasAny()) {
+                $data['surcharge'] = $surcharge;
+            }
+        }
+
+        if ($merchantDescriptor = $this->getMerchantDescriptor()) {
+            $data['merchantDescriptor'] = $merchantDescriptor;
+        }
+
+        if ($tip = $this->getTip()) {
+            $data['tip'] = $tip;
         }
 
         return $data;
@@ -79,5 +105,20 @@ class CaptureOnly extends AbstractModel implements TransactionRequestInterface
     protected function setTerminalNumber($value)
     {
         $this->terminalNumber = $value;
+    }
+
+    protected function setSurcharge($value)
+    {
+        $this->surcharge = $value;
+    }
+
+    protected function setMerchantDescriptor($value)
+    {
+        $this->merchantDescriptor = $value;
+    }
+
+    protected function setTip(AmountInterface $value)
+    {
+        $this->tip = $value;
     }
 }
