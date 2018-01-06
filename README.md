@@ -7,6 +7,25 @@ For now, just exploring some ideas.
 The aim is to model, as value objects, all the data structures defined here:
 http://developer.authorize.net/api/reference/
 
+## General Project Stucture
+
+The request messages are under `Academe\AuthorizeNet\Request`.
+All these requests take a `Academe\AuthorizeNet\Auth\MerchantAuthentication` object
+to provide authentication and one or more additional objects to carry the main
+message detail.
+
+The `Academe\AuthorizeNet\Request\CreateTransaction` message takes a transaction
+object from under `Academe\AuthorizeNet\Request\Transaction`.
+The `Transaction` object is built mainly from scalar data and other objects under
+`Academe\AuthorizeNet\Request\Model`.
+
+There are collections under `Academe\AuthorizeNet\Collections` used to group some
+of the `Model` objects, for example `LineItems` or `UserFields`.
+These `Collections` may be moved to `Academe\AuthorizeNet\Request` at some point,
+so be ready for that.
+
+## Examples
+
 Further libraries can then wrap these objects into a gateway driver.
 Any request object, once constructed, can be serialised to JSON (`json_encode()`)
 to provide the body of the request that the API will expect.
