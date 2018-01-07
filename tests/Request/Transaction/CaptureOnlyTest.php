@@ -4,7 +4,8 @@ namespace Academe\AuthorizeNet\Request\Transaction;
 
 /**
  * NOTE: this whole test should be identical to AuthCapture, except for the
- * additional of an authCode field.
+ * additional of an authCode field. However, we will only test a handful of
+ * the fields that are interesting to CaptureOnly.
  */
 
 use GuzzleHttp\Exception\ClientException;
