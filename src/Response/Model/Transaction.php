@@ -33,7 +33,7 @@ namespace Academe\AuthorizeNet\Response\Model;
  * [ ] profile
  */
 
-use Academe\AuthorizeNet\Collections\LineItems;
+use Academe\AuthorizeNet\Response\Collections\LineItems;
 use Academe\AuthorizeNet\Amount\Simple as SimpleAmount;
 
 class Transaction extends TransactionResponse
