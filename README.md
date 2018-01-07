@@ -2,8 +2,6 @@
 
 [![Build Status](https://travis-ci.org/academe/authorizenet-objects.svg?branch=master)](https://travis-ci.org/academe/authorizenet-objects)
 
-For now, just exploring some ideas.
-
 The aim is to model, as value objects, all the data structures defined here:
 http://developer.authorize.net/api/reference/
 
@@ -29,6 +27,9 @@ so be ready for that.
 Further libraries can then wrap these objects into a gateway driver.
 Any request object, once constructed, can be serialised to JSON (`json_encode()`)
 to provide the body of the request that the API will expect.
+
+An example Omnipay wrapper for this package, still under development,
+[can be found here](https://github.com/academe/Omnipay-AuthorizeNetApi).
 
 The response from Authorize.Net will be a JSON structure, which can be parsed
 by the application. The intention is also to create a factory in this package
