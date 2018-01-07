@@ -12,7 +12,7 @@ interface AmountInterface
      * Return the amount, always in decimal major units.
      * For example, return "1.20" for amount 1.2 USD.
      *
-     * @return int The amount string, major and minor decimal units
+     * @return string The amount string, major and minor decimal units
      */
     public function getFormatted();
 

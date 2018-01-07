@@ -27,14 +27,14 @@ class PriorAuthCaptureTest extends TestCase
     {
         $data = [
             'transactionType' => 'priorAuthCaptureTransaction',
-            'amount' => 1.23,
+            'amount' => '1.23',
             'refTransId' => 'REF123',
         ];
 
         $this->assertSame($data, $this->transaction->toData(true));
 
         $this->assertSame(
-            '{"transactionType":"priorAuthCaptureTransaction","amount":1.23,"refTransId":"REF123"}',
+            '{"transactionType":"priorAuthCaptureTransaction","amount":"1.23","refTransId":"REF123"}',
             json_encode($this->transaction)
         );
     }
@@ -53,7 +53,7 @@ class PriorAuthCaptureTest extends TestCase
 
         $data = [
             'transactionType' => 'priorAuthCaptureTransaction',
-            'amount' => 1.23,
+            'amount' => '1.23',
             'terminalNumber' => 'TERM999',
             'refTransId' => 'REF123',
             'order' => [

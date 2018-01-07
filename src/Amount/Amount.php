@@ -120,11 +120,12 @@ class Amount extends AbstractModel implements AmountInterface
     }
 
     /**
-     * @return int The amount, in minot units
+     * @return string The amount, in major units, zero-padded decimals
      */
     public function getFormatted()
     {
-        return (string)$this->amount/(pow(10, $this->getDecimals())); // FIXME!!!
+        // FIXME!!!
+        return number_format($this->amount / (pow(10, $this->getDecimals())), $this->getDecimals(), '.', '');
     }
 
     public function setCurrencyCode($value)

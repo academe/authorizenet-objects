@@ -42,7 +42,7 @@ class CaptureOnlyTest extends TestCase
     {
         $data = [
             'transactionType' => 'captureOnlyTransaction',
-            'amount' => 1.23,
+            'amount' => '1.23',
             'currencyCode' => 'GBP',
             'payment' => [
                 'creditCard' => [
@@ -56,7 +56,7 @@ class CaptureOnlyTest extends TestCase
         $this->assertSame($data, $this->transaction->toData(true));
 
         $this->assertSame(
-            '{"transactionType":"captureOnlyTransaction","amount":1.23,"currencyCode":"GBP","payment":{"creditCard":{"cardNumber":"4000000000000001","expirationDate":"2020-12"}},"authCode":"AUTH12"}',
+            '{"transactionType":"captureOnlyTransaction","amount":"1.23","currencyCode":"GBP","payment":{"creditCard":{"cardNumber":"4000000000000001","expirationDate":"2020-12"}},"authCode":"AUTH12"}',
             json_encode($this->transaction)
         );
     }
@@ -84,7 +84,7 @@ class CaptureOnlyTest extends TestCase
 
         $data = [
             'transactionType' => 'captureOnlyTransaction',
-            'amount' => 1.23,
+            'amount' => '1.23',
             'currencyCode' => 'GBP',
             'payment' => [
                 'creditCard' => [
@@ -100,11 +100,11 @@ class CaptureOnlyTest extends TestCase
             ],
             'employeeId' => 1234,
             'surcharge' => [
-                'amount' => 0.99,
+                'amount' => '0.99',
                 'description' => 'Surcharge Description',
             ],
             'merchantDescriptor' => 'Merchant Desc',
-            'tip' => 5,
+            'tip' => '5.00',
         ];
 
         $this->assertSame($data, $transaction->toData(true));
