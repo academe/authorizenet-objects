@@ -1,20 +1,20 @@
 <?php
 
-namespace Academe\AuthorizeNet\Collections;
+namespace Academe\AuthorizeNet\Request\Collections;
 
 /**
  *
  */
 
 use Academe\AuthorizeNet\AbstractCollection;
-use Academe\AuthorizeNet\Request\Model\PaymentProfile;
+use Academe\AuthorizeNet\Request\Model\LineItem;
 
-class PaymentProfiles extends AbstractCollection
+class LineItems extends AbstractCollection
 {
     protected function hasExpectedStrictType($item)
     {
         // Make sure the item is the correct type, and is not empty.
-        return $item instanceof PaymentProfile && $item->hasAny();
+        return $item instanceof LineItem && $item->hasAny();
     }
 
     /**
@@ -24,6 +24,6 @@ class PaymentProfiles extends AbstractCollection
     {
         $data = parent::jsonSerialize();
 
-        return ['paymentProfile' => $data];
+        return ['lineItem' => $data];
     }
 }

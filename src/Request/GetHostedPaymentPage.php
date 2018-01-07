@@ -10,7 +10,7 @@ use Academe\AuthorizeNet\Auth\MerchantAuthentication;
 use Academe\AuthorizeNet\TransactionRequestInterface;
 use Academe\AuthorizeNet\AbstractModel;
 use Academe\AuthorizeNet\Request\Model\Profile;
-use Academe\AuthorizeNet\Collections\HostedPaymentSettings;
+use Academe\AuthorizeNet\Request\Collections\HostedPaymentSettings;
 
 class GetHostedPaymentPage extends AbstractRequest
 {

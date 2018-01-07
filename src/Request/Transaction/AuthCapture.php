@@ -29,13 +29,13 @@ namespace Academe\AuthorizeNet\Request\Transaction;
  */
 
 use Academe\AuthorizeNet\Request\Model\CardholderAuthentication;
-use Academe\AuthorizeNet\Collections\TransactionSettings;
+use Academe\AuthorizeNet\Request\Collections\TransactionSettings;
 use Academe\AuthorizeNet\Request\Model\ExtendedAmount;
 use Academe\AuthorizeNet\TransactionRequestInterface;
 use Academe\AuthorizeNet\Request\Model\NameAddress;
 use Academe\AuthorizeNet\Request\Model\Customer;
-use Academe\AuthorizeNet\Collections\UserFields;
-use Academe\AuthorizeNet\Collections\LineItems;
+use Academe\AuthorizeNet\Request\Collections\UserFields;
+use Academe\AuthorizeNet\Request\Collections\LineItems;
 use Academe\AuthorizeNet\Request\Model\Retail;
 use Academe\AuthorizeNet\Request\Model\Order;
 use Academe\AuthorizeNet\PaymentInterface;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Academe\AuthorizeNet\Collections;
+namespace Academe\AuthorizeNet\Request\Collections;
 
 /**
  *
