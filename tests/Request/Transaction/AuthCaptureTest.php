@@ -6,8 +6,9 @@ namespace Academe\AuthorizeNet\Request\Transaction;
  *
  */
 
-use GuzzleHttp\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
+
+use GuzzleHttp\Exception\ClientException;
 use Academe\AuthorizeNet\Amount\Amount;
 use Academe\AuthorizeNet\Payment\CreditCard;
 use Academe\AuthorizeNet\Request\Model\Order;
