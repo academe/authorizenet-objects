@@ -52,6 +52,7 @@ class AuthCapture extends AbstractModel implements TransactionRequestInterface
     protected $createProfile;
     protected $solutionId;
     protected $terminalNumber;
+    protected $authCode;
     protected $order;
     protected $lineItems;
     protected $tax;
@@ -68,6 +69,8 @@ class AuthCapture extends AbstractModel implements TransactionRequestInterface
     protected $customerIP;
     protected $transactionSettings;
     protected $userFields;
+
+    protected $authCodeSupported = false;
 
     /**
      * The amount is a value object.
@@ -116,6 +119,11 @@ class AuthCapture extends AbstractModel implements TransactionRequestInterface
 
         if ($this->hasTerminalNumber()) {
             $data['terminalNumber'] = $this->getTerminalNumber();
+        }
+
+        // The authCode is used only by the captureOnlyTransaction message type.
+        if ($this->authCodeSupported && $this->hasAuthCode()) {
+            $data['authCode'] = $this->getAuthCode();
         }
 
         if ($this->hasOrder()) {
@@ -258,6 +266,11 @@ class AuthCapture extends AbstractModel implements TransactionRequestInterface
     protected function setTerminalNumber($value)
     {
         $this->terminalNumber = $value;
+    }
+
+    protected function setAuthCode($value)
+    {
+        $this->authCode = $value;
     }
 
     protected function setOrder(Order $value)
