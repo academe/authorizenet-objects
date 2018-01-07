@@ -32,8 +32,6 @@ class OpaqueData extends AbstractModel implements PaymentInterface
         return $data;
     }
 
-    // TODO: these setters can include validation.
-
     protected function setDataDescriptor($value)
     {
         $this->dataDescriptor = $value;

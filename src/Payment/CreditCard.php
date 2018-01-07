@@ -57,6 +57,7 @@ class CreditCard extends AbstractModel implements PaymentInterface
     /**
      * Set the CC expiration date.
      * TODO: support setting and getting the year and month as separate values.
+     * TOOD: accept DateTime object.
      *
      * @param string $value Date in any format: MMYY, MM/YY, MM-YY, MMYYYY, MM/YYYY, MM-YYYY
      */

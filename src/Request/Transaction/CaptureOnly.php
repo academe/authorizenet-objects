@@ -3,13 +3,13 @@
 namespace Academe\AuthorizeNet\Request\Transaction;
 
 /**
- * Transaction used to capture a previously authorized transaction.
- * Identical to PriorAuthCaptureTransaction except for a field name change (authCode
- * instead of refTransId).
+ * Transaction used to capture a transaction previously authorized through
+ * an external channel.
  */
 
 use Academe\AuthorizeNet\TransactionRequestInterface;
 use Academe\AuthorizeNet\Request\Model\Order;
+use Academe\AuthorizeNet\PaymentInterface;
 use Academe\AuthorizeNet\AmountInterface;
 use Academe\AuthorizeNet\AbstractModel;
 
@@ -18,7 +18,9 @@ class CaptureOnly extends AbstractModel implements TransactionRequestInterface
     protected $objectName = 'transactionRequest';
     protected $transactionType = 'captureOnlyTransaction';
 
+    protected $employeeId;
     protected $amount;
+    protected $payment;
     protected $terminalNumber;
     protected $order;
     protected $surcharge;
@@ -28,7 +30,8 @@ class CaptureOnly extends AbstractModel implements TransactionRequestInterface
     protected $authCode;
 
     /**
-     *
+     * CHECKME: it is not clear if the payment is mandatory, i.e. the
+     * CC, track etc. I suspect it is, and will need to be initialized here.
      */
     public function __construct(AmountInterface $amount, $authCode)
     {
@@ -47,13 +50,17 @@ class CaptureOnly extends AbstractModel implements TransactionRequestInterface
         // This value object will be formatted according to its currency.
         $data['amount'] = $this->getAmount();
 
+        $data['payment'] = $this->getPayment();
+
         if ($terminalNumber = $this->getTerminalNumber()) {
             $data['terminalNumber'] = $terminalNumber;
         }
 
         $data['authCode'] = $this->getAuthCode();
 
-        // employeeId
+        if ($employeeId = $this->getEmployeeId()) {
+            $data['employeeId'] = $employeeId;
+        }
 
         if ($this->hasOrder()) {
             $order = $this->getOrder();
@@ -89,6 +96,11 @@ class CaptureOnly extends AbstractModel implements TransactionRequestInterface
         $this->amount = $value;
     }
 
+    protected function setPayment(PaymentInterface $value)
+    {
+        $this->payment = $value;
+    }
+
     protected function setOrder(Order $value)
     {
         $this->order = $value;
@@ -100,6 +112,11 @@ class CaptureOnly extends AbstractModel implements TransactionRequestInterface
     protected function setAuthCode($value)
     {
         $this->authCode = $value;
+    }
+
+    protected function setEmployeeId($value)
+    {
+        $this->employeeId = $value;
     }
 
     protected function setTerminalNumber($value)

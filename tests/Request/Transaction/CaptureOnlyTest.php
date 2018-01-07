@@ -5,6 +5,7 @@ namespace Academe\AuthorizeNet\Request\Transaction;
 use GuzzleHttp\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 use Academe\AuthorizeNet\Amount\Amount;
+use Academe\AuthorizeNet\Payment\CreditCard;
 use Academe\AuthorizeNet\Request\Model\Order;
 use Academe\AuthorizeNet\Request\Model\Surcharge;
 
@@ -16,6 +17,13 @@ class CaptureOnlyTest extends TestCase
     {
         $amount = new Amount('GBP', 123);
         $this->transaction = new CaptureOnly($amount, 'AUTH123');
+
+        $creditCard = new CreditCard(
+            '4000000000000001',
+            '2020-12'
+        );
+
+        $this->transaction = $this->transaction->withPayment($creditCard);
     }
 
     /**
@@ -29,13 +37,17 @@ class CaptureOnlyTest extends TestCase
         $data = [
             'transactionType' => 'captureOnlyTransaction',
             'amount' => 1.23,
+            'payment' => [
+                'cardNumber' => '4000000000000001',
+                'expirationDate' => '2020-12',
+            ],
             'authCode' => 'AUTH123',
         ];
 
         $this->assertSame($data, $this->transaction->toData(true));
 
         $this->assertSame(
-            '{"transactionType":"captureOnlyTransaction","amount":1.23,"authCode":"AUTH123"}',
+            '{"transactionType":"captureOnlyTransaction","amount":1.23,"payment":{"cardNumber":"4000000000000001","expirationDate":"2020-12"},"authCode":"AUTH123"}',
             json_encode($this->transaction)
         );
     }
@@ -58,13 +70,19 @@ class CaptureOnlyTest extends TestCase
             'surcharge' => $surcharge,
             'merchantDescriptor' => 'Merchant Desc',
             'tip' => new Amount('GBP', 500),
+            'employeeId' => 1234,
         ]);
 
         $data = [
             'transactionType' => 'captureOnlyTransaction',
             'amount' => 1.23,
+            'payment' => [
+                'cardNumber' => '4000000000000001',
+                'expirationDate' => '2020-12',
+            ],
             'terminalNumber' => 'TERM999',
             'authCode' => 'AUTH123',
+            'employeeId' => 1234,
             'order' => [
                 'invoiceNumber' => 'INV123',
                 'description' => 'Description',
