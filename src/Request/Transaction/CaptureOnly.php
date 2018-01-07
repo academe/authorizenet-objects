@@ -107,13 +107,18 @@ class CaptureOnly extends AbstractModel implements TransactionRequestInterface
     }
 
     /**
-     * authCode string
+     * @param string $value
      */
     protected function setAuthCode($value)
     {
         $this->authCode = $value;
     }
 
+    /**
+     * CHECKME: should this be padded out to four digits as a string with
+     * leading zeros?
+     * @param int $value A four digit integer
+     */
     protected function setEmployeeId($value)
     {
         $this->employeeId = $value;
