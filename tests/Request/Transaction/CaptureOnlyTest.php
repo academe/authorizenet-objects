@@ -2,6 +2,11 @@
 
 namespace Academe\AuthorizeNet\Request\Transaction;
 
+/**
+ * NOTE: this whole test should be identical to AuthCapture, except for the
+ * additional of an authCode field.
+ */
+
 use GuzzleHttp\Exception\ClientException;
 use PHPUnit\Framework\TestCase;
 use Academe\AuthorizeNet\Amount\Amount;
@@ -16,7 +21,7 @@ class CaptureOnlyTest extends TestCase
     public function setUp()
     {
         $amount = new Amount('GBP', 123);
-        $this->transaction = new CaptureOnly($amount, 'AUTH123');
+        $this->transaction = new CaptureOnly($amount, 'AUTH12');
 
         $creditCard = new CreditCard(
             '4000000000000001',
@@ -37,17 +42,20 @@ class CaptureOnlyTest extends TestCase
         $data = [
             'transactionType' => 'captureOnlyTransaction',
             'amount' => 1.23,
+            'currencyCode' => 'GBP',
             'payment' => [
-                'cardNumber' => '4000000000000001',
-                'expirationDate' => '2020-12',
+                'creditCard' => [
+                    'cardNumber' => '4000000000000001',
+                    'expirationDate' => '2020-12',
+                ],
             ],
-            'authCode' => 'AUTH123',
+            'authCode' => 'AUTH12',
         ];
 
         $this->assertSame($data, $this->transaction->toData(true));
 
         $this->assertSame(
-            '{"transactionType":"captureOnlyTransaction","amount":1.23,"payment":{"cardNumber":"4000000000000001","expirationDate":"2020-12"},"authCode":"AUTH123"}',
+            '{"transactionType":"captureOnlyTransaction","amount":1.23,"currencyCode":"GBP","payment":{"creditCard":{"cardNumber":"4000000000000001","expirationDate":"2020-12"}},"authCode":"AUTH12"}',
             json_encode($this->transaction)
         );
     }
@@ -76,17 +84,20 @@ class CaptureOnlyTest extends TestCase
         $data = [
             'transactionType' => 'captureOnlyTransaction',
             'amount' => 1.23,
+            'currencyCode' => 'GBP',
             'payment' => [
-                'cardNumber' => '4000000000000001',
-                'expirationDate' => '2020-12',
+                'creditCard' => [
+                    'cardNumber' => '4000000000000001',
+                    'expirationDate' => '2020-12',
+                ],
             ],
             'terminalNumber' => 'TERM999',
-            'authCode' => 'AUTH123',
-            'employeeId' => 1234,
+            'authCode' => 'AUTH12',
             'order' => [
                 'invoiceNumber' => 'INV123',
                 'description' => 'Description',
             ],
+            'employeeId' => 1234,
             'surcharge' => [
                 'amount' => 0.99,
                 'description' => 'Surcharge Description',

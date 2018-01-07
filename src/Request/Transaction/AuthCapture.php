@@ -3,29 +3,7 @@
 namespace Academe\AuthorizeNet\Request\Transaction;
 
 /**
- * Parameters:
  *
- * - [x] amount to be an object (before doing the extended amount objects)
- * - [x] currency to come from the amount (each account supports just one currency)
- * - [x] profile.createProfile (boolean)
- * - [x] solution.id
- * - [x] order (invoiceNumber, description)
- * - [x] lineItems (collection of lineItem objects)
- * - [x] tax (amount, name, description) "extended amount" type
- * - [x] duty (amount, name, description) "extended amount" type
- * - [x] shipping (amount, name, description) "extended amount" type
- * - [x] taxExempt (boolean)
- * - [x] poNumber
- * - [x] customer (type, id, email + others)
- * - [x] billTo (name, company, address object) NameAddress object, also extended to customer version
- * - [x] shipTo (name, company, address object)
- * - [x] cardholderAuthentication (authenticationIndicator, cardholderAuthenticationValue)
- * - [x] retail (marketType, deviceType, customerSignature)
- * - [x] customerIP (not in docs)
- * - [x] transactionSettings (collection of setting name/value pairs
- * - [x] userFields (collection of name/value pairs)
- *
- * shipTo seems to include the originating user's IP address, which is a bit bizarre
  */
 
 use Academe\AuthorizeNet\Request\Model\CardholderAuthentication;
@@ -36,6 +14,7 @@ use Academe\AuthorizeNet\Request\Model\NameAddress;
 use Academe\AuthorizeNet\Request\Model\Customer;
 use Academe\AuthorizeNet\Request\Collections\UserFields;
 use Academe\AuthorizeNet\Request\Collections\LineItems;
+use Academe\AuthorizeNet\Request\Model\Surcharge;
 use Academe\AuthorizeNet\Request\Model\Retail;
 use Academe\AuthorizeNet\Request\Model\Order;
 use Academe\AuthorizeNet\PaymentInterface;
@@ -69,6 +48,9 @@ class AuthCapture extends AbstractModel implements TransactionRequestInterface
     protected $customerIP;
     protected $transactionSettings;
     protected $userFields;
+    protected $surcharge;
+    protected $merchantDescriptor;
+    protected $tip;
 
     protected $authCodeSupported = false;
 
@@ -234,6 +216,22 @@ class AuthCapture extends AbstractModel implements TransactionRequestInterface
             }
         }
 
+        if ($this->hasSurcharge()) {
+            $surcharge = $this->getSurcharge();
+
+            if ($surcharge->hasAny()) {
+                $data['surcharge'] = $surcharge;
+            }
+        }
+
+        if ($this->hasMerchantDescriptor()) {
+            $data['merchantDescriptor'] = $this->getMerchantDescriptor();
+        }
+
+        if ($this->hasTip()) {
+            $data['tip'] = $this->getTip();
+        }
+
         return $data;
     }
 
@@ -359,5 +357,20 @@ class AuthCapture extends AbstractModel implements TransactionRequestInterface
     protected function setUserFields(UserFields $value)
     {
         $this->userFields = $value;
+    }
+
+    protected function setSurcharge(Surcharge $value)
+    {
+        $this->surcharge = $value;
+    }
+
+    protected function setMerchantDescriptor($value)
+    {
+        $this->merchantDescriptor = $value;
+    }
+
+    protected function setTip(AmountInterface $value)
+    {
+        $this->tip = $value;
     }
 }

@@ -8,6 +8,8 @@ namespace Academe\AuthorizeNet\Request\Transaction;
  * be sent through here.
  */
 
+use Academe\AuthorizeNet\AmountInterface;
+
 class CaptureOnly extends AuthCapture
 {
     protected $objectName = 'transactionRequest';
@@ -15,20 +17,14 @@ class CaptureOnly extends AuthCapture
 
     protected $authCodeSupported = true;
 
-    /*
-    protected function setSurcharge($value)
+    /**
+     * The amount is a value object.
+     * @param string $authCode Between 1 and 6 characters.
+     */
+    public function __construct(AmountInterface $amount, $authCode)
     {
-        $this->surcharge = $value;
-    }
+        parent::__construct($amount);
 
-    protected function setMerchantDescriptor($value)
-    {
-        $this->merchantDescriptor = $value;
+        $this->setAuthCode($authCode);
     }
-
-    protected function setTip(AmountInterface $value)
-    {
-        $this->tip = $value;
-    }
-    */
 }
