@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.org/academe/authorizenet-objects.svg?branch=master)](https://travis-ci.org/academe/authorizenet-objects)
 
-The aim is to model, as value objects, all the data structures defined here:
+The aim of this pacjage is to model, as value objects, all the data structures
+defined here:
 http://developer.authorize.net/api/reference/
 
 ## General Project Stucture
