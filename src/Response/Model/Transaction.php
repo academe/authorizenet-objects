@@ -42,24 +42,24 @@ class Transaction extends TransactionResponse
      * transactionStatus values
      * The status of the transaction.
      */
-    const TRANSACTION_STATUS_AUTHORIZEDPENDINGCAPTURE = 'authorizedPendingCapture';
-    const TRANSACTION_STATUS_CAPTUREDPENDINGSETTLEMENT = 'capturedPendingSettlement';
-    const TRANSACTION_STATUS_COMMUNICATIONERROR = 'communicationError';
-    const TRANSACTION_STATUS_REFUNDSETTLEDSUCCESSFULLY = 'refundSettledSuccessfully';
-    const TRANSACTION_STATUS_REFUNDPENDINGSETTLEMENT = 'refundPendingSettlement';
-    const TRANSACTION_STATUS_APPROVEDREVIEW = 'approvedReview';
-    const TRANSACTION_STATUS_DECLINED = 'declined';
-    const TRANSACTION_STATUS_COULDNOTVOID = 'couldNotVoid';
-    const TRANSACTION_STATUS_EXPIRED = 'expired';
-    const TRANSACTION_STATUS_GENERALERROR = 'generalError';
-    const TRANSACTION_STATUS_FAILEDREVIEW = 'failedReview';
-    const TRANSACTION_STATUS_SETTLEDSUCCESSFULLY = 'settledSuccessfully';
-    const TRANSACTION_STATUS_SETTLEMENTERROR = 'settlementError';
-    const TRANSACTION_STATUS_UNDERREVIEW = 'underReview';
-    const TRANSACTION_STATUS_VOIDED = 'voided';
-    const TRANSACTION_STATUS_FDSPENDINGREVIEW = 'FDSPendingReview';
+    const TRANSACTION_STATUS_AUTHORIZEDPENDINGCAPTURE   = 'authorizedPendingCapture';
+    const TRANSACTION_STATUS_CAPTUREDPENDINGSETTLEMENT  = 'capturedPendingSettlement';
+    const TRANSACTION_STATUS_COMMUNICATIONERROR         = 'communicationError';
+    const TRANSACTION_STATUS_REFUNDSETTLEDSUCCESSFULLY  = 'refundSettledSuccessfully';
+    const TRANSACTION_STATUS_REFUNDPENDINGSETTLEMENT    = 'refundPendingSettlement';
+    const TRANSACTION_STATUS_APPROVEDREVIEW             = 'approvedReview';
+    const TRANSACTION_STATUS_DECLINED                   = 'declined';
+    const TRANSACTION_STATUS_COULDNOTVOID               = 'couldNotVoid';
+    const TRANSACTION_STATUS_EXPIRED                    = 'expired';
+    const TRANSACTION_STATUS_GENERALERROR               = 'generalError';
+    const TRANSACTION_STATUS_FAILEDREVIEW               = 'failedReview';
+    const TRANSACTION_STATUS_SETTLEDSUCCESSFULLY        = 'settledSuccessfully';
+    const TRANSACTION_STATUS_SETTLEMENTERROR            = 'settlementError';
+    const TRANSACTION_STATUS_UNDERREVIEW                = 'underReview';
+    const TRANSACTION_STATUS_VOIDED                     = 'voided';
+    const TRANSACTION_STATUS_FDSPENDINGREVIEW           = 'FDSPendingReview';
     const TRANSACTION_STATUS_FDSAUTHORIZEDPENDINGREVIEW = 'FDSAuthorizedPendingReview';
-    const TRANSACTION_STATUS_RETURNEDITEM = 'returnedItem';
+    const TRANSACTION_STATUS_RETURNEDITEM               = 'returnedItem';
 
     protected $submitTimeUTC;
     protected $submitTimeLocal;

@@ -6,11 +6,15 @@ namespace Academe\AuthorizeNet\Response\Model;
  *
  */
 
+use Academe\AuthorizeNet\AbstractModel;
+use Academe\AuthorizeNet\Response\HasDataTrait;
+
 use Academe\AuthorizeNet\Response\Collections\TransactionMessages;
 use Academe\AuthorizeNet\Response\Model\PrePaidCard;
-use Academe\AuthorizeNet\Response\HasDataTrait;
 use Academe\AuthorizeNet\Response\Collections\Errors;
-use Academe\AuthorizeNet\AbstractModel;
+use Academe\AuthorizeNet\Response\Collections\UserFields;
+
+use Academe\AuthorizeNet\Response\Model\SplitTenderPayments;
 
 class TransactionResponse extends AbstractModel
 {
@@ -181,29 +185,25 @@ class TransactionResponse extends AbstractModel
     protected $prePaidCard;
 
     /**
-     * @property
-     * TBC collection
+     * @property Collection\Messages
      * $messages
      */
-    //protected $messages;
     protected $transactionMessages;
 
     /**
-     * @property
-     * TBC collection
+     * @property Collections\Errors
      * $errors
      */
     protected $errors;
 
     /**
-     * @property
-     * TBC collection
+     * @property Collection\SplitTenderPayments
      * $splitTenderPayments
      */
     protected $splitTenderPayments;
 
     /**
-     * @property TBC collection
+     * @property Collections\UserFields
      */
     protected $userFields;
 
@@ -270,7 +270,13 @@ class TransactionResponse extends AbstractModel
             $this->setErrors(new Errors($errors));
         }
 
-        // etc.
+        if ($splitTenderPayments = $this->getDataValue('splitTenderPayments')) {
+            $this->setSplitTenderPayments(new SplitTenderPayments($splitTenderPayments));
+        }
+
+        if ($userFields = $this->getDataValue('userFields')) {
+            $this->setUserFields(new UserFields($userFields));
+        }
     }
 
     public function jsonSerialize()
@@ -289,10 +295,23 @@ class TransactionResponse extends AbstractModel
             'accountNumber' => $this->getAccountNumber(),
             'entryMode' => $this->getEntryMode(),
             'accountType' => $this->getAccountType(),
-            'splitTenderId' => $this->getSplitTenderId(),
-            'messages' => $this->getTransactionMessages(),
-            'errors' => $this->getErrors(),
         ];
+
+        if ($this->hasSplitTenderId()) {
+            $data['splitTenderId'] = $this->getSplitTenderId();
+        }
+
+        if ($this->hasTransactionMessages()) {
+            $data['messages'] = $this->getTransactionMessages();
+        }
+
+        if ($this->hasErrors()) {
+            $data['errors'] = $this->getErrors();
+        }
+
+        if ($this->hasUserFields()) {
+            $data['userFields'] = $this->getUserFields();
+        }
 
         return $data;
     }
@@ -380,5 +399,10 @@ class TransactionResponse extends AbstractModel
     protected function setErrors(Errors $value)
     {
         $this->errors = $value;
+    }
+
+    protected function setUserFields(UserFields $value)
+    {
+        $this->userFields = $value;
     }
 }
