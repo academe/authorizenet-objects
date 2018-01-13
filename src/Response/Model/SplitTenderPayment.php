@@ -65,19 +65,19 @@ class SplitTenderPayment extends AbstractModel
             'authCode' => $this->getAuthCode(),
             'accountNumber' => $this->getAccountNumber(),
             'accountType' => $this->getAccountType(),
-
-            if ($this->hasRequestedAmount()) {
-                'requestedAmount' => $this->getRequestedAmount(),
-            }
-
-            if ($this->hasApprovedAmount()) {
-                'approvedAmount' => $this->getApprovedAmount(),
-            }
-
-            if ($this->hasBalanceOnCard()) {
-                'balanceOnCard' => $this->getBalanceOnCard(),
-            }
         ];
+
+        if ($this->hasRequestedAmount()) {
+            'requestedAmount' => $this->getRequestedAmount(),
+        }
+
+        if ($this->hasApprovedAmount()) {
+            'approvedAmount' => $this->getApprovedAmount(),
+        }
+
+        if ($this->hasBalanceOnCard()) {
+            'balanceOnCard' => $this->getBalanceOnCard(),
+        }
 
         return $data;
     }
