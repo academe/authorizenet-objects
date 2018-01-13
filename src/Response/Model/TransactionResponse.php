@@ -114,6 +114,7 @@ class TransactionResponse extends AbstractModel
 
     /**
      * @property string $rawResponseCode
+     * Used by PayPal responses.
      */
     protected $rawResponseCode;
 
@@ -208,13 +209,13 @@ class TransactionResponse extends AbstractModel
     protected $userFields;
 
     /**
-     * @property TBC class $shipTo
+     * @property TODO class $shipTo (for PayPal)
      */
     protected $shipTo;
 
     /**
      * @property
-     * TBC collection
+     * TODO class (optional properties include secureAcceptanceUrl, PayerID)
      * $secureAcceptance
      */
     protected $secureAcceptance;

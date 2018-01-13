@@ -30,6 +30,43 @@ class Response extends AbstractModel
     protected $transactionResponse;
     protected $token;
 
+    // TODO: for "Decrypt Visa Checkout Data":
+    // shippingInfo
+    // billingInfo
+    // cardInfo
+    // paymentDetails
+    //
+    // TODO: for getUnsettledTransactionListResponse
+    // transactions (collection of Transaction models)
+    //
+    // TODO: for Create a Subscription
+    // subscriptionId (single ID)
+    // profile (class, but several different forms to merge)
+    // subscription (class)
+    // status
+    //
+    // totalNumInResultSet
+    // subscriptionDetails (collection of subscriptionDetails)
+    //
+    // customerProfileId
+    // customerPaymentProfileIdList (collection)
+    // customerShippingAddressIdList (collection)
+    // validationDirectResponseList (collection)
+    //
+    // ids (collection of customer profile IDs)
+    //
+    // customerPaymentProfileId
+    // validationDirectResponse (string)
+    // defaultPaymentProfile (boolean)
+    //
+    // paymentProfile (single)
+    // subscriptionIds (collection)
+    // paymentProfiles (collection)
+    //
+    // directResponse
+    //
+    // oh, and it goes on, for page after page of copy-paste documentation
+
     /**
      * The overall response result code.
      * 'Ok' or 'Error'.
@@ -128,6 +165,7 @@ class Response extends AbstractModel
 
     /**
      * The token identifies a Hosted Page.
+     * Will be valid for 15 minutes from creation.
      */
     public function setToken($value)
     {
