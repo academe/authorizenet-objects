@@ -6,6 +6,15 @@ The aim of this pacjage is to model, as value objects, all the data structures
 defined here:
 http://developer.authorize.net/api/reference/
 
+The data structure for the API messages is defined in the
+[XSD DTD](https://api.authorize.net/xml/v1/schema/AnetApiSchema.xsd).
+Although that is for the XSL API, the JSON API mirrors it closely.
+This DTD has been parsed into
+[this documentation page](https://academe.github.io/authorizenet-objects/AnetApiSchema.html)
+using [xs3p.xsl](https://github.com/bitfehler/xs3p), which can be a little easier
+to read, and contains fewer errors than the official HTML documentation.
+Practically, use the two together.
+
 ## General Project Stucture
 
 The request messages are under `Academe\AuthorizeNet\Request`.
