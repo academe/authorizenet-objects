@@ -1,6 +1,10 @@
 # PHP Value Objects for Authorize.Net
 
 [![Build Status](https://travis-ci.org/academe/authorizenet-objects.svg?branch=master)](https://travis-ci.org/academe/authorizenet-objects)
+[![Latest Stable Version](https://poser.pugx.org/academe/authorizenet-objects/v/stable)](https://packagist.org/packages/academe/authorizenet-objects)
+[![Total Downloads](https://poser.pugx.org/academe/authorizenet-objects/downloads)](https://packagist.org/packages/academe/authorizenet-objects)
+[![Latest Unstable Version](https://poser.pugx.org/academe/authorizenet-objects/v/unstable)](https://packagist.org/packages/academe/authorizenet-objects)
+[![License](https://poser.pugx.org/academe/authorizenet-objects/license)](https://packagist.org/packages/academe/authorizenet-objects)
 
 The aim of this pacjage is to model, as value objects, all the data structures
 defined here:
