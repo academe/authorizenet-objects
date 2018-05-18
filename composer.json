@@ -35,5 +35,10 @@
     },
     "suggest": {
         "moneyphp/money": "^3.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.x-dev"
+        }
     }
 }
