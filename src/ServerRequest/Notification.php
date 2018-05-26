@@ -8,7 +8,9 @@ namespace Academe\AuthorizeNet\ServerRequest;
 
 use Academe\AuthorizeNet\Response\HasDataTrait;
 use Academe\AuthorizeNet\AbstractModel;
+use Academe\AuthorizeNet\ServerRequest\AbstractPayload;
 use Academe\AuthorizeNet\ServerRequest\Payload\Payment;
+use Academe\AuthorizeNet\ServerRequest\Payload\Fraud;
 
 class Notification extends AbstractModel
 {
@@ -51,10 +53,12 @@ class Notification extends AbstractModel
         $this->setEventDate($this->getDataValue('eventDate'));
         $this->setWebhookId($this->getDataValue('webhookId'));
 
-        // TODO: retryLog
+        // TODO: retryLog (collection needed)
 
         if ($payload = $this->getDataValue('payload')) {
-            if (strpos($this->eventType, static::EVENT_PREFIX_PAYMENT) === 0) {
+            if (strpos($this->eventType, static::EVENT_PREFIX_FRAUD) === 0) {
+                $this->setPayload(new Fraud($payload));
+            } elseif (strpos($this->eventType, static::EVENT_PREFIX_PAYMENT) === 0) {
                 $this->setPayload(new Payment($payload));
             }
         }
@@ -62,7 +66,18 @@ class Notification extends AbstractModel
 
     public function jsonSerialize()
     {
-        // TODO
+        $data = [
+            'notificationId' => $this->notificationId,
+            'eventType' => $this->eventType,
+            'eventDate' => $this->eventDate,
+            'webhookId' => $this->webhookId,
+        ];
+
+        if ($this->payload) {
+            $data['payload'] = $this->payload;
+        }
+
+        return $data;
     }
 
     protected function setNotificationId($value)
@@ -88,7 +103,7 @@ class Notification extends AbstractModel
         $this->webhookId = $value;
     }
 
-    protected function setPayload(Payload $value)
+    protected function setPayload(AbstractPayload $value)
     {
         $this->payload = $value;
     }

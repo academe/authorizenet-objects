@@ -57,4 +57,14 @@ abstract class AbstractPayload extends AbstractModel
     {
         $this->id = $value;
     }
+
+    public function jsonSerialize()
+    {
+        $data = [
+            'entityName' => $this->entityName,
+            'id' => $this->id,
+        ];
+
+        return $data;
+    }
 }

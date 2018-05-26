@@ -33,7 +33,7 @@ class PrePaidCard extends AbstractModel
         $data = [
             'requestedAmount' => $this->getRequestedAmount(),
             'approvedAmount' => $this->getApprovedAmount(),
-            'balanceOnCard' => $this->getNalanceOnCard(),
+            'balanceOnCard' => $this->getBalanceOnCard(),
         ];
 
         return $data;

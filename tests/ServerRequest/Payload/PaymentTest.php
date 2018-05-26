@@ -9,6 +9,7 @@ namespace Academe\AuthorizeNet\ServerRequest\Payload;
 use PHPUnit\Framework\TestCase;
 
 use GuzzleHttp\Exception\ClientException;
+use Academe\AuthorizeNet\Response\Model\TransactionResponse;
 
 class PaymentTest extends TestCase
 {
@@ -16,7 +17,7 @@ class PaymentTest extends TestCase
     {
     }
 
-    public function testSimple()
+    public function testCreate()
     {
         $data = json_decode('{
             "responseCode": 1,
@@ -31,5 +32,15 @@ class PaymentTest extends TestCase
 
         $this->assertSame('transaction', $payload->entityName);
         $this->assertSame('60020981676', $payload->id);
+
+        // The ID represents the original transId, so this will be aliased.
+        $this->assertSame('60020981676', $payload->transId);
+
+        $this->assertSame(TransactionResponse::RESPONSE_CODE_APPROVED, $payload->responseCode);
+        $this->assertSame('LZ6I19', $payload->authCode);
+        $this->assertSame('Y', $payload->avsResponse);
+        $this->assertSame(45.00, $payload->authAmount);
+
+        $this->assertArraySubset($data, $payload->toData(true));
     }
 }

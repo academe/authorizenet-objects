@@ -116,8 +116,18 @@ abstract class AbstractModel implements \JsonSerializable
         throw new \BadMethodCallException(sprintf('Called method "%s" does not exist', $name));
     }
 
+    /**
+     * If a getter exists for a property, then use that in preference,
+     * falling back to the underlying property.
+     */
     public function __get($property_name)
     {
+        $methodName = 'get' . ucfirst($property_name);
+
+        if (method_exists($this, $methodName)) {
+            return $this->{$methodName}();
+        }
+
         if (property_exists($this, $property_name)) {
             return $this->{$property_name};
         }
