@@ -55,9 +55,10 @@ class Refund extends AuthCapture implements TransactionRequestInterface
             $payment = $this->getPayment();
 
             if ($payment instanceof CreditCard) {
-                // The documentation lists the expirationDate as "optional for card present",
-                // which implies there is something missing here (card present will include
-                // one of the tracks, but they aren't in the spec).
+                // The gateway expects either the full card number plus expiry,
+                // or the originakl transaction ID and the last four digits
+                // of the card.
+                // However, it is still a little ambiguous.
 
                 $data['payment'] = [
                     'creditCard' => [

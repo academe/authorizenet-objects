@@ -8,17 +8,36 @@ namespace Academe\AuthorizeNet\ServerRequest;
 
 use Academe\AuthorizeNet\Response\HasDataTrait;
 use Academe\AuthorizeNet\AbstractModel;
-use Academe\AuthorizeNet\ServerRequest\Model\Payload;
+use Academe\AuthorizeNet\ServerRequest\Payload\Payment;
 
 class Notification extends AbstractModel
 {
     use HasDataTrait;
+
+    /**
+     * The event name prefix indicates the payload type.
+     * Note that some prefixes are subsets of others, so be
+     * careful what order they are checked.
+     */
+    const EVENT_PREFIX_FRAUD            = 'net.authorize.payment.fraud';
+    const EVENT_PREFIX_PAYMENT          = 'net.authorize.payment';
+    const EVENT_PREFIX_PAYMENT_PROFILE  = 'net.authorize.customer.paymentProfile';
+    const EVENT_PREFIX_SUBSCRIPTION     = 'net.authorize.customer.subscription';
+    const EVENT_PREFIX_CUSTOMER         = 'net.authorize.customer';
 
     protected $notificationId;
     protected $eventType;
     protected $eventDate;
     protected $webhookId;
     protected $payload;
+
+    // Fetching past notifications returns the deliveryStatus,
+    // racking whether the merchant site has received this
+    // notification. Also the retryLog.
+    // The past notifications do not include the original payload,
+    // unless the delivery status shows it has failed to be delivered.
+    protected $deliveryStatus; // Failed, Delivered and ??? (maybe not visible until one or the other)
+    protected $retryLog;
 
     /**
      * Feed in the raw data structure (array or nested objects).
@@ -35,7 +54,9 @@ class Notification extends AbstractModel
         // TODO: retryLog
 
         if ($payload = $this->getDataValue('payload')) {
-            $this->setPayload(new Payload($payload));
+            if (strpos($this->eventType, static::EVENT_PREFIX_PAYMENT) === 0) {
+                $this->setPayload(new Payment($payload));
+            }
         }
     }
 
