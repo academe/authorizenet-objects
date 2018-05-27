@@ -34,9 +34,9 @@ class PaymentProfile extends AbstractPayload
     }
 
     /**
-     * The customerId is an alias for the id.
+     * The customerPaymentProfileId is an alias for the id.
      */
-    public function getCustomerId()
+    public function getCustomerPaymentProfileId()
     {
         return $this->id;
     }

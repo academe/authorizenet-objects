@@ -31,8 +31,8 @@ class PaymentProfileTest extends TestCase
         $this->assertSame(394, $payload->customerProfileId);
         $this->assertSame('694', $payload->id);
 
-        // The ID represents the original customerId, so this will be aliased.
-        $this->assertSame('694', $payload->customerId);
+        // The ID represents the original customerPaymentProfileId, so this will be aliased.
+        $this->assertSame('694', $payload->customerPaymentProfileId);
 
         $this->assertArraySubset($data, $payload->toData(true));
     }

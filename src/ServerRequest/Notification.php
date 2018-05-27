@@ -12,6 +12,7 @@ use Academe\AuthorizeNet\ServerRequest\AbstractPayload;
 use Academe\AuthorizeNet\ServerRequest\Payload\PaymentProfile;
 use Academe\AuthorizeNet\ServerRequest\Payload\Fraud;
 use Academe\AuthorizeNet\ServerRequest\Payload\Payment;
+use Academe\AuthorizeNet\ServerRequest\Payload\Subscription;
 
 class Notification extends AbstractModel
 {
@@ -68,6 +69,8 @@ class Notification extends AbstractModel
                 $this->setPayload(new PaymentProfile($payload));
             } elseif (strpos($this->eventType, static::EVENT_PREFIX_PAYMENT) === 0) {
                 $this->setPayload(new Payment($payload));
+            } elseif (strpos($this->eventType, static::EVENT_PREFIX_SUBSCRIPTION) === 0) {
+                $this->setPayload(new Subscription($payload));
             }
         }
     }

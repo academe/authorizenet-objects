@@ -13,6 +13,7 @@ use Academe\AuthorizeNet\Response\Model\TransactionResponse;
 use Academe\AuthorizeNet\ServerRequest\Payload\Payment;
 use Academe\AuthorizeNet\ServerRequest\Payload\PaymentProfile;
 use Academe\AuthorizeNet\ServerRequest\Payload\Fraud;
+use Academe\AuthorizeNet\ServerRequest\Payload\Subscription;
 
 class NotificationTest extends TestCase
 {
@@ -97,6 +98,34 @@ class NotificationTest extends TestCase
         $notification = new Notification($data);
 
         $this->assertInstanceOf(PaymentProfile::class, $notification->payload);
+
+        $this->assertArraySubset($data, $notification->toData(true));
+    }
+
+    public function testCreateSubscription()
+    {
+        $data = json_decode('{
+            "notificationId": "35e4c150-1d64-40b3-ba52-9356ebecd3c7",
+            "eventType": "net.authorize.customer.subscription.created",
+            "eventDate": "2016-03-08T08:18:27.434Z",
+            "webhookId": "873B7193-31FF-4881-9593-FA6578D52510",
+            "payload": {
+                "entityName": "subscription",
+                "id": "1405",
+                "name": "testSubscription",
+                "amount": 23,
+                "status": "active",
+                "profile": {
+                    "customerProfileId": 348,
+                    "customerPaymentProfileId": 644,
+                    "customerShippingAddressId": 675
+                }
+            }
+        }', true);
+
+        $notification = new Notification($data);
+
+        $this->assertInstanceOf(Subscription::class, $notification->payload);
 
         $this->assertArraySubset($data, $notification->toData(true));
     }
