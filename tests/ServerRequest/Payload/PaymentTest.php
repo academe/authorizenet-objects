@@ -43,4 +43,32 @@ class PaymentTest extends TestCase
 
         $this->assertArraySubset($data, $payload->toData(true));
     }
+
+    /**
+     * Test that additonal values this library does not yet
+     * know about are accessible.
+     */
+    public function testAdditionalParams()
+    {
+        $data = json_decode('{
+            "responseCode": 1,
+            "authCode": "LZ6I19",
+            "avsResponse": "Y",
+            "authAmount": 45.00,
+            "entityName": "transaction",
+            "id": "60020981676",
+            "foo": 123,
+            "bar": "xyz"
+        }', true);
+
+        $payload = new Payment($data);
+
+        // Normal data.
+        $this->assertSame('transaction', $payload->entityName);
+        $this->assertSame('60020981676', $payload->id);
+
+        // New fields "foo" and "bar".
+        $this->assertSame(123, $payload->getDataValue('foo'));
+        $this->assertSame('xyz', $payload->getDataValue('bar'));
+    }
 }

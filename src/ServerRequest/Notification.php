@@ -9,8 +9,9 @@ namespace Academe\AuthorizeNet\ServerRequest;
 use Academe\AuthorizeNet\Response\HasDataTrait;
 use Academe\AuthorizeNet\AbstractModel;
 use Academe\AuthorizeNet\ServerRequest\AbstractPayload;
-use Academe\AuthorizeNet\ServerRequest\Payload\Payment;
+use Academe\AuthorizeNet\ServerRequest\Payload\PaymentProfile;
 use Academe\AuthorizeNet\ServerRequest\Payload\Fraud;
+use Academe\AuthorizeNet\ServerRequest\Payload\Payment;
 
 class Notification extends AbstractModel
 {
@@ -33,13 +34,18 @@ class Notification extends AbstractModel
     protected $webhookId;
     protected $payload;
 
+    // TODO: the deliberyStatus and retryLog is not a part of the
+    // webhook notifications, but the REST API for managing and
+    // reporting on the webhooks. Move it there when the management
+    // API is done.
+    //
     // Fetching past notifications returns the deliveryStatus,
     // racking whether the merchant site has received this
     // notification. Also the retryLog.
     // The past notifications do not include the original payload,
     // unless the delivery status shows it has failed to be delivered.
-    protected $deliveryStatus; // Failed, Delivered and ??? (maybe not visible until one or the other)
-    protected $retryLog;
+    //protected $deliveryStatus; // Failed, Delivered and ??? (maybe not visible until one or the other)
+    //protected $retryLog;
 
     /**
      * Feed in the raw data structure (array or nested objects).
@@ -58,6 +64,8 @@ class Notification extends AbstractModel
         if ($payload = $this->getDataValue('payload')) {
             if (strpos($this->eventType, static::EVENT_PREFIX_FRAUD) === 0) {
                 $this->setPayload(new Fraud($payload));
+            } elseif (strpos($this->eventType, static::EVENT_PREFIX_PAYMENT_PROFILE) === 0) {
+                $this->setPayload(new PaymentProfile($payload));
             } elseif (strpos($this->eventType, static::EVENT_PREFIX_PAYMENT) === 0) {
                 $this->setPayload(new Payment($payload));
             }
