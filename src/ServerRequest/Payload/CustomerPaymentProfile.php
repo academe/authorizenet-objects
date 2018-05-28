@@ -10,7 +10,7 @@ use Academe\AuthorizeNet\Response\HasDataTrait;
 use Academe\AuthorizeNet\AbstractModel;
 use Academe\AuthorizeNet\ServerRequest\AbstractPayload;
 
-class PaymentProfile extends AbstractPayload
+class CustomerPaymentProfile extends AbstractPayload
 {
     protected $customerProfileId;
     protected $customerType;

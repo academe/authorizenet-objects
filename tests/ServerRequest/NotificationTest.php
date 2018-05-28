@@ -11,9 +11,10 @@ use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Exception\ClientException;
 use Academe\AuthorizeNet\Response\Model\TransactionResponse;
 use Academe\AuthorizeNet\ServerRequest\Payload\Payment;
-use Academe\AuthorizeNet\ServerRequest\Payload\PaymentProfile;
+use Academe\AuthorizeNet\ServerRequest\Payload\CustomerPaymentProfile;
 use Academe\AuthorizeNet\ServerRequest\Payload\Fraud;
 use Academe\AuthorizeNet\ServerRequest\Payload\Subscription;
+use Academe\AuthorizeNet\ServerRequest\Payload\CustomerProfile;
 
 class NotificationTest extends TestCase
 {
@@ -46,6 +47,10 @@ class NotificationTest extends TestCase
         $this->assertSame('63d6fea2-aa13-4b1d-a204-f5fbc15942b7', $notification->webhookId);
 
         $this->assertInstanceOf(Payment::class, $notification->payload);
+
+        $this->assertSame($notification::EVENT_TARGET_PAYMENT, $notification->eventTarget);
+        $this->assertSame($notification::EVENT_SUBTARGET_AUTHCAPTURE, $notification->eventSubtarget);
+        $this->assertSame($notification::EVENT_ACTION_CREATED, $notification->eventAction);
 
         $this->assertArraySubset($data, $notification->toData(true));
     }
@@ -97,7 +102,7 @@ class NotificationTest extends TestCase
 
         $notification = new Notification($data);
 
-        $this->assertInstanceOf(PaymentProfile::class, $notification->payload);
+        $this->assertInstanceOf(CustomerPaymentProfile::class, $notification->payload);
 
         $this->assertArraySubset($data, $notification->toData(true));
     }
@@ -126,6 +131,32 @@ class NotificationTest extends TestCase
         $notification = new Notification($data);
 
         $this->assertInstanceOf(Subscription::class, $notification->payload);
+
+        $this->assertArraySubset($data, $notification->toData(true));
+    }
+
+    public function testCreateCustomerProfile()
+    {
+        $data = json_decode('{
+            "notificationId": "5c3f7e00-1265-4e8e-abd0-a7d734163881",
+            "eventType": "net.authorize.customer.created",
+            "eventDate": "2016-03-23T05:23:06.5430555Z",
+            "webhookId": "0b90f2e8-02ae-4d1d-b2e0-1bd167e60176",
+            "payload": {
+                "paymentProfiles": [{
+                    "id": "694",
+                    "customerType": "individual"
+                }],
+                "merchantCustomerId": "cust457",
+                "description": "Profile created by Subscription: 1447",
+                "entityName": "customerProfile",
+                "id": "394"
+            }
+        }', true);
+
+        $notification = new Notification($data);
+
+        $this->assertInstanceOf(CustomerProfile::class, $notification->payload);
 
         $this->assertArraySubset($data, $notification->toData(true));
     }

@@ -8,12 +8,14 @@ namespace Academe\AuthorizeNet\ServerRequest\Payload;
 
 use Academe\AuthorizeNet\ServerRequest\Payload\Payment;
 use Academe\AuthorizeNet\ServerRequest\Model\Profile;
+use Academe\AuthorizeNet\ServerRequest\AbstractPayload;
 
-class Subscription extends Payment
+class Subscription extends AbstractPayload
 {
     protected $name;
     protected $amount;
     protected $status;
+
     protected $profile;
 
     public function __construct($data)

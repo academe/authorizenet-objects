@@ -26,7 +26,7 @@ class PaymentProfileTest extends TestCase
             "customerType": "business"
         }', true);
 
-        $payload = new PaymentProfile($data);
+        $payload = new CustomerPaymentProfile($data);
 
         $this->assertSame(394, $payload->customerProfileId);
         $this->assertSame('694', $payload->id);
