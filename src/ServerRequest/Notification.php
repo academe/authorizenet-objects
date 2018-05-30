@@ -14,6 +14,7 @@ use Academe\AuthorizeNet\ServerRequest\Payload\Fraud;
 use Academe\AuthorizeNet\ServerRequest\Payload\Payment;
 use Academe\AuthorizeNet\ServerRequest\Payload\Subscription;
 use Academe\AuthorizeNet\ServerRequest\Payload\CustomerProfile;
+use Academe\AuthorizeNet\ServerRequest\Payload\Unknown;
 
 class Notification extends AbstractModel
 {
@@ -143,7 +144,8 @@ class Notification extends AbstractModel
                     $this->setPayload(new CustomerProfile($payload));
                 }
             } else {
-                // TODO: fall back to some default payload.
+                // Fall back to a default payload.
+                $this->setPayload(new Unknown($payload));
             }
         }
     }

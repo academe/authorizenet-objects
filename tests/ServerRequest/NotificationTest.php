@@ -15,6 +15,7 @@ use Academe\AuthorizeNet\ServerRequest\Payload\CustomerPaymentProfile;
 use Academe\AuthorizeNet\ServerRequest\Payload\Fraud;
 use Academe\AuthorizeNet\ServerRequest\Payload\Subscription;
 use Academe\AuthorizeNet\ServerRequest\Payload\CustomerProfile;
+use Academe\AuthorizeNet\ServerRequest\Payload\Unknown;
 
 class NotificationTest extends TestCase
 {
@@ -157,6 +158,26 @@ class NotificationTest extends TestCase
         $notification = new Notification($data);
 
         $this->assertInstanceOf(CustomerProfile::class, $notification->payload);
+
+        $this->assertArraySubset($data, $notification->toData(true));
+    }
+
+    public function testUnknownEvent()
+    {
+        $data = json_decode('{
+            "notificationId": "5c3f7e00-1265-4e8e-abd0-a7d734163881",
+            "eventType": "net.authorize.foobar.stuff",
+            "eventDate": "2016-03-23T05:23:06.5430555Z",
+            "webhookId": "0b90f2e8-02ae-4d1d-b2e0-1bd167e60176",
+            "payload": {
+                "entityName": "foo",
+                "id": "bar"
+            }
+        }', true);
+
+        $notification = new Notification($data);
+
+        $this->assertInstanceOf(Unknown::class, $notification->payload);
 
         $this->assertArraySubset($data, $notification->toData(true));
     }
