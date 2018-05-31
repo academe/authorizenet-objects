@@ -340,3 +340,10 @@ var_dump((string)$response->getBody());
 }
 */
 ```
+
+This response data can then be parsed into nested objects:
+
+```php
+$responseObject = new \Academe\AuthorizeNet\Response\Response(json_decode((string)$response->getBody(), true));
+```
+
