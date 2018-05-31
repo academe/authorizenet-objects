@@ -48,9 +48,6 @@ Further libraries can then wrap these objects into a gateway driver.
 Any request object, once constructed, can be serialised to JSON (`json_encode()`)
 to provide the body of the request that the API will expect.
 
-An example Omnipay wrapper for this package, still under development,
-[can be found here](https://github.com/academe/Omnipay-AuthorizeNetApi).
-
 The response from Authorize.Net will be a JSON structure, which can be parsed
 by the application. The intention is also to create a factory in this package
 that will parse the response into value objects and collections.
