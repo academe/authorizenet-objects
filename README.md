@@ -36,7 +36,13 @@ of the `Model` objects, for example `LineItems` or `UserFields`.
 These `Collections` may be moved to `Academe\AuthorizeNet\Request` at some point,
 so be ready for that.
 
+Note: this documentation is sparse at the moment, but the code covers much of the API.
+
 ## Examples
+
+One package that uses this package is the
+[Authorize.Net API](https://github.com/academe/omnipay-authorizenetapi)
+driver for the [Omnipay](https://omnipay.thephpleague.com/) project.
 
 Further libraries can then wrap these objects into a gateway driver.
 Any request object, once constructed, can be serialised to JSON (`json_encode()`)
