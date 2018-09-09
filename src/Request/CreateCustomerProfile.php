@@ -51,11 +51,11 @@ class CreateCustomerProfile extends AbstractRequest
         }
 
         if ($this->hasShipToList()) {
-            $data['shipToList'] = $this->getShipToList);
+            $data['shipToList'] = $this->getShipToList();
         }
 
         if ($this->hasValidationMode()) {
-            $data['validationMode'] = $this->getValidationMode);
+            $data['validationMode'] = $this->getValidationMode();
         }
 
         return [
