@@ -68,15 +68,15 @@ class SplitTenderPayment extends AbstractModel
         ];
 
         if ($this->hasRequestedAmount()) {
-            'requestedAmount' => $this->getRequestedAmount(),
+            $data['requestedAmount'] = $this->getRequestedAmount();
         }
 
         if ($this->hasApprovedAmount()) {
-            'approvedAmount' => $this->getApprovedAmount(),
+            $data['approvedAmount'] = $this->getApprovedAmount();
         }
 
         if ($this->hasBalanceOnCard()) {
-            'balanceOnCard' => $this->getBalanceOnCard(),
+            $data['balanceOnCard'] = $this->getBalanceOnCard();
         }
 
         return $data;
@@ -85,11 +85,6 @@ class SplitTenderPayment extends AbstractModel
     protected function setTransId($value)
     {
         $this->transId = $value;
-    }
-
-    protected function setResponseCode($value)
-    {
-        $this->responseCode = $value;
     }
 
     protected function setResponseCode($value)
