@@ -39,7 +39,7 @@ trait HasDataTrait
                 $target = $target[$segment];
                 continue;
             }
-            return static::_value($default);
+            return static::returnOrRunValue($default);
         }
         return $target;
     }
@@ -47,7 +47,7 @@ trait HasDataTrait
     /**
      * @param $value
      */
-    protected static function _value($value)
+    protected static function returnOrRunValue($value)
     {
         if ($value instanceof Closure) {
             return $value();
