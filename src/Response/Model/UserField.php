@@ -23,5 +23,3 @@ class UserField extends RequestUserField
         }
     }
 }
-
-
