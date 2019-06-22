@@ -3,7 +3,8 @@
 namespace Academe\AuthorizeNet\Request\Model;
 
 /**
- *
+ * FIXME: the driversLicense is an object, not a scalar.
+ * See https://github.com/academe/authorizenet-objects/issues/10
  */
 
 use Academe\AuthorizeNet\TransactionRequestInterface;

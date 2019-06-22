@@ -3,7 +3,7 @@
 namespace Academe\AuthorizeNet\ServerRequest;
 
 /**
- *
+ * The notification webhook.
  */
 
 use PHPUnit\Framework\TestCase;

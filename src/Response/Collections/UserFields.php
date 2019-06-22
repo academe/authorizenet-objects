@@ -19,7 +19,7 @@ class UserFields extends RequestUserFields
         $this->setData($data);
 
         // An array of userField records.
-        foreach ($this->getDataValue('userField') as $userField_data) {
+        foreach ($data as $userField_data) {
             $this->push(new UserField($userField_data));
         }
     }
