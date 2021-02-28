@@ -80,17 +80,17 @@ class LineItem extends AbstractModel
 
     protected function setItemId($value)
     {
-        $this->itemId = $value;
+        $this->itemId = substr($value, 0, 31);
     }
 
     protected function setName($value)
     {
-        $this->name = $value;
+        $this->name = substr($value, 0, 31);
     }
 
     protected function setDescription($value)
     {
-        $this->description = $value;
+        $this->description = substr($value, 0, 255);
     }
 
     protected function setQuantity($value)
